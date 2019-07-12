@@ -6,8 +6,8 @@ import {
     SHOW_MESSAGE,
     SIGNIN_USER_SUCCESS,
     SIGNOUT_USER_SUCCESS,
-    SIGNUP_USER_SUCCESS
-} from "constants/ActionTypes";
+    SIGNUP_USER_SUCCESS,
+} from 'constants/ActionTypes';
 
 const INIT_STATE = {
     loader: false,
@@ -17,36 +17,35 @@ const INIT_STATE = {
     authUser: localStorage.getItem('user'),
 };
 
-
 export default (state = INIT_STATE, action) => {
     switch (action.type) {
         case SIGNUP_USER_SUCCESS: {
             return {
                 ...state,
                 loader: false,
-                authUser: action.payload
-            }
+                authUser: action.payload,
+            };
         }
         case SIGNIN_USER_SUCCESS: {
             return {
                 ...state,
                 loader: false,
-                authUser: action.payload
-            }
+                authUser: action.payload,
+            };
         }
         case INIT_URL: {
             return {
                 ...state,
-                initURL: action.payload
-            }
+                initURL: action.payload,
+            };
         }
         case SIGNOUT_USER_SUCCESS: {
             return {
                 ...state,
                 authUser: null,
                 initURL: '/app/dashboard/default',
-                loader: false
-            }
+                loader: false,
+            };
         }
 
         case SHOW_MESSAGE: {
@@ -54,30 +53,30 @@ export default (state = INIT_STATE, action) => {
                 ...state,
                 alertMessage: action.payload,
                 showMessage: true,
-                loader: false
-            }
+                loader: false,
+            };
         }
         case HIDE_MESSAGE: {
             return {
                 ...state,
                 alertMessage: '',
                 showMessage: false,
-                loader: false
-            }
+                loader: false,
+            };
         }
         case ON_SHOW_LOADER: {
             return {
                 ...state,
-                loader: true
-            }
+                loader: true,
+            };
         }
         case ON_HIDE_LOADER: {
             return {
                 ...state,
-                loader: false
-            }
+                loader: false,
+            };
         }
         default:
             return state;
     }
-}
+};
