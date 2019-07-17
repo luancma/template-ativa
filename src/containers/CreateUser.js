@@ -19,6 +19,8 @@ function CreateUser() {
   });
   const [userEmail, setEmail] = useState("");
   const [userName, setName] = useState("");
+  const [userPassword, setUserPassword] = useState("");
+  const [userConfirmPassword, setUserConfirmPassword] = useState("");
 
   const handleInputEmail = event => {
     setEmail(event.target.value);
@@ -28,20 +30,32 @@ function CreateUser() {
     setName(event.target.value);
   };
 
+  const handleInputPassword = event => {
+    setUserPassword(event.target.value);
+  };
+
+  const handleInputConfirmPassword = event => {
+    setUserConfirmPassword(event.target.value);
+  };
+
   const handleChange = name => event => {
     setState({ ...state, [name]: event.target.checked });
   };
 
   const handleCreateUser = () => {
-    const trueValues = [];
-    Object.keys(state).map(
-      item => state[item] === true && trueValues.push(item)
-    );
+    if (
+      userName.trim() === "" ||
+      userEmail.trim() === "" ||
+      userPassword.trim() === "" ||
+      userConfirmPassword.trim() === ""
+    ) {
+      alert("Todos os campos são obrigatórios");
+    }
 
-    if (trueValues.length === 0) {
-      alert("Selecione um valor");
+    if (userPassword.trim() !== userConfirmPassword.trim()) {
+      alert("As senhas não correspondem");
     } else {
-      console.log("chamar função");
+      alert("chama a função");
     }
   };
 
@@ -66,14 +80,36 @@ function CreateUser() {
           />
           <TextField
             id="outlined-email-input"
-            label="Senha"
-            type="password"
-            name="password"
-            autoComplete="email"
+            label="Name"
+            type="text"
+            name="name"
+            autoComplete="text"
             margin="normal"
             variant="outlined"
             value={userName}
             onChange={e => handleInputName(e)}
+            style={textStyle}
+          />
+          <TextField
+            id="outlined-email-input"
+            label="Senha"
+            type="password"
+            name="password"
+            margin="normal"
+            variant="outlined"
+            value={userPassword}
+            onChange={e => handleInputPassword(e)}
+            style={textStyle}
+          />
+          <TextField
+            id="outlined-email-input"
+            label="Confirmar senha"
+            type="password"
+            name="password"
+            margin="normal"
+            variant="outlined"
+            value={userConfirmPassword}
+            onChange={e => handleInputConfirmPassword(e)}
             style={textStyle}
           />
 
@@ -113,7 +149,29 @@ function CreateUser() {
             onChange={e => handleInputName(e)}
             style={textStyleSmall}
           />
-          <ButtonComponent state={state} handleCheck={handleChange} />
+          <TextField
+            id="outlined-email-input"
+            label="Senha"
+            type="password"
+            name="password"
+            margin="normal"
+            variant="outlined"
+            value={userName}
+            onChange={e => handleInputPassword(e)}
+            style={textStyleSmall}
+          />
+          <TextField
+            id="outlined-email-input"
+            label="Confirmar senha"
+            type="password"
+            name="password"
+            margin="normal"
+            variant="outlined"
+            value={userName}
+            onChange={e => handleInputConfirmPassword(e)}
+            style={textStyleSmall}
+          />
+          {/* <ButtonComponent state={state} handleCheck={handleChange} /> */}
           <Button
             onClick={() => handleCreateUser()}
             color="primary"
