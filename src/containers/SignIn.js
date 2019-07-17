@@ -15,12 +15,9 @@ import {
 import Axios from 'axios';
 
 class SignIn extends React.Component {
-  constructor() {
-    super();
-    this.state = {
+    state = {
       email: 'demo@example.com',
       password: 'demo#123'
-    }
   }
   componentDidUpdate() {
     if (this.props.showMessage) {

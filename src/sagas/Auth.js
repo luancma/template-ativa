@@ -18,7 +18,7 @@ const token = {
 
 function* singInUser(){
     try {
-        const tokenUser = token
+        const tokenUser = token;
         if(!tokenUser){
             yield put(yield put(showAuthMessage("Usuário não encontrado")))
         }else{
