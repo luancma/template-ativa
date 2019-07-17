@@ -1,4 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import {
+  NotificationContainer,
+  NotificationManager
+} from "react-notifications";
 import {
   TextField,
   Grid,
@@ -8,9 +12,12 @@ import {
   Checkbox,
   FormGroup
 } from "@material-ui/core";
-import Axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 
 function CreateUser() {
+  const dispatch = useDispatch();
+  const userInfo = useSelector(state => state.user);
+
   const [state, setState] = React.useState({
     checkedCreate: false,
     checkedRead: false,
@@ -50,12 +57,10 @@ function CreateUser() {
       userConfirmPassword.trim() === ""
     ) {
       alert("Todos os campos são obrigatórios");
-    }
-
-    if (userPassword.trim() !== userConfirmPassword.trim()) {
+    } else if (userPassword.trim() !== userConfirmPassword.trim()) {
       alert("As senhas não correspondem");
     } else {
-      alert("chama a função");
+      console.log("chamar criar usuario");
     }
   };
 
@@ -65,7 +70,6 @@ function CreateUser() {
     <Grid item xs={12} sm={12} container style={formControl}>
       {matches ? (
         <>
-          {JSON.stringify(userEmail)}
           <TextField
             id="outlined-email-input"
             label="Email"
@@ -185,6 +189,7 @@ function CreateUser() {
     </Grid>
   );
 }
+
 export default CreateUser;
 
 const ButtonComponent = props => {

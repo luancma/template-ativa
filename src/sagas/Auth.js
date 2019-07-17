@@ -1,12 +1,11 @@
 import { all, fork, put, takeLatest, takeEvery } from "redux-saga/effects";
 
-import { SIGNIN_USER, SIGNOUT_USER } from "constants/ActionTypes";
+import { SIGNIN_USER, SIGNOUT_USER, SHOW_MESSAGE } from "constants/ActionTypes";
 
 import {
   showAuthMessage,
   userSignInSuccess,
-  userSignOutSuccess,
-  userSignUpSuccess
+  userSignOutSuccess
 } from "actions/Auth";
 
 const token = {
@@ -45,6 +44,13 @@ function* singOutUser() {
     yield put(yield put(showAuthMessage("Erro interno")));
   }
 }
+function* showError() {
+  yield put(yield put(showAuthMessage("Erro interno")));
+}
+
+export function* showMessageError() {
+  yield takeEvery(SHOW_MESSAGE, showError);
+}
 
 export function* signInUser() {
   yield takeEvery(SIGNIN_USER, singInUser);
@@ -55,5 +61,5 @@ export function* signOutUser() {
 }
 
 export default function* rootSaga() {
-  yield all([fork(signInUser), fork(signOutUser)]);
+  yield all([fork(signInUser), fork(signOutUser), fork(showMessageError)]);
 }

@@ -11,7 +11,6 @@ import {
 import IntlMessages from "util/IntlMessages";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { hideMessage, showAuthLoader, userSignIn } from "actions/Auth";
-import Axios from "axios";
 
 class SignIn extends React.Component {
   constructor() {

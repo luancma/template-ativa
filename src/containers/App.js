@@ -54,7 +54,7 @@ class App extends Component {
       isDirectionRTL
     } = this.props;
     if (location.pathname === "/") {
-      if (authUser === null) {
+      if (authUser === null || authUser === "") {
         return <Redirect to="/signin" />;
       }
       if (initURL === "" || initURL === "/" || initURL === "/signin") {

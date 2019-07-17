@@ -138,3 +138,8 @@ export const ON_TODO_SELECT = "on_todo_select";
 export const SET_CURRENT_TODO_NULL = "set_current_todo_null";
 export const REMOVE_LABEL = "remove_label";
 export const UPDATE_SEARCH = "update_search";
+
+// my actions
+export const CREATE_USER = "user/create_user";
+export const CREATE_USER_SUCCESS = "user/create_user_success";
+export const CREATE_USER_FAILD = "user/create_user_faild";
