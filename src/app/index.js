@@ -72,7 +72,7 @@ class App extends React.Component {
                 <Route
                   path={`${match.url}/create-user`}
                   component={asyncComponent(() =>
-                    import("./routes/CreateUSerPage")
+                    import("../containers/CreateUser")
                   )}
                 />
                 <Route
