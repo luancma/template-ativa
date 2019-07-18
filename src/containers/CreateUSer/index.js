@@ -20,7 +20,6 @@ import {
   NotificationContainer,
   NotificationManager
 } from 'react-notifications';
-
 import {
   buttonSmall,
   button,
@@ -31,15 +30,22 @@ import {
   formControllSmall
 } from './styles';
 
-import { actionCreateUser } from '../../actions/User';
+
+import { actionCreateUser, hideMessageSuccess } from '../../actions/User';
 
 import ButtonComponent from './ButtonComponent';
 
 function CreateUser() {
   const dispatch = useDispatch();
   const userState = useSelector(state => state.auth);
+  const userMessage = useSelector(state => state.user);
 
   useEffect(() => {
+    if (userMessage.showMessage) {
+      setTimeout(() => {
+        dispatch(hideMessageSuccess());
+      }, 100);
+    }
     if (userState.showMessage) {
       setTimeout(() => {
         dispatch(hideMessage());
@@ -79,25 +85,27 @@ function CreateUser() {
     setState({ ...state, [name]: event.target.checked });
   };
 
-  function handleCreateUser() {
+  const validatePassword = (pass, confirmPass) => pass !== confirmPass;
 
+  function handleCreateUser() {
     const userObject = {
       name: userName,
       email: userEmail,
       password: userPassword,
       confirmPassword: userConfirmPassword
     };
-    return dispatch(actionCreateUser(userObject));
-
+    dispatch(actionCreateUser(userObject));
   }
 
-  const validateButton = () => {
-    if (userName.trim() !== '' && userEmail.trim() !== '' && userPassword.trim() !== '' && userConfirmPassword.trim() !== '') {
+  function validateButton() {
+    if (
+      userName.trim() !== ''
+      && userEmail.trim() !== ''
+      && userPassword.trim() !== ''
+      && userConfirmPassword.trim() !== '') {
       return true;
     }
-    return false;
-
-  };
+  }
 
   const matches = useMediaQuery('(min-width:820px)');
   return (
@@ -235,12 +243,10 @@ function CreateUser() {
         >
           Criar usuário
             </Button>
-          )
-          }
-
+          )}
         </>
       )}
-      {userState.showMessage && NotificationManager.error(userState.alertMessage)}
+      {userMessage.showMessage && NotificationManager.success(userMessage.alertMessage)}
       <NotificationContainer />
     </Grid>
   );

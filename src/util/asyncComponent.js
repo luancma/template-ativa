@@ -1,9 +1,10 @@
+/* eslint-disable react/sort-comp */
 import React, {Component} from 'react';
 import Nprogress from 'nprogress';
 import ReactPlaceholder from 'react-placeholder';
 import 'nprogress/nprogress.css';
 import 'react-placeholder/lib/reactPlaceholder.css';
-import CircularProgress from "../components/CircularProgress/index";
+import CircularProgress from '../components/CircularProgress/index';
 
 export default function asyncComponent(importComponent) {
   class AsyncFunc extends Component {
@@ -34,11 +35,15 @@ export default function asyncComponent(importComponent) {
     }
 
     render() {
-      const Component = this.state.component ||
-        <div className="loader-view"
-             style={{height: 'calc(100vh - 200px)'}}>
-          <CircularProgress/>
-        </div>;
+      const {component} = this.state;
+      const Component = component
+        || (
+        <div
+          className="loader-view"
+          style={{height: 'calc(100vh - 200px)'}}>
+          <CircularProgress />
+        </div>
+        );
       return (
         <ReactPlaceholder type="text" rows={7} ready={Component !== null}>
           {Component}

@@ -141,3 +141,6 @@ export const UPDATE_SEARCH = 'update_search';
 
 // MY ACTIONS
 export const CREATE_NEW_USER = '@user/create_new_user';
+export const FETCH_ALL_USERS = '@user/fetch_all_users';
+export const SHOW_MESSAGE_FAILD = '@user/show_message_faild';
+export const HIDE_MESSAGE_FAILD = '@user/hide_message_faild';

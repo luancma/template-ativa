@@ -24,6 +24,7 @@
     "downshift": "^3.2.10",
     "draft-js": "^0.10.5",
     "draftjs-to-html": "^0.8.4",
+    "email-validator": "^2.0.4",
     "firebase": "^6.1.0",
     "history": "^4.9.0",
     "install": "^0.12.2",
