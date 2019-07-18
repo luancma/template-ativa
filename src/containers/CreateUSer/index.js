@@ -14,7 +14,7 @@ import {NotificationContainer, NotificationManager} from 'react-notifications';
 import {
   buttonSmall, button, textStyle, textStyleSmall, formControll, formControllSmall
 } from './styles';
-
+import ButtonComponent from './ButtonComponent';
 
 function CreateUser() {
   const dispatch = useDispatch();
@@ -125,7 +125,7 @@ function CreateUser() {
             onChange={e => handleInputConfirmPassword(e)}
             style={textStyle}
         />
-
+          <ButtonComponent state={state} style={formControll} handleCheck={handleChange} />
           <Button
             onClick={e => handleCreateUser(e)}
             color="primary"
@@ -169,7 +169,7 @@ function CreateUser() {
             name="password"
             margin="normal"
             variant="outlined"
-            value={userName}
+            value={userPassword}
             onChange={e => handleInputPassword(e)}
             style={textStyleSmall}
         />
@@ -180,11 +180,11 @@ function CreateUser() {
             name="password"
             margin="normal"
             variant="outlined"
-            value={userName}
+            value={userConfirmPassword}
             onChange={e => handleInputConfirmPassword(e)}
             style={textStyleSmall}
         />
-          {/* <ButtonComponent state={state} handleCheck={handleChange} /> */}
+          <ButtonComponent state={state} style={formControllSmall} handleCheck={handleChange} />
           <Button
             onClick={() => handleCreateUser()}
             color="primary"
