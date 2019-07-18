@@ -1,8 +1,7 @@
 import React from 'react';
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import TextField from '@material-ui/core/TextField';
-import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import IntlMessages from 'util/IntlMessages';
@@ -12,7 +11,6 @@ import {
   showAuthLoader,
   userSignIn,
 } from 'actions/Auth';
-import Axios from 'axios';
 
 class SignIn extends React.Component {
   constructor() {
@@ -20,8 +18,9 @@ class SignIn extends React.Component {
     this.state = {
       email: 'demo@example.com',
       password: 'demo#123'
-    }
+    };
   }
+
   componentDidUpdate() {
     if (this.props.showMessage) {
       setTimeout(() => {
@@ -46,46 +45,49 @@ class SignIn extends React.Component {
 
           <div className="app-logo-content d-flex align-items-center justify-content-center">
             <Link className="logo-lg" to="/" title="Jambo">
-              <img src={require("assets/images/logo.png")} alt="jambo" title="jambo"/>
+              <img src={require('assets/images/logo.png')} alt="jambo" title="jambo" />
             </Link>
           </div>
 
           <div className="app-login-content">
             <div className="app-login-header mb-4">
-              <h1><IntlMessages id="appModule.email"/></h1>
+              <h1><IntlMessages id="appModule.email" /></h1>
             </div>
 
             <div className="app-login-form">
               <form>
                 <fieldset>
                   <TextField
-                    label={<IntlMessages id="appModule.email"/>}
+                    label={<IntlMessages id="appModule.email" />}
                     fullWidth
-                    onChange={(event) => this.setState({email: event.target.value})}
+                    onChange={event => this.setState({email: event.target.value})}
                     defaultValue={email}
                     margin="normal"
                     className="mt-1 my-sm-3"
                   />
                   <TextField
                     type="password"
-                    label={<IntlMessages id="appModule.password"/>}
+                    label={<IntlMessages id="appModule.password" />}
                     fullWidth
-                    onChange={(event) => this.setState({password: event.target.value})}
+                    onChange={event => this.setState({password: event.target.value})}
                     defaultValue={password}
                     margin="normal"
                     className="mt-1 my-sm-3"
                   />
 
                   <div className="mb-3 d-flex align-items-center justify-content-between">
-                    <Button onClick={() => {
-                      this.props.showAuthLoader();
-                      this.props.userSignIn({email, password});
-                    }} variant="contained" color="primary">
-                      <IntlMessages id="appModule.signIn"/>
+                    <Button
+                      onClick={() => {
+                        this.props.showAuthLoader();
+                        this.props.userSignIn({email, password});
+                      }}
+                      variant="contained"
+                      color="primary">
+                      <IntlMessages id="appModule.signIn" />
                     </Button>
 
                     <Link to="/signup">
-                      <IntlMessages id="signIn.signUp"/>
+                      <IntlMessages id="signIn.signUp" />
                     </Link>
                   </div>
                 </fieldset>
@@ -95,21 +97,27 @@ class SignIn extends React.Component {
 
         </div>
         {
-          loader &&
+          loader
+          && (
           <div className="loader-view">
-            <CircularProgress/>
+            <CircularProgress />
           </div>
+          )
         }
         {showMessage && NotificationManager.error(alertMessage)}
-        <NotificationContainer/>
+        <NotificationContainer />
       </div>
     );
   }
 }
 
 const mapStateToProps = ({auth}) => {
-  const {loader, alertMessage, showMessage, authUser} = auth;
-  return {loader, alertMessage, showMessage, authUser}
+  const {
+    loader, alertMessage, showMessage, authUser
+  } = auth;
+  return {
+    loader, alertMessage, showMessage, authUser
+  };
 };
 
 export default connect(mapStateToProps, {
