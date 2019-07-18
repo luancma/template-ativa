@@ -5,10 +5,20 @@ export const formControll = {
   alignItems: 'center'
 };
 
+export const formButtons = {
+  display: 'flex',
+  flexDirection: 'row',
+  padding: '20px',
+  width: '40vw',
+  justifyContent: 'space-around',
+  alignItems: 'center'
+
+};
+
 export const formControllSmall = {
   display: 'flex',
   width: '70vw',
-  justifyContent: 'space-arround',
+  justifyContent: 'space-around',
   padding: '15px'
 };
 

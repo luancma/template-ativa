@@ -19,10 +19,12 @@ export const ABOVE_THE_HEADER = 'above_the_header';
 export const INSIDE_THE_HEADER = 'inside_the_header';
 export const BELOW_THE_HEADER = 'below_the_header';
 
-//Contact Module const
+// Contact Module const
 
 export const SHOW_MESSAGE = 'show_message';
 export const HIDE_MESSAGE = 'hide_message';
+export const SHOW_MESSAGE_SUCCESS = 'show_message_success';
+export const HIDE_MESSAGE_SUCCESS = 'hide_message_success';
 
 export const FETCH_ALL_CONTACT = 'fetch_all_contact';
 export const FETCH_ALL_CONTACT_SUCCESS = 'fetch_all_contact_success';
@@ -43,7 +45,7 @@ export const ON_TOGGLE_DRAWER = 'on_toggle_drawer';
 export const HANDLE_REQUEST_CLOSE = 'handle_request_close';
 export const HIDE_CONTACT_LOADER = 'hide_contact_loader';
 
-//Auth const
+// Auth const
 export const SIGNUP_USER = 'signup_user';
 export const SIGNUP_USER_SUCCESS = 'signup_user_success';
 export const SIGNIN_GOOGLE_USER = 'signin_google_user';
@@ -75,7 +77,7 @@ export const SUBMIT_COMMENT = 'submit_comment';
 export const UPDATE_MESSAGE_VALUE = 'update_message_value';
 export const UPDATE_SEARCH_CHAT_USER = 'update_search_chat_user';
 
-//// Mail Module const
+// // Mail Module const
 
 
 export const ADD_LABEL = 'ADD_LABEL';
@@ -110,7 +112,7 @@ export const ON_DELETE_MAIL = 'on_delete_mail';
 export const SET_CURRENT_MAIL_NULL = 'set_current_mail_null';
 export const ON_COMPOSE_MAIL = 'on_compose_mail';
 
-//// TO-DO Module const
+// // TO-DO Module const
 
 export const ON_SORTEND = 'on_sortend';
 export const FETCH_ALL_TODO = 'fetch_all_todo';
@@ -137,3 +139,5 @@ export const SET_CURRENT_TODO_NULL = 'set_current_todo_null';
 export const REMOVE_LABEL = 'remove_label';
 export const UPDATE_SEARCH = 'update_search';
 
+// MY ACTIONS
+export const CREATE_NEW_USER = '@user/create_new_user';

@@ -1,19 +1,38 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+
+import {
+  useDispatch,
+  useSelector
+} from 'react-redux';
+
 import {
   TextField,
   Grid,
   useMediaQuery,
   Button,
 } from '@material-ui/core';
+
 import {
   hideMessage,
-  showAuthMessage,
 } from 'actions/Auth';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+
 import {
-  buttonSmall, button, textStyle, textStyleSmall, formControll, formControllSmall
+  NotificationContainer,
+  NotificationManager
+} from 'react-notifications';
+
+import {
+  buttonSmall,
+  button,
+  textStyle,
+  textStyleSmall,
+  formControll,
+  formButtons,
+  formControllSmall
 } from './styles';
+
+import { actionCreateUser } from '../../actions/User';
+
 import ButtonComponent from './ButtonComponent';
 
 function CreateUser() {
@@ -61,18 +80,24 @@ function CreateUser() {
   };
 
   function handleCreateUser() {
-    if (
-      userName.trim() === ''
-      || userEmail.trim() === ''
-      || userPassword.trim() === ''
-      || userConfirmPassword.trim() === ''
-    ) {
-      return dispatch(showAuthMessage('Todos os campos são obrigatórios'));
-    } if (userPassword.trim() !== userConfirmPassword.trim()) {
-      return dispatch(showAuthMessage('As senhas não correspondem'));
-    }
-    return console.log('chamar criar usuario');
+
+    const userObject = {
+      name: userName,
+      email: userEmail,
+      password: userPassword,
+      confirmPassword: userConfirmPassword
+    };
+    return dispatch(actionCreateUser(userObject));
+
   }
+
+  const validateButton = () => {
+    if (userName.trim() !== '' && userEmail.trim() !== '' && userPassword.trim() !== '' && userConfirmPassword.trim() !== '') {
+      return true;
+    }
+    return false;
+
+  };
 
   const matches = useMediaQuery('(min-width:820px)');
   return (
@@ -80,7 +105,6 @@ function CreateUser() {
       {matches ? (
         <>
           <TextField
-            id="outlined-email-input"
             label="Email"
             type="email"
             name="email"
@@ -92,7 +116,6 @@ function CreateUser() {
             value={userEmail}
         />
           <TextField
-            id="outlined-email-input"
             label="Name"
             type="text"
             name="name"
@@ -104,7 +127,6 @@ function CreateUser() {
             style={textStyle}
         />
           <TextField
-            id="outlined-email-input"
             label="Senha"
             type="password"
             name="password"
@@ -115,7 +137,6 @@ function CreateUser() {
             style={textStyle}
         />
           <TextField
-            id="outlined-email-input"
             label="Confirmar senha"
             type="password"
             name="password"
@@ -125,21 +146,32 @@ function CreateUser() {
             onChange={e => handleInputConfirmPassword(e)}
             style={textStyle}
         />
-          <ButtonComponent state={state} style={formControll} handleCheck={handleChange} />
-          <Button
-            onClick={e => handleCreateUser(e)}
-            color="primary"
-            variant="contained"
-            size="large"
-            style={button}
-        >
-          Criar usuário
-          </Button>
+          <ButtonComponent state={state} style={formButtons} handleCheck={handleChange} />
+          { validateButton() ? (
+            <Button
+              onClick={e => handleCreateUser(e)}
+              color="primary"
+              variant="contained"
+              size="large"
+              style={button}
+               >
+                 Criar usuário
+            </Button>
+          )
+            : (
+              <Button
+                color="primary"
+                variant="contained"
+                size="large"
+                style={button}
+                disabled>
+                Criar usuário
+              </Button>
+            )}
         </>
       ) : (
         <>
           <TextField
-            id="outlined-email-input"
             label="Email"
             type="email"
             name="email"
@@ -151,7 +183,6 @@ function CreateUser() {
             style={textStyleSmall}
         />
           <TextField
-            id="outlined-email-input"
             label="Senha"
             type="password"
             name="password"
@@ -185,14 +216,28 @@ function CreateUser() {
             style={textStyleSmall}
         />
           <ButtonComponent state={state} style={formControllSmall} handleCheck={handleChange} />
-          <Button
-            onClick={() => handleCreateUser()}
-            color="primary"
-            variant="contained"
-            style={buttonSmall}
+
+          { validateButton() ? (
+            <Button
+              onClick={() => handleCreateUser()}
+              color="primary"
+              variant="contained"
+              style={buttonSmall}
         >
           Criar usuário
-          </Button>
+            </Button>
+          ) : (
+            <Button
+              disabled
+              color="primary"
+              variant="contained"
+              style={buttonSmall}
+        >
+          Criar usuário
+            </Button>
+          )
+          }
+
         </>
       )}
       {userState.showMessage && NotificationManager.error(userState.alertMessage)}

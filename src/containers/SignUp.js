@@ -1,7 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import TextField from '@material-ui/core/TextField';
-import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -12,7 +11,7 @@ import {
   showAuthLoader,
   userSignUp,
 } from 'actions/Auth';
-import Axios from 'axios';
+
 
 class SignUp extends React.Component {
   constructor() {
@@ -21,9 +20,8 @@ class SignUp extends React.Component {
       name: '',
       email: '',
       password: ''
-    }
+    };
   }
-
 
 
   componentDidUpdate() {
@@ -50,7 +48,7 @@ class SignUp extends React.Component {
         <div className="app-login-main-content">
           <div className="app-logo-content d-flex align-items-center justify-content-center">
             <Link className="logo-lg" to="/" title="Jambo">
-              <img src={require("assets/images/logo.png")} alt="jambo" title="jambo"/>
+              <img src={require('assets/images/logo.png')} alt="jambo" title="jambo" />
             </Link>
           </div>
 
@@ -60,7 +58,7 @@ class SignUp extends React.Component {
             </div>
 
             <div className="mb-4">
-              <h2><IntlMessages id="appModule.createAccount"/></h2>
+              <h2><IntlMessages id="appModule.createAccount" /></h2>
             </div>
 
             <div className="app-login-form">
@@ -68,7 +66,7 @@ class SignUp extends React.Component {
                 <TextField
                   type="text"
                   label="Name"
-                  onChange={(event) => this.setState({name: event.target.value})}
+                  onChange={event => this.setState({name: event.target.value})}
                   fullWidth
                   defaultValue={name}
                   margin="normal"
@@ -77,8 +75,8 @@ class SignUp extends React.Component {
 
                 <TextField
                   type="email"
-                  onChange={(event) => this.setState({email: event.target.value})}
-                  label={<IntlMessages id="appModule.email"/>}
+                  onChange={event => this.setState({email: event.target.value})}
+                  label={<IntlMessages id="appModule.email" />}
                   fullWidth
                   defaultValue={email}
                   margin="normal"
@@ -87,8 +85,8 @@ class SignUp extends React.Component {
 
                 <TextField
                   type="password"
-                  onChange={(event) => this.setState({password: event.target.value})}
-                  label={<IntlMessages id="appModule.password"/>}
+                  onChange={event => this.setState({password: event.target.value})}
+                  label={<IntlMessages id="appModule.password" />}
                   fullWidth
                   defaultValue={password}
                   margin="normal"
@@ -96,15 +94,18 @@ class SignUp extends React.Component {
                 />
 
                 <div className="mb-3 d-flex align-items-center justify-content-between">
-                  <Button variant="contained" onClick={() => {
-                    this.props.showAuthLoader();
-                    this.props.userSignUp({email, password});
-                  }} color="primary">
+                  <Button
+                    variant="contained"
+                    onClick={() => {
+                      this.props.showAuthLoader();
+                      this.props.userSignUp({email, password});
+                    }}
+                    color="primary">
                     <IntlMessages
-                      id="appModule.regsiter"/>
+                      id="appModule.regsiter" />
                   </Button>
                   <Link to="/signin">
-                    <IntlMessages id="signUp.alreadyMember"/>
+                    <IntlMessages id="signUp.alreadyMember" />
                   </Link>
                 </div>
               </form>
@@ -114,21 +115,27 @@ class SignUp extends React.Component {
         </div>
 
         {
-          loader &&
+          loader
+          && (
           <div className="loader-view">
-            <CircularProgress/>
+            <CircularProgress />
           </div>
+          )
         }
         {showMessage && NotificationManager.error(alertMessage)}
-        <NotificationContainer/>
+        <NotificationContainer />
       </div>
-    )
+    );
   }
 }
 
 const mapStateToProps = ({auth}) => {
-  const {loader, alertMessage, showMessage, authUser} = auth;
-  return {loader, alertMessage, showMessage, authUser}
+  const {
+    loader, alertMessage, showMessage, authUser
+  } = auth;
+  return {
+    loader, alertMessage, showMessage, authUser
+  };
 };
 
 export default connect(mapStateToProps, {
