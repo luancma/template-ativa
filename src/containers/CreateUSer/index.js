@@ -31,25 +31,18 @@ import {
 } from './styles';
 
 
-import { actionCreateUser, hideMessageSuccess } from '../../actions/User';
+import { actionCreateUser, hideMessageSuccess, hideMessageFaild } from '../../actions/User';
 
 import ButtonComponent from './ButtonComponent';
 
-function CreateUser() {
+function CreateUser({history}) {
   const dispatch = useDispatch();
   const userState = useSelector(state => state.auth);
   const userMessage = useSelector(state => state.user);
 
   useEffect(() => {
-    if (userMessage.showMessage) {
-      setTimeout(() => {
-        dispatch(hideMessageSuccess());
-      }, 100);
-    }
-    if (userState.showMessage) {
-      setTimeout(() => {
-        dispatch(hideMessage());
-      }, 100);
+    if (userMessage.showMessageSuccess) {
+      history.push('/app/list');
     }
   },);
 
@@ -85,7 +78,6 @@ function CreateUser() {
     setState({ ...state, [name]: event.target.checked });
   };
 
-  const validatePassword = (pass, confirmPass) => pass !== confirmPass;
 
   function handleCreateUser() {
     const userObject = {
@@ -103,8 +95,9 @@ function CreateUser() {
       && userEmail.trim() !== ''
       && userPassword.trim() !== ''
       && userConfirmPassword.trim() !== '') {
-      return true;
+      if (userPassword === userConfirmPassword) return true;
     }
+    return false;
   }
 
   const matches = useMediaQuery('(min-width:820px)');
@@ -112,17 +105,34 @@ function CreateUser() {
     <Grid item xs={12} sm={12} container style={formControll}>
       {matches ? (
         <>
-          <TextField
-            label="Email"
-            type="email"
-            name="email"
-            autoComplete="email"
-            margin="normal"
-            variant="outlined"
-            style={textStyle}
-            onChange={e => handleInputEmail(e)}
-            value={userEmail}
-        />
+          {userMessage.showMessageFaild
+            ? (
+              <TextField
+                error
+                label="Email"
+                type="email"
+                name="email"
+                autoComplete="email"
+                margin="normal"
+                variant="outlined"
+                style={textStyle}
+                onChange={e => handleInputEmail(e)}
+                value={userEmail}
+              />
+            ) : (
+              <TextField
+                label="Email"
+                type="email"
+                name="email"
+                autoComplete="email"
+                margin="normal"
+                variant="outlined"
+                style={textStyle}
+                onChange={e => handleInputEmail(e)}
+                value={userEmail}
+              />
+            )}
+
           <TextField
             label="Name"
             type="text"
@@ -246,8 +256,6 @@ function CreateUser() {
           )}
         </>
       )}
-      {userMessage.showMessage && NotificationManager.success(userMessage.alertMessage)}
-      <NotificationContainer />
     </Grid>
   );
 }

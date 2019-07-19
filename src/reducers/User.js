@@ -6,8 +6,9 @@ const INIT_STATE = {
   token: localStorage.getItem('user'),
   user: {},
   alertMessage: '',
-  showMessage: false,
+  showMessageSuccess: false,
   showMessageFaild: false
+
 };
 
 
@@ -23,14 +24,14 @@ export default (state = INIT_STATE, action) => {
       return {
         ...state,
         alertMessage: action.payload,
-        showMessage: true,
+        showMessageSuccess: true,
       };
     }
     case HIDE_MESSAGE_SUCCESS: {
       return {
         ...state,
         alertMessage: '',
-        showMessage: false,
+        showMessageSuccess: false,
       };
     }
     case SHOW_MESSAGE_FAILD: {

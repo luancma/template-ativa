@@ -1,5 +1,9 @@
 import React, { useEffect } from 'react';
-import { Container, Button } from '@material-ui/core';
+import {
+  Container, Button, MySnackbarContentWrapper, Snackbar, IconButton
+} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
 import {
   NotificationContainer,
   NotificationManager
@@ -10,32 +14,50 @@ import {
   useSelector
 } from 'react-redux';
 
-import { hideMessageSuccess, hideMessageFaild } from '../../../actions/User';
+import { hideMessageSuccess, hideMessageFaild} from '../../../actions/User';
 
 
 function ListUserPage() {
+  const useStyles = makeStyles(theme => ({
+    close: {
+      padding: theme.spacing(0.5),
+    },
+  }));
+
   const dispatch = useDispatch();
   const userMessage = useSelector(state => state.user);
 
   useEffect(() => {
+    if (userMessage.showMessageSuccess) {
+      dispatch(hideMessageSuccess());
+    }
+  });
+
+  useEffect(() => {
     if (userMessage.showMessageFaild) {
-      setTimeout(() => {
-        dispatch(hideMessageFaild());
-      }, 100);
+      dispatch(hideMessageFaild());
     }
-    if (userMessage.showMessage) {
-      setTimeout(() => {
-        dispatch(hideMessageSuccess());
-      }, 100);
+  });
+
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(true);
+
+  function handleClick() {
+    setOpen(true);
+  }
+
+  function handleClose(event, reason) {
+    if (reason === 'clickaway') {
+      return;
     }
-  }, []);
+
+    setOpen(false);
+  }
 
   return (
-    <Container>
-      {userMessage.showMessage && NotificationManager.success(userMessage.alertMessage)}
-      {userMessage.showMessageFaild && NotificationManager.error(userMessage.alertMessage)}
-      <NotificationContainer />
-    </Container>
+    <div>
+      <h1>teste</h1>
+    </div>
   );
 }
 export default ListUserPage;

@@ -12,10 +12,7 @@ const createUserRequest = (name, email, password) => {
   const user = { name, email, password };
   return Axios.post('https://private-anon-0deaec33b0-ativamanagerapi.apiary-mock.com/api/v1/users', user);
 };
-// user validation
-function validatePassword(pass, confirmPass) {
-  return pass !== confirmPass;
-}
+
 
 function validateEmail(user) {
   if (validator.validate(`${user.email}`) === true) {
@@ -27,20 +24,16 @@ function validateEmail(user) {
 function* createNewUSer(user) {
   const userObject = user.payload;
   if (validateEmail(userObject) === true) {
-    if (!validatePassword(userObject.password, userObject.confirmPassword)) {
-      const {name, email, password} = userObject;
-      const response = yield call(createUserRequest, name, email, password);
-      if (response.data) {
-        yield put(showAuthMessageSuccess('Usuário criado com sucesso!'));
-      }
-      if (response.err) {
-        yield put(showAuthMessageFaild('Ops!'));
-      }
-    } else {
-      yield put(showAuthMessageFaild('The passwords dont match!'));
+    const {name, email, password} = userObject;
+    const response = yield call(createUserRequest, name, email, password);
+    if (response.data) {
+      yield put(showAuthMessageSuccess('Usuário criado com sucesso!'));
+    }
+    if (response.err) {
+      yield put(showAuthMessageFaild('Ops!'));
     }
   } else {
-    yield put(showAuthMessageFaild('Email is not valid!'));
+    yield put(showAuthMessageFaild('The passwords dont match!'));
   }
 }
 

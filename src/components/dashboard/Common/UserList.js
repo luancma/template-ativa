@@ -2,17 +2,12 @@ import React from 'react';
 import UserCell from './UserCell';
 
 
-const UserList = ({users}) => {
-  return (
-    <div className="pt-2">
-      {users.map((user, index) => {
-        return (
-          <UserCell key={user.id + index} user={user}/>
-        );
-      })}
-    </div>
-  );
-
-};
+const UserList = ({users}) => (
+  <div className="pt-2">
+    {users.map((user, index) => (
+      <UserCell key={user.id + index} user={user} />
+    ))}
+  </div>
+);
 
 export default UserList;
