@@ -6,45 +6,45 @@ import {
 } from 'react-redux';
 
 import {
-  TextField,
   Grid,
   useMediaQuery,
-  Button,
 } from '@material-ui/core';
 
-import {
-  hideMessage,
-} from 'actions/Auth';
+
+import validator from 'email-validator';
+
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 import {
-  NotificationContainer,
-  NotificationManager
-} from 'react-notifications';
-import {
-  buttonSmall,
-  button,
-  textStyle,
-  textStyleSmall,
   formControll,
-  formButtons,
-  formControllSmall
+
 } from './styles';
 
 
-import { actionCreateUser, hideMessageSuccess, hideMessageFaild } from '../../actions/User';
+import { actionCreateUser, hideMessageFaild } from '../../actions/User';
 
-import ButtonComponent from './ButtonComponent';
+import SmallDevices from './SmallDevices';
+import DefaultDevices from './DefaultDevices';
 
 function CreateUser({history}) {
   const dispatch = useDispatch();
-  const userState = useSelector(state => state.auth);
+
   const userMessage = useSelector(state => state.user);
 
   useEffect(() => {
     if (userMessage.showMessageSuccess) {
       history.push('/app/list');
     }
-  },);
+  });
+
+  useEffect(() => {
+    if (userMessage.showMessageFaild === true) {
+      setTimeout(() => {
+        dispatch(hideMessageFaild());
+      }, 100);
+    }
+  });
+
 
   const [state, setState] = React.useState({
     checkedCreate: false,
@@ -78,6 +78,11 @@ function CreateUser({history}) {
     setState({ ...state, [name]: event.target.checked });
   };
 
+  function validateEmail() {
+    if (validator.validate(userEmail)) return true;
+    return false;
+  }
+
 
   function handleCreateUser() {
     const userObject = {
@@ -92,7 +97,7 @@ function CreateUser({history}) {
   function validateButton() {
     if (
       userName.trim() !== ''
-      && userEmail.trim() !== ''
+      && validateEmail()
       && userPassword.trim() !== ''
       && userConfirmPassword.trim() !== '') {
       if (userPassword === userConfirmPassword) return true;
@@ -104,158 +109,12 @@ function CreateUser({history}) {
   return (
     <Grid item xs={12} sm={12} container style={formControll}>
       {matches ? (
-        <>
-          {userMessage.showMessageFaild
-            ? (
-              <TextField
-                error
-                label="Email"
-                type="email"
-                name="email"
-                autoComplete="email"
-                margin="normal"
-                variant="outlined"
-                style={textStyle}
-                onChange={e => handleInputEmail(e)}
-                value={userEmail}
-              />
-            ) : (
-              <TextField
-                label="Email"
-                type="email"
-                name="email"
-                autoComplete="email"
-                margin="normal"
-                variant="outlined"
-                style={textStyle}
-                onChange={e => handleInputEmail(e)}
-                value={userEmail}
-              />
-            )}
-
-          <TextField
-            label="Name"
-            type="text"
-            name="name"
-            autoComplete="text"
-            margin="normal"
-            variant="outlined"
-            value={userName}
-            onChange={e => handleInputName(e)}
-            style={textStyle}
-        />
-          <TextField
-            label="Senha"
-            type="password"
-            name="password"
-            margin="normal"
-            variant="outlined"
-            value={userPassword}
-            onChange={e => handleInputPassword(e)}
-            style={textStyle}
-        />
-          <TextField
-            label="Confirmar senha"
-            type="password"
-            name="password"
-            margin="normal"
-            variant="outlined"
-            value={userConfirmPassword}
-            onChange={e => handleInputConfirmPassword(e)}
-            style={textStyle}
-        />
-          <ButtonComponent state={state} style={formButtons} handleCheck={handleChange} />
-          { validateButton() ? (
-            <Button
-              onClick={e => handleCreateUser(e)}
-              color="primary"
-              variant="contained"
-              size="large"
-              style={button}
-               >
-                 Criar usuário
-            </Button>
-          )
-            : (
-              <Button
-                color="primary"
-                variant="contained"
-                size="large"
-                style={button}
-                disabled>
-                Criar usuário
-              </Button>
-            )}
-        </>
+        <DefaultDevices validateEmail={validateEmail} handleInputEmail={handleInputEmail} handleInputName={handleInputName} handleInputPassword={handleInputPassword} handleInputConfirmPassword={handleInputConfirmPassword} userEmail={userEmail} userName={userName} userPassword={userPassword} userConfirmPassword={userConfirmPassword} state={state} handleChange={handleChange} validateButton={validateButton} handleCreateUser={handleCreateUser} />
       ) : (
-        <>
-          <TextField
-            label="Email"
-            type="email"
-            name="email"
-            autoComplete="email"
-            margin="normal"
-            variant="outlined"
-            onChange={e => handleInputEmail(e)}
-            value={userEmail}
-            style={textStyleSmall}
-        />
-          <TextField
-            label="Senha"
-            type="password"
-            name="password"
-            autoComplete="email"
-            margin="normal"
-            variant="outlined"
-            value={userName}
-            onChange={e => handleInputName(e)}
-            style={textStyleSmall}
-        />
-          <TextField
-            id="outlined-email-input"
-            label="Senha"
-            type="password"
-            name="password"
-            margin="normal"
-            variant="outlined"
-            value={userPassword}
-            onChange={e => handleInputPassword(e)}
-            style={textStyleSmall}
-        />
-          <TextField
-            id="outlined-email-input"
-            label="Confirmar senha"
-            type="password"
-            name="password"
-            margin="normal"
-            variant="outlined"
-            value={userConfirmPassword}
-            onChange={e => handleInputConfirmPassword(e)}
-            style={textStyleSmall}
-        />
-          <ButtonComponent state={state} style={formControllSmall} handleCheck={handleChange} />
-
-          { validateButton() ? (
-            <Button
-              onClick={() => handleCreateUser()}
-              color="primary"
-              variant="contained"
-              style={buttonSmall}
-        >
-          Criar usuário
-            </Button>
-          ) : (
-            <Button
-              disabled
-              color="primary"
-              variant="contained"
-              style={buttonSmall}
-        >
-          Criar usuário
-            </Button>
-          )}
-        </>
+        <SmallDevices validateEmail={validateEmail} handleInputEmail={handleInputEmail} handleInputName={handleInputName} handleInputPassword={handleInputPassword} handleInputConfirmPassword={handleInputConfirmPassword} userEmail={userEmail} userName={userName} userPassword={userPassword} userConfirmPassword={userConfirmPassword} state={state} handleChange={handleChange} validateButton={validateButton} handleCreateUser={handleCreateUser} />
       )}
+      {userMessage.showMessageFaild && NotificationManager.error(userMessage.alertMessage)}
+      <NotificationContainer />
     </Grid>
   );
 }

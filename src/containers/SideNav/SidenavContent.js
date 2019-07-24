@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import React, {Component} from 'react';
 import {NavLink, withRouter} from 'react-router-dom';
 
@@ -16,10 +17,10 @@ class SidenavContent extends Component {
       menuLi[i].onclick = function (event) {
 
         const parentLiEle = that.closest(this, 'li');
-        if(menuLi[i].classList.contains('menu') && parentLiEle !== null) {
+        if (menuLi[i].classList.contains('menu') && parentLiEle !== null) {
           event.stopPropagation();
 
-          if(menuLi[i].classList.contains('open')) {
+          if (menuLi[i].classList.contains('open')) {
             menuLi[i].classList.remove('open', 'active');
           } else {
             menuLi[i].classList.add('open', 'active');
@@ -29,19 +30,17 @@ class SidenavContent extends Component {
             const parentLi = that.closest(this, 'li');
             if (menuLi[j] !== this && (parentLi === null || !parentLi.classList.contains('open'))) {
               menuLi[j].classList.remove('open');
+            } else if (menuLi[j].classList.contains('open')) {
+              menuLi[j].classList.remove('open');
             } else {
-              if(menuLi[j].classList.contains('open')) {
-                menuLi[j].classList.remove('open');
-              } else {
-                menuLi[j].classList.add('open');
-              }
+              menuLi[j].classList.add('open');
             }
           }
         }
-      }
+      };
     }
 
-    const activeLi = document.querySelector('a[href="' + pathname + '"]');// select current a element
+    const activeLi = document.querySelector(`a[href="${pathname}"]`);// select current a element
     try {
       const activeNav = this.closest(activeLi, 'ul'); // select closest ul
       if (activeNav.classList.contains('sub-menu')) {
@@ -59,7 +58,7 @@ class SidenavContent extends Component {
     const {history} = nextProps;
     const pathname = `${history.location.pathname}`;// get current path
 
-    const activeLi = document.querySelector('a[href="' + pathname + '"]');// select current a element
+    const activeLi = document.querySelector(`a[href="${pathname}"]`);// select current a element
     try {
       const activeNav = this.closest(activeLi, 'ul'); // select closest ul
       if (activeNav.classList.contains('sub-menu')) {
@@ -76,7 +75,7 @@ class SidenavContent extends Component {
     try {
       let matchesFn;
       // find vendor prefix
-      ['matches', 'webkitMatchesSelector', 'mozMatchesSelector', 'msMatchesSelector', 'oMatchesSelector'].some(function (fn) {
+      ['matches', 'webkitMatchesSelector', 'mozMatchesSelector', 'msMatchesSelector', 'oMatchesSelector'].some((fn) => {
         if (typeof document.body[fn] === 'function') {
           matchesFn = fn;
           return true;
@@ -94,6 +93,7 @@ class SidenavContent extends Component {
         }
         el = parent;
       }
+    // eslint-disable-next-line no-empty
     } catch (e) {
 
     }
@@ -107,12 +107,30 @@ class SidenavContent extends Component {
         <ul className="nav-menu">
 
           <li className="nav-header">
-            <IntlMessages id="sidebar.main"/>
+            <IntlMessages id="sidebar.main" />
           </li>
           <li className="menu no-arrow">
             <NavLink to="/app/sample-page">
-              <i className="zmdi zmdi-view-dashboard zmdi-hc-fw"/>
-              <span className="nav-text"><IntlMessages id="pages.samplePage"/> </span>
+              <i className="zmdi zmdi-view-dashboard zmdi-hc-fw" />
+              <span className="nav-text">
+                Início
+              </span>
+            </NavLink>
+          </li>
+          <li className="menu no-arrow">
+            <NavLink to="/app/create-user">
+              <i className="zmdi zmdi-view-dashboard zmdi-hc-fw" />
+              <span className="nav-text">
+                Criar usuário
+              </span>
+            </NavLink>
+          </li>
+          <li className="menu no-arrow">
+            <NavLink to="/app/list">
+              <i className="zmdi zmdi-view-dashboard zmdi-hc-fw" />
+              <span className="nav-text">
+                Teste
+              </span>
             </NavLink>
           </li>
         </ul>

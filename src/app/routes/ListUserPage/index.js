@@ -1,63 +1,84 @@
-import React, { useEffect } from 'react';
-import {
-  Container, Button, MySnackbarContentWrapper, Snackbar, IconButton
-} from '@material-ui/core';
+import React, { useEffect, useState} from 'react';
+import SearchIcon from '@material-ui/icons/Search';
 import { makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Input from '@material-ui/core/Input';
+import Paper from '@material-ui/core/Paper';
+import { getUsersRequest } from 'api/api';
+import IconButton from '@material-ui/core/IconButton';
+import { FormControl, InputLabel } from '@material-ui/core';
 
-import {
-  NotificationContainer,
-  NotificationManager
-} from 'react-notifications';
+const useStyles = makeStyles(theme => ({
+  root: {
+    width: '100%',
+    marginTop: theme.spacing(3),
+    overflowX: 'auto',
+  },
+  table: {
+    minWidth: 650,
+  },
+}));
 
-import {
-  useDispatch,
-  useSelector
-} from 'react-redux';
+export default function SimpleTable() {
 
-import { hideMessageSuccess, hideMessageFaild} from '../../../actions/User';
+  const [posts, setPosts] = useState([]);
+  const [query, setQuery] = useState('');
 
-
-function ListUserPage() {
-  const useStyles = makeStyles(theme => ({
-    close: {
-      padding: theme.spacing(0.5),
-    },
-  }));
-
-  const dispatch = useDispatch();
-  const userMessage = useSelector(state => state.user);
-
+  async function makeGetRequest() {
+    const res = await getUsersRequest();
+    return res.data.users;
+  }
   useEffect(() => {
-    if (userMessage.showMessageSuccess) {
-      dispatch(hideMessageSuccess());
-    }
-  });
+    makeGetRequest().then(value => setPosts(value));
+  }, []);
 
-  useEffect(() => {
-    if (userMessage.showMessageFaild) {
-      dispatch(hideMessageFaild());
-    }
-  });
+  const handleFilterValue = (event) => {
+    setQuery(event.target.value);
+  };
+
+  const teste = query === ''
+    ? posts
+    : posts.filter(res => res.name.toLowerCase().includes(query.toLocaleLowerCase()));
 
   const classes = useStyles();
-  const [open, setOpen] = React.useState(true);
-
-  function handleClick() {
-    setOpen(true);
-  }
-
-  function handleClose(event, reason) {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpen(false);
-  }
-
   return (
-    <div>
-      <h1>teste</h1>
-    </div>
+    <Paper className={classes.root}>
+      <FormControl fullWidth className={classes.margin}>
+        <InputLabel htmlFor="adornment-amount">Filtrar usuários</InputLabel>
+        <Input
+          id="adornment-amount"
+          value={query}
+          onChange={e => handleFilterValue(e)}
+          startAdornment={(
+            <IconButton className={classes.iconButton} aria-label="Search">
+              <SearchIcon />
+            </IconButton>
+            )}
+          />
+      </FormControl>
+
+      <Table className={classes.table}>
+        <TableHead>
+          <TableRow>
+            <TableCell align="left">Nome</TableCell>
+            <TableCell align="left">Email</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {posts.length !== 0 && teste.map(item => (
+            <TableRow key={item.id}>
+              <TableCell align="left" component="th" scope="row">
+                {item.name}
+              </TableCell>
+              <TableCell align="left">{item.email}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </Paper>
   );
 }
-export default ListUserPage;
