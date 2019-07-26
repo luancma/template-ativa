@@ -3,7 +3,7 @@ import React from 'react';
 import {Route, Switch, withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Header from 'components/Header/index';
-import Sidebar from 'containers/SideNav/index';
+import Sidebar from 'containers/S ideNav/index';
 import Footer from 'components/Footer';
 import {
   ABOVE_THE_HEADER,

@@ -144,3 +144,6 @@ export const CREATE_NEW_USER = '@user/create_new_user';
 export const FETCH_ALL_USERS = '@user/fetch_all_users';
 export const SHOW_MESSAGE_FAILD = '@user/show_message_faild';
 export const HIDE_MESSAGE_FAILD = '@user/hide_message_faild';
+export const RECEIVE_USERS = '@users/receive_all_users';
+export const RECEIVE_USERS_SUCCESS = '@users/receive_all_users_success';
+export const RECEIVE_USERS_FAILED = '@users/receive_all_users_failed';

@@ -1,10 +1,14 @@
 import {
-  CREATE_NEW_USER, SHOW_MESSAGE_SUCCESS, HIDE_MESSAGE_SUCCESS, FETCH_ALL_USERS, SHOW_MESSAGE_FAILD, HIDE_MESSAGE_FAILD
+  CREATE_NEW_USER, SHOW_MESSAGE_SUCCESS, HIDE_MESSAGE_SUCCESS, FETCH_ALL_USERS, SHOW_MESSAGE_FAILD, HIDE_MESSAGE_FAILD, RECEIVE_USERS, RECEIVE_USERS_SUCCESS
 } from '../constants/ActionTypes';
 
 
-export const fetchAllUser = users => ({
-  type: FETCH_ALL_USERS,
+export const fetchAllUser = () => ({
+  type: RECEIVE_USERS,
+});
+
+export const fetchAllUserSuccess = users => ({
+  type: RECEIVE_USERS_SUCCESS,
   payload: users
 });
 

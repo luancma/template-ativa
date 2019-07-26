@@ -1,4 +1,5 @@
 import React, { useEffect, useState} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import SearchIcon from '@material-ui/icons/Search';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -8,9 +9,11 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Input from '@material-ui/core/Input';
 import Paper from '@material-ui/core/Paper';
-import { getUsersRequest } from 'api/api';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import IconButton from '@material-ui/core/IconButton';
 import { FormControl, InputLabel } from '@material-ui/core';
+import { UsersApi } from 'api/UsersApi';
+import { fetchAllUser } from 'actions/User';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -27,14 +30,19 @@ export default function SimpleTable() {
 
   const [posts, setPosts] = useState([]);
   const [query, setQuery] = useState('');
+  const userStore = useSelector(state => state.user);
 
-  async function makeGetRequest() {
-    const res = await getUsersRequest();
-    return res.data.users;
-  }
+
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    makeGetRequest().then(value => setPosts(value));
+    dispatch(fetchAllUser());
   }, []);
+
+  useEffect(() => {
+    if (userStore.users.length !== 0) setPosts(userStore.users);
+
+  });
 
   const handleFilterValue = (event) => {
     setQuery(event.target.value);
@@ -46,39 +54,46 @@ export default function SimpleTable() {
 
   const classes = useStyles();
   return (
-    <Paper className={classes.root}>
-      <FormControl fullWidth className={classes.margin}>
-        <InputLabel htmlFor="adornment-amount">Filtrar usuários</InputLabel>
-        <Input
-          id="adornment-amount"
-          value={query}
-          onChange={e => handleFilterValue(e)}
-          startAdornment={(
-            <IconButton className={classes.iconButton} aria-label="Search">
-              <SearchIcon />
-            </IconButton>
+    <>
+      <Paper className={classes.root}>
+        <FormControl fullWidth className={classes.margin}>
+          <InputLabel htmlFor="adornment-amount">Filtrar usuários</InputLabel>
+          <Input
+            id="adornment-amount"
+            value={query}
+            onChange={e => handleFilterValue(e)}
+            startAdornment={(
+              <IconButton className={classes.iconButton} aria-label="Search">
+                <SearchIcon />
+              </IconButton>
             )}
-          />
-      </FormControl>
+            />
+        </FormControl>
 
-      <Table className={classes.table}>
-        <TableHead>
-          <TableRow>
-            <TableCell align="left">Nome</TableCell>
-            <TableCell align="left">Email</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {posts.length !== 0 && teste.map(item => (
-            <TableRow key={item.id}>
-              <TableCell align="left" component="th" scope="row">
-                {item.name}
-              </TableCell>
-              <TableCell align="left">{item.email}</TableCell>
+        <Table className={classes.table}>
+          <TableHead>
+            <TableRow>
+              <TableCell align="left">Nome</TableCell>
+              <TableCell align="left">Email</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </Paper>
+          </TableHead>
+          <TableBody>
+            {posts.length !== 0 && teste.map(item => (
+              <TableRow key={item.id}>
+                <TableCell align="left" component="th" scope="row">
+                  {item.name}
+                </TableCell>
+                <TableCell align="left">{item.email}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Paper>
+      {userStore.showLoading && (
+      <div className="loader-view">
+        <CircularProgress />
+      </div>
+      )}
+    </>
   );
 }

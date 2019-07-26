@@ -1,14 +1,15 @@
 import {
-  CREATE_NEW_USER, SHOW_MESSAGE_SUCCESS, HIDE_MESSAGE_SUCCESS, HIDE_MESSAGE_FAILD, SHOW_MESSAGE_FAILD
+  CREATE_NEW_USER, SHOW_MESSAGE_SUCCESS, HIDE_MESSAGE_SUCCESS, HIDE_MESSAGE_FAILD, SHOW_MESSAGE_FAILD, RECEIVE_USERS, RECEIVE_USERS_SUCCESS, RECEIVE_USERS_FAILED
 } from '../constants/ActionTypes';
 
 const INIT_STATE = {
   token: localStorage.getItem('user'),
+  users: [],
   user: {},
   alertMessage: '',
   showMessageSuccess: false,
-  showMessageFaild: false
-
+  showMessageFaild: false,
+  showLoading: false
 };
 
 
@@ -18,6 +19,26 @@ export default (state = INIT_STATE, action) => {
       return {
         ...state,
         user: action.payload
+      };
+    }
+    case RECEIVE_USERS: {
+      return {
+        ...state,
+        showLoading: true
+      };
+    }
+    case RECEIVE_USERS_SUCCESS: {
+      return {
+        ...state,
+        users: action.payload,
+        showLoading: false
+      };
+    }
+    case RECEIVE_USERS_FAILED: {
+      return {
+        ...state,
+        showMessageFaild: true,
+        showLoading: false
       };
     }
     case SHOW_MESSAGE_SUCCESS: {
