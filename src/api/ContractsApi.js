@@ -1,3 +1,5 @@
+import { api } from './api';
+
 export class ContractsApi {
   static getListOfContracts = () => api.get('contracts');
 

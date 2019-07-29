@@ -79,7 +79,6 @@ export const UPDATE_SEARCH_CHAT_USER = 'update_search_chat_user';
 
 // // Mail Module const
 
-
 export const ADD_LABEL = 'ADD_LABEL';
 export const GET_ALL_MAIL = 'get_all_mail';
 export const FETCH_ALL_MAIL = 'fetch_all_mail';
