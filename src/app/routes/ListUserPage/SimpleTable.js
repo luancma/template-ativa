@@ -47,6 +47,11 @@ export default function SimpleTable() {
 
   return (
     <>
+      {userStore.showLoading && (
+        <div className="loader-view">
+          <CircularProgress />
+        </div>
+      )}
       <Paper className={classes.root}>
         <FormControl fullWidth className={classes.margin}>
           <InputLabel htmlFor="adornment-amount">Filtrar usuários</InputLabel>
@@ -63,11 +68,6 @@ export default function SimpleTable() {
         </FormControl>
         <TableUsers posts={posts} handleFilter={handleFilterByQuerry} />
       </Paper>
-      {userStore.showLoading && (
-        <div className="loader-view">
-          <CircularProgress />
-        </div>
-      )}
     </>
   );
 }

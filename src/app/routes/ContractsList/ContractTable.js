@@ -1,5 +1,4 @@
 import React from 'react';
-
 import {
   TableRow,
   TableCell,
@@ -8,7 +7,7 @@ import {
   TableBody,
 } from '@material-ui/core';
 
-export default function TableUsers({ handleFilter, posts }) {
+export default function ContractTable({ contracts }) {
   return (
     <Table>
       <TableHead>
@@ -17,18 +16,26 @@ export default function TableUsers({ handleFilter, posts }) {
             <span style={{ fontSize: '18px' }}>Nome</span>
           </TableCell>
           <TableCell align="left">
-            <span style={{ fontSize: '18px' }}>Email</span>
+            <span style={{ fontSize: '18px' }}>Número</span>
+          </TableCell>
+          <TableCell align="left">
+            <span style={{ fontSize: '18px' }}>Proprietário</span>
           </TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
-        {posts.length !== 0
-          && handleFilter.map(item => (
+        {contracts.length !== 0
+          && contracts.map(item => (
             <TableRow key={item.id}>
               <TableCell align="left" component="th" scope="row">
                 {item.name}
               </TableCell>
-              <TableCell align="left">{item.email}</TableCell>
+              <TableCell align="left" component="th" scope="row">
+                {item.number}
+              </TableCell>
+              <TableCell align="left" component="th" scope="row">
+                {item.customer.name}
+              </TableCell>
             </TableRow>
           ))}
       </TableBody>

@@ -1,53 +1,45 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Paper, CircularProgress } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import { receiveContracts } from 'actions/Contracts';
+import ContractTable from './ContractTable';
 
-import {
-  TableRow,
-  TableCell,
-  TableHead,
-  Table,
-  TableBody,
-} from '@material-ui/core';
-// import { Container } from './styles';
-import { ContractsApi } from '../../../api/ContractsApi';
+const useStyles = makeStyles(theme => ({
+  root: {
+    width: '100%',
+    marginTop: theme.spacing(3),
+    overflowX: 'auto',
+  },
+  table: {
+    minWidth: 650,
+  },
+}));
 
-export default function ContractsList({ handleFilter, posts }) {
-  const [contracts, setContracts] = useState([]);
+export default function ContractsList() {
+  const classes = useStyles();
+
+  const dispatch = useDispatch();
+
+  const contractStore = useSelector(state => state.contracts);
+
   useEffect(() => {
-    const fetchContracts = async () => ContractsApi.getListOfContracts().then(value => setContracts(value.data.contracts));
+    const fetchContracts = async () => dispatch(await receiveContracts());
     fetchContracts();
   }, []);
 
-  const tableLabels = ['Nome', 'Número', 'Cliente'];
-
   return (
-    <div>
-      <Table>
-        <TableHead>
-          <TableRow>
-            {tableLabels.map(trow => (
-              <TableCell align="left" key={trow}>
-                {trow}
-              </TableCell>
-            ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {contracts.length !== 0
-            && contracts.map(item => (
-              <TableRow key={item.id}>
-                <TableCell align="left" component="th" scope="row">
-                  {item.name}
-                </TableCell>
-                <TableCell align="left" component="th" scope="row">
-                  {item.number}
-                </TableCell>
-                <TableCell align="left" component="th" scope="row">
-                  {item.customer.name}
-                </TableCell>
-              </TableRow>
-            ))}
-        </TableBody>
-      </Table>
-    </div>
+    <>
+      {contractStore.showLoading && (
+        <div className="loader-view">
+          <CircularProgress />
+        </div>
+      )}
+      <Paper className={classes.root}>
+        {contractStore.contracts.length && (
+          <ContractTable contracts={contractStore.contracts} />
+        )}
+      </Paper>
+    </>
   );
 }

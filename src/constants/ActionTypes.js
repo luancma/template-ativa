@@ -146,3 +146,11 @@ export const HIDE_MESSAGE_FAILD = '@user/hide_message_faild';
 export const RECEIVE_USERS = '@users/receive_all_users';
 export const RECEIVE_USERS_SUCCESS = '@users/receive_all_users_success';
 export const RECEIVE_USERS_FAILED = '@users/receive_all_users_failed';
+
+// CONTRACTS ACTIONS
+export const CREATE_NEW_CONTRACT = '@contracts/create_new_contract';
+export const RECEIVE_CONTRACTS = '@contracts/receive_contracts';
+export const SHOW_MESSAGE_CONTRACTS_FAILD = '@contracts/show_message_faild';
+export const HIDE_MESSAGE_CONTRACTS_FAILD = '@contracts/hide_message_faild';
+export const RECEIVE_CONTRACTS_SUCCESS = '@contracts/contracts_success';
+export const RECEIVE_CONTRACTS_FAILED = '@contracts/receive_all_contracts_failed';
