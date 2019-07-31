@@ -154,3 +154,8 @@ export const SHOW_MESSAGE_CONTRACTS_FAILD = '@contracts/show_message_faild';
 export const HIDE_MESSAGE_CONTRACTS_FAILD = '@contracts/hide_message_faild';
 export const RECEIVE_CONTRACTS_SUCCESS = '@contracts/contracts_success';
 export const RECEIVE_CONTRACTS_FAILED = '@contracts/receive_all_contracts_failed';
+
+// CUSTOMERS ACTIONS
+export const RECEIVE_CUSTOMERS = '@customers/receive_customers';
+export const CREATE_NEW_CUSTOMERS = '@customers/create_new_customer';
+export const RECEIVE_CUSTOMERS_SUCCESS = '@customers/create_new_customer_success';

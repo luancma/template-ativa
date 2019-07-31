@@ -4,6 +4,7 @@ import Settings from './Settings';
 import Auth from './Auth';
 import User from './User';
 import Contracts from './Contracts';
+import Customers from './Customers';
 
 export default history => combineReducers({
   router: connectRouter(history),
@@ -11,4 +12,5 @@ export default history => combineReducers({
   auth: Auth,
   user: User,
   contracts: Contracts,
+  customers: Customers,
 });
