@@ -1,4 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+  useEffect, useRef, useState, Children
+} from 'react';
 import { Button, TextField, OutlinedInput } from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -7,7 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { api } from 'api/api';
-import ButtonComponent from './ButtonComponent';
+import { wrap } from 'module';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -61,9 +63,10 @@ const useStyles = makeStyles(theme => ({
   textStyleSmall: {
     width: '70vw',
   },
+
   formSelect: {
-    marginTop: '14px',
-    minWidth: 120,
+    margin: '14px 0',
+    minWidth: 200,
   },
 }));
 export default function DefaultDevices({
@@ -76,7 +79,6 @@ export default function DefaultDevices({
   userName,
   userPassword,
   userConfirmPassword,
-  state,
   handleChange,
   validateButton,
   handleCreateUser,
@@ -106,6 +108,7 @@ export default function DefaultDevices({
 
   return (
     <>
+      <h2 style={{ marginTop: '50px' }}>Cadastro de cliente </h2>
       <TextField
         className={classes.textStyle}
         error={!validateEmail()}
@@ -131,26 +134,39 @@ export default function DefaultDevices({
       />
       <TextField
         className={classes.textStyle}
-        label="Senha"
-        type="password"
-        name="password"
-        margin="normal"
-        variant="outlined"
-        value={userPassword}
-        onChange={e => handleInputPassword(e)}
-      />
-      <TextField
-        className={classes.textStyle}
-        label="Confirmar senha"
-        type="password"
-        name="password"
+        label="Função"
+        type="text"
+        name="occupation"
         margin="normal"
         variant="outlined"
         value={userConfirmPassword}
         onChange={e => handleInputConfirmPassword(e)}
       />
+      <TextField
+        className={classes.textStyle}
+        label="Responsável"
+        type="text"
+        name="occupation"
+        margin="normal"
+        variant="outlined"
+        value={userConfirmPassword}
+        onChange={e => handleInputConfirmPassword(e)}
+      />
+      <TextField
+        className={classes.textStyle}
+        label="Telefone"
+        type="text"
+        name="phone"
+        margin="normal"
+        variant="outlined"
+        value={userPassword}
+        onChange={e => handleInputPassword(e)}
+      />
       <div
         style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          justifyContent: 'space-between',
           width: '40vw',
         }}
       >
@@ -178,12 +194,32 @@ export default function DefaultDevices({
               ))}
           </Select>
         </FormControl>
+        <FormControl variant="outlined" className={classes.formSelect}>
+          <InputLabel ref={inputLabel} htmlFor="outlined-age-simple">
+            Estado
+          </InputLabel>
+          <Select
+            value={values.state}
+            onChange={handleChangeSelect}
+            input={(
+              <OutlinedInput
+                labelWidth={labelWidth}
+                name="state"
+                id="outlined-age-simple"
+              />
+)}
+          >
+            <MenuItem value="">
+              <em>None</em>
+            </MenuItem>
+            {states !== 0
+              && states.map(item => (
+                <MenuItem value={item.name}>{item.name}</MenuItem>
+              ))}
+          </Select>
+        </FormControl>
       </div>
-      <ButtonComponent
-        className={classes.button}
-        state={state}
-        handleCheck={handleChange}
-      />
+
       {validateButton() ? (
         <Button
           className={classes.button}
