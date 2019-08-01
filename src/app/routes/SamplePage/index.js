@@ -8,7 +8,7 @@ import Teste from './Teste';
 function SamplePage({ history }) {
   const dispatch = useDispatch();
   const [customers, setCustomers] = useState([]);
-  const [newCustomers, setNewCustomers] = useState([]);
+  const [newCustomers, setNewCustomers] = useState('');
 
   const customerStore = useSelector(state => state.customers);
 
@@ -20,10 +20,6 @@ function SamplePage({ history }) {
     if (customerStore.customers.length !== 0) setCustomers(customerStore.customers);
   });
 
-  const filterList = (value, valueFilter) => {
-    value.filter(item => item.email !== valueFilter && setNewCustomers(item));
-    console.log(newCustomers);
-  };
 
   const [state, setState] = useState({
     columns: [
@@ -36,7 +32,7 @@ function SamplePage({ history }) {
     <MaterialTable
       title="Usuários"
       columns={state.columns}
-      data={customers}
+      data={newCustomers === '' ? customers : customers.filter(item => item.email !== newCustomers)}
       actions={[
         {
           icon: 'visibility',
@@ -46,7 +42,7 @@ function SamplePage({ history }) {
         {
           icon: 'delete',
           tooltip: 'Remover',
-          onClick: (event, rowData) => filterList(customers, rowData.email),
+          onClick: (event, rowData) => setNewCustomers(rowData.email),
         },
       ]}
       editable={{
