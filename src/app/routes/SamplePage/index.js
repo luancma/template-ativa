@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import MaterialTable from 'material-table';
 import { receiveCustomers } from 'actions/Customers';
 import { Link } from 'react-router-dom';
+import { Button } from '@material-ui/core';
 import Teste from './Teste';
 
 function SamplePage({ history }) {
@@ -20,7 +21,6 @@ function SamplePage({ history }) {
     if (customerStore.customers.length !== 0) setCustomers(customerStore.customers);
   });
 
-
   const [state, setState] = useState({
     columns: [
       { title: 'Nome', field: 'name' },
@@ -28,45 +28,47 @@ function SamplePage({ history }) {
     ],
   });
 
+  function getId(value) {
+    customers.find(item => item.email === value && item.id);
+  }
+
   return (
-    <MaterialTable
-      title="Usuários"
-      columns={state.columns}
-      data={newCustomers === '' ? customers : customers.filter(item => item.email !== newCustomers)}
-      actions={[
-        {
-          icon: 'visibility',
-          tooltip: 'Detalhes',
-          onClick: () => history.push('/app/users'),
-        },
-        {
-          icon: 'delete',
-          tooltip: 'Remover',
-          onClick: (event, rowData) => setNewCustomers(rowData.email),
-        },
-      ]}
-      editable={{
-        onRowUpdate: (newData, oldData) => new Promise((resolve) => {
-          setTimeout(() => {
-            resolve();
-            const data = [...customers];
-            data[data.indexOf(oldData)] = newData;
-            setState({ ...state, data });
-          }, 600);
-        }),
-        onRowDelete: oldData => new Promise((resolve) => {
-          setTimeout(() => {
-            resolve();
-            const data = [...customers];
-            data.splice(data.indexOf(oldData), 1);
-            setState({ ...state, data });
-          }, 600);
-        }),
-      }}
-      options={{
-        actionsColumnIndex: -1,
-      }}
-    />
+    <>
+      <MaterialTable
+        title="Usuários"
+        columns={state.columns}
+        data={
+          newCustomers === ''
+            ? customers
+            : customers.filter(item => item.email !== newCustomers)
+        }
+        actions={[
+          {
+            icon: 'visibility',
+            tooltip: 'Detalhes',
+            onClick: (event, rowData) => history.push({
+              pathname: '/app/users',
+              state: { detailEmail: getId(rowData.email) },
+            }),
+          },
+          {
+            icon: 'delete',
+            tooltip: 'Remover',
+            onClick: (event, rowData) => setNewCustomers(rowData.email),
+          },
+        ]}
+        options={{
+          actionsColumnIndex: -1,
+        }}
+      />
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={e => history.push('/app/create-user')}
+      >
+        Adiconar cliente
+      </Button>
+    </>
   );
 }
 
