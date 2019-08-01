@@ -1,6 +1,6 @@
 import React from 'react';
 import MaterialTable from 'material-table';
-import {} from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 export default function Teste() {
   const [state, setState] = React.useState({

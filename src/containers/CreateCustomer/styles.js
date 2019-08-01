@@ -2,7 +2,7 @@ export const formControll = {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
-  alignItems: 'center',
+  alignItems: 'center'
 };
 
 export const formButtons = {
@@ -11,30 +11,31 @@ export const formButtons = {
   padding: '20px',
   width: '40vw',
   justifyContent: 'space-around',
-  alignItems: 'center',
+  alignItems: 'center'
+
 };
 
 export const formControllSmall = {
   display: 'flex',
   width: '70vw',
   justifyContent: 'space-around',
-  padding: '15px',
+  padding: '15px'
 };
 
 export const button = {
   width: '40vw',
-  padding: '14px',
+  padding: '14px'
 };
 
 export const buttonSmall = {
   width: '70vw',
-  padding: '14px',
+  padding: '14px'
 };
 
 export const textStyle = {
-  width: '40vw',
+  width: '40vw'
 };
 
 export const textStyleSmall = {
-  width: '70vw',
+  width: '70vw'
 };

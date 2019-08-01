@@ -1,22 +1,10 @@
 import React from 'react';
 import { Button, TextField } from '@material-ui/core';
 import ButtonComponent from './ButtonComponent';
-import { textStyle, formButtons, button } from './styles';
+import { textStyleSmall, buttonSmall, formControllSmall } from './styles';
 
-export default function DefaultDevices({
-  validateEmail,
-  handleInputEmail,
-  handleInputName,
-  handleInputPassword,
-  handleInputConfirmPassword,
-  userEmail,
-  userName,
-  userPassword,
-  userConfirmPassword,
-  state,
-  handleChange,
-  validateButton,
-  handleCreateUser,
+export default function SmallDevices({
+  validateEmail, handleInputEmail, handleInputName, handleInputPassword, handleInputConfirmPassword, userEmail, userName, userPassword, userConfirmPassword, state, handleChange, validateButton, handleCreateUser
 }) {
   return (
     <>
@@ -28,22 +16,22 @@ export default function DefaultDevices({
         autoComplete="email"
         margin="normal"
         variant="outlined"
-        style={textStyle}
         onChange={e => handleInputEmail(e)}
         value={userEmail}
-      />
+        style={textStyleSmall}
+  />
       <TextField
-        label="Name"
+        label="Nome"
         type="text"
         name="name"
-        autoComplete="text"
         margin="normal"
         variant="outlined"
         value={userName}
         onChange={e => handleInputName(e)}
-        style={textStyle}
-      />
+        style={textStyleSmall}
+  />
       <TextField
+        id="outlined-email-input"
         label="Senha"
         type="password"
         name="password"
@@ -51,9 +39,10 @@ export default function DefaultDevices({
         variant="outlined"
         value={userPassword}
         onChange={e => handleInputPassword(e)}
-        style={textStyle}
-      />
+        style={textStyleSmall}
+  />
       <TextField
+        id="outlined-email-input"
         label="Confirmar senha"
         type="password"
         name="password"
@@ -61,32 +50,27 @@ export default function DefaultDevices({
         variant="outlined"
         value={userConfirmPassword}
         onChange={e => handleInputConfirmPassword(e)}
-        style={textStyle}
-      />
-      <ButtonComponent
-        state={state}
-        style={button}
-        handleCheck={handleChange}
-      />
-      {validateButton() ? (
+        style={textStyleSmall}
+  />
+      <ButtonComponent state={state} style={formControllSmall} handleCheck={handleChange} />
+
+      { validateButton() ? (
         <Button
-          onClick={e => handleCreateUser(e)}
+          onClick={() => handleCreateUser()}
           color="primary"
           variant="contained"
-          size="large"
-          style={button}
-        >
-          Criar usuário
+          style={buttonSmall}
+  >
+    Criar usuário
         </Button>
       ) : (
         <Button
+          disabled
           color="primary"
           variant="contained"
-          size="large"
-          style={button}
-          disabled
-        >
-          Criar usuário
+          style={buttonSmall}
+  >
+    Criar usuário
         </Button>
       )}
     </>
