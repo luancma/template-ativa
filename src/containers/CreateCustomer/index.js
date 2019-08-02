@@ -1,21 +1,14 @@
 import React, { useEffect, useState } from 'react';
-
 import { useDispatch, useSelector } from 'react-redux';
-
 import { Grid, useMediaQuery } from '@material-ui/core';
-
 import validator from 'email-validator';
-
 import {
   NotificationContainer,
   NotificationManager,
 } from 'react-notifications';
-
 import { formControll } from './styles';
-
 import { actionCreateUser, hideMessageFaild } from '../../actions/User';
 import SmallDevices from './SmallDevices';
-
 import DefaultDevices from './DefaultDevices';
 
 function CreateUser({ history }) {
@@ -37,32 +30,43 @@ function CreateUser({ history }) {
     }
   });
 
-  const [state, setState] = React.useState({
-    checkedCreate: false,
-    checkedRead: false,
-    checkedUpdate: false,
-    checkedDelete: false,
+  const [customerEmail, setCustomerEmail] = useState('');
+  const [customerName, setCustomerName] = useState('');
+  const [customerPhone, setCustomerPhone] = useState('');
+  const [customerState, setCustomerState] = useState('');
+
+  const [citys, setCitys] = useState({
+    citys: ['Maceió', 'Recife', 'São Paulo', 'Rio Grande do Sul'],
+  });
+  const [values, setValues] = useState({
+    state: '',
+    citys: '',
   });
 
-  const [userEmail, setEmail] = useState('');
-  const [userName, setName] = useState('');
-  const [userPassword, setUserPassword] = useState('');
-  const [userConfirmPassword, setUserConfirmPassword] = useState('');
+  function handleChangeCitySelect(event) {
+    setValues(oldValues => ({
+      ...oldValues,
+      [event.target.name]: event.target.value,
+    }));
+  }
+
+  function handleChangeSelect(event) {
+    setValues(oldValues => ({
+      ...oldValues,
+      [event.target.name]: event.target.value,
+    }));
+  }
 
   const handleInputEmail = (event) => {
-    setEmail(event.target.value);
+    setCustomerEmail(event.target.value);
   };
 
   const handleInputName = (event) => {
-    setName(event.target.value);
+    setCustomerName(event.target.value);
   };
 
-  const handleInputPassword = (event) => {
-    setUserPassword(event.target.value);
-  };
-
-  const handleInputConfirmPassword = (event) => {
-    setUserConfirmPassword(event.target.value);
+  const handleInputPhone = (event) => {
+    setCustomerPhone(event.target.value);
   };
 
   const handleChange = name => (event) => {
@@ -70,28 +74,30 @@ function CreateUser({ history }) {
   };
 
   function validateEmail() {
-    if (validator.validate(userEmail)) return true;
+    if (validator.validate(customerEmail)) return true;
     return false;
   }
 
-  function handleCreateUser() {
+  function handleCreateCustomer() {
     const userObject = {
-      name: userName,
-      email: userEmail,
-      password: userPassword,
-      confirmPassword: userConfirmPassword,
+      name: customerName,
+      email: customerEmail,
+      phone: customerPhone,
+      state: customerState,
+      city: citys,
     };
     dispatch(actionCreateUser(userObject));
   }
 
   function validateButton() {
     if (
-      userName.trim() !== ''
+      customerName.trim() !== ''
       && validateEmail()
-      && userPassword.trim() !== ''
-      && userConfirmPassword.trim() !== ''
+      && customerPhone.trim() !== ''
+      && values.state.trim() !== ''
+      && values.citys.trim() !== ''
     ) {
-      if (userPassword === userConfirmPassword) return true;
+      return true;
     }
     return false;
   }
@@ -101,35 +107,37 @@ function CreateUser({ history }) {
     <Grid item xs={12} sm={12} container style={formControll}>
       {matches ? (
         <DefaultDevices
+          handleChangeCitySelect={handleChangeCitySelect}
+          handleChangeSelect={handleChangeSelect}
+          citys={citys.citys}
+          values={values}
           validateEmail={validateEmail}
           handleInputEmail={handleInputEmail}
           handleInputName={handleInputName}
-          handleInputPassword={handleInputPassword}
-          handleInputConfirmPassword={handleInputConfirmPassword}
-          userEmail={userEmail}
-          userName={userName}
-          userPassword={userPassword}
-          userConfirmPassword={userConfirmPassword}
+          handleInputPhone={handleInputPhone}
+          customerEmail={customerEmail}
+          customerName={customerName}
+          customerPhone={customerPhone}
+          customerState={customerState}
           state={state}
           handleChange={handleChange}
           validateButton={validateButton}
-          handleCreateUser={handleCreateUser}
+          handleCreateCustomer={handleCreateCustomer}
         />
       ) : (
         <SmallDevices
           validateEmail={validateEmail}
           handleInputEmail={handleInputEmail}
           handleInputName={handleInputName}
-          handleInputPassword={handleInputPassword}
-          handleInputConfirmPassword={handleInputConfirmPassword}
-          userEmail={userEmail}
-          userName={userName}
-          userPassword={userPassword}
-          userConfirmPassword={userConfirmPassword}
+          handleInputPhone={handleInputPhone}
+          customerEmail={customerEmail}
+          customerName={customerName}
+          customerPhone={customerPhone}
+          customerState={customerState}
           state={state}
           handleChange={handleChange}
           validateButton={validateButton}
-          handleCreateUser={handleCreateUser}
+          handleCreateCustomer={handleCreateCustomer}
         />
       )}
       {userMessage.showMessageFaild

@@ -1,26 +1,28 @@
-import React, {
-  useEffect, useRef, useState, Children
-} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Button, TextField, OutlinedInput } from '@material-ui/core';
 
-import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { api } from 'api/api';
-import { wrap } from 'module';
+
+import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
   },
-
+  selectGroup: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    width: '40vw',
+  },
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
-
   formControl: {
     minWidth: 120,
   },
@@ -38,69 +40,56 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-
   formControllSmall: {
     display: 'flex',
     width: '70vw',
     justifyContent: 'space-around',
     padding: '15px',
   },
-
   button: {
     width: '40vw',
     padding: '14px',
   },
-
   buttonSmall: {
     width: '70vw',
     padding: '14px',
   },
-
   textStyle: {
     width: '40vw',
   },
-
   textStyleSmall: {
     width: '70vw',
   },
-
   formSelect: {
-    margin: '14px 0',
-    minWidth: 200,
+    margin: '14px 0 14px ',
+    minWidth: '40%',
   },
 }));
+
 export default function DefaultDevices({
+  values,
   validateEmail,
   handleInputEmail,
   handleInputName,
-  handleInputPassword,
-  handleInputConfirmPassword,
+  handleInputPhone,
   userEmail,
   userName,
   userPassword,
   userConfirmPassword,
-  handleChange,
   validateButton,
-  handleCreateUser,
+  handleCustomer,
+  citys,
+  handleChangeCitySelect,
+  handleChangeSelect,
 }) {
   const classes = useStyles();
   const [states, setStates] = useState([]);
-  const [values, setValues] = React.useState({
-    state: '',
-  });
 
   const inputLabel = React.useRef(null);
   const [labelWidth, setLabelWidth] = React.useState(0);
   useEffect(() => {
     setLabelWidth(inputLabel.current.offsetWidth);
   }, []);
-
-  function handleChangeSelect(event) {
-    setValues(oldValues => ({
-      ...oldValues,
-      [event.target.name]: event.target.value,
-    }));
-  }
 
   useEffect(() => {
     api('states').then(value => setStates(value.data.states));
@@ -140,7 +129,7 @@ export default function DefaultDevices({
         margin="normal"
         variant="outlined"
         value={userConfirmPassword}
-        onChange={e => handleInputConfirmPassword(e)}
+        onChange={e => handleInputPhone(e)}
       />
       <TextField
         className={classes.textStyle}
@@ -150,7 +139,7 @@ export default function DefaultDevices({
         margin="normal"
         variant="outlined"
         value={userConfirmPassword}
-        onChange={e => handleInputConfirmPassword(e)}
+        onChange={e => handleInputPhone(e)}
       />
       <TextField
         className={classes.textStyle}
@@ -160,16 +149,10 @@ export default function DefaultDevices({
         margin="normal"
         variant="outlined"
         value={userPassword}
-        onChange={e => handleInputPassword(e)}
+        onChange={e => handleInputPhone(e)}
       />
-      <div
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'space-between',
-          width: '40vw',
-        }}
-      >
+
+      <div className={classes.selectGroup}>
         <FormControl variant="outlined" className={classes.formSelect}>
           <InputLabel ref={inputLabel} htmlFor="outlined-age-simple">
             Estado
@@ -196,15 +179,15 @@ export default function DefaultDevices({
         </FormControl>
         <FormControl variant="outlined" className={classes.formSelect}>
           <InputLabel ref={inputLabel} htmlFor="outlined-age-simple">
-            Estado
+            Cidade
           </InputLabel>
           <Select
-            value={values.state}
-            onChange={handleChangeSelect}
+            value={values.citys}
+            onChange={handleChangeCitySelect}
             input={(
               <OutlinedInput
                 labelWidth={labelWidth}
-                name="state"
+                name="citys"
                 id="outlined-age-simple"
               />
 )}
@@ -212,18 +195,15 @@ export default function DefaultDevices({
             <MenuItem value="">
               <em>None</em>
             </MenuItem>
-            {states !== 0
-              && states.map(item => (
-                <MenuItem value={item.name}>{item.name}</MenuItem>
-              ))}
+            {citys !== 0
+              && citys.map(item => <MenuItem value={item}>{item}</MenuItem>)}
           </Select>
         </FormControl>
       </div>
-
       {validateButton() ? (
         <Button
           className={classes.button}
-          onClick={e => handleCreateUser(e)}
+          onClick={e => handleCustomer(e)}
           color="primary"
           variant="contained"
           size="large"
