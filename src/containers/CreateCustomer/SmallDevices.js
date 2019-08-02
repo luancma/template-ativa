@@ -4,7 +4,19 @@ import ButtonComponent from './ButtonComponent';
 import { textStyleSmall, buttonSmall, formControllSmall } from './styles';
 
 export default function SmallDevices({
-  validateEmail, handleInputEmail, handleInputName, handleInputPassword, handleInputConfirmPassword, userEmail, userName, userPassword, userConfirmPassword, state, handleChange, validateButton, handleCreateUser
+  validateEmail,
+  handleInputEmail,
+  handleInputName,
+  handleInputPassword,
+  handleInputConfirmPassword,
+  userEmail,
+  userName,
+  userPassword,
+  userConfirmPassword,
+  state,
+  handleChange,
+  validateButton,
+  handleCreateUser,
 }) {
   return (
     <>
@@ -19,7 +31,7 @@ export default function SmallDevices({
         onChange={e => handleInputEmail(e)}
         value={userEmail}
         style={textStyleSmall}
-  />
+      />
       <TextField
         label="Nome"
         type="text"
@@ -29,7 +41,7 @@ export default function SmallDevices({
         value={userName}
         onChange={e => handleInputName(e)}
         style={textStyleSmall}
-  />
+      />
       <TextField
         id="outlined-email-input"
         label="Senha"
@@ -40,7 +52,7 @@ export default function SmallDevices({
         value={userPassword}
         onChange={e => handleInputPassword(e)}
         style={textStyleSmall}
-  />
+      />
       <TextField
         id="outlined-email-input"
         label="Confirmar senha"
@@ -51,17 +63,16 @@ export default function SmallDevices({
         value={userConfirmPassword}
         onChange={e => handleInputConfirmPassword(e)}
         style={textStyleSmall}
-  />
-      <ButtonComponent state={state} style={formControllSmall} handleCheck={handleChange} />
+      />
 
-      { validateButton() ? (
+      {validateButton() ? (
         <Button
           onClick={() => handleCreateUser()}
           color="primary"
           variant="contained"
           style={buttonSmall}
-  >
-    Criar usuário
+        >
+          Criar usuário
         </Button>
       ) : (
         <Button
@@ -69,8 +80,8 @@ export default function SmallDevices({
           color="primary"
           variant="contained"
           style={buttonSmall}
-  >
-    Criar usuário
+        >
+          Criar usuário
         </Button>
       )}
     </>

@@ -81,6 +81,7 @@ export default function DefaultDevices({
   citys,
   handleChangeCitySelect,
   handleChangeSelect,
+  customerPhone,
 }) {
   const classes = useStyles();
   const [states, setStates] = useState([]);
@@ -129,7 +130,6 @@ export default function DefaultDevices({
         margin="normal"
         variant="outlined"
         value={userConfirmPassword}
-        onChange={e => handleInputPhone(e)}
       />
       <TextField
         className={classes.textStyle}
@@ -139,16 +139,18 @@ export default function DefaultDevices({
         margin="normal"
         variant="outlined"
         value={userConfirmPassword}
-        onChange={e => handleInputPhone(e)}
       />
       <TextField
+        inputProps={{
+          maxLength: 15,
+        }}
         className={classes.textStyle}
         label="Telefone"
         type="text"
         name="phone"
         margin="normal"
         variant="outlined"
-        value={userPassword}
+        value={customerPhone}
         onChange={e => handleInputPhone(e)}
       />
 

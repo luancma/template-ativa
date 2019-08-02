@@ -36,7 +36,7 @@ export default function SimpleTable({ location, history }) {
   useEffect(() => {
     api('contracts').then(value => setContracts(value.data.contracts));
   }, []);
-  const valor = () => contracts;
+
   return (
     <>
       <TableUsers values={contracts} />

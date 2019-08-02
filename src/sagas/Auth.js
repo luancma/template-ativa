@@ -1,37 +1,38 @@
 import {
-  all, fork, put, takeLatest, takeEvery
+  all,
+  fork,
+  put,
+  takeLatest,
+  takeEvery,
+  call,
 } from 'redux-saga/effects';
 
-import {
-  SIGNIN_USER,
-  SIGNOUT_USER,
-} from 'constants/ActionTypes';
+import { SIGNIN_USER, SIGNOUT_USER } from 'constants/ActionTypes';
 
 import {
-  showAuthMessage, userSignInSuccess, userSignOutSuccess
+  showAuthMessage,
+  userSignInSuccess,
+  userSignOutSuccess,
 } from 'actions/Auth';
+import { SessionApi } from 'api/SessionApi';
 
-const token = {
-  'Content-Type': 'application/json',
-  'access-token': 'Z_Z6oHOylJbg5tpve7z6cA',
-  uid: 'testeonzop@gmail.com',
-  expiry: 1563307215,
-  client: 'vOPTEFwB16mHrULrZ65SNQ',
-  'token-type': 'Bearer'
-};
-
-function* singInUser() {
+const sessionRequest = value => SessionApi.createNewSession(value);
+function* singInUser(action) {
   try {
-    const tokenUser = token;
-    if (!tokenUser) {
-      yield put(yield put(showAuthMessage('Usuário não encontrado')));
-    } else {
-      localStorage.setItem('user', JSON.stringify(tokenUser));
-      yield put(userSignInSuccess(tokenUser));
-    }
+    const teste = yield call(sessionRequest, action.payload);
+    console.log(teste.headers);
   } catch (error) {
     yield put(yield put(showAuthMessage('Ops')));
   }
+
+  // try {
+  //   const response = yield call(sessionRequest());
+  //   console.log(response);
+  //   if (response.data) return console.log(response.headers);
+  //   yield put(yield put(showAuthMessage('Usuário não encontrado')));
+  // } catch (error) {
+  //   yield put(yield put(showAuthMessage('Ops')));
+  // }
 }
 
 function* singOutUser() {
@@ -48,7 +49,6 @@ function* singOutUser() {
   }
 }
 
-
 export function* signInUser() {
   yield takeEvery(SIGNIN_USER, singInUser);
 }
@@ -57,9 +57,6 @@ export function* signOutUser() {
   yield takeLatest(SIGNOUT_USER, singOutUser);
 }
 
-
 export default function* rootSaga() {
-  yield all([
-    fork(signInUser),
-    fork(signOutUser)]);
+  yield all([fork(signInUser), fork(signOutUser)]);
 }

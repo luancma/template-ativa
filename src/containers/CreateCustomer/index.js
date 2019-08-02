@@ -6,6 +6,7 @@ import {
   NotificationContainer,
   NotificationManager,
 } from 'react-notifications';
+import { masks } from 'util/masks';
 import { formControll } from './styles';
 import { actionCreateUser, hideMessageFaild } from '../../actions/User';
 import SmallDevices from './SmallDevices';
@@ -30,11 +31,17 @@ function CreateUser({ history }) {
     }
   });
 
+  // const [state, setState] = React.useState({
+  //   checkedCreate: false,
+  //   checkedRead: false,
+  //   checkedUpdate: false,
+  //   checkedDelete: false,
+  // });
+
   const [customerEmail, setCustomerEmail] = useState('');
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
   const [customerState, setCustomerState] = useState('');
-
   const [citys, setCitys] = useState({
     citys: ['Maceió', 'Recife', 'São Paulo', 'Rio Grande do Sul'],
   });
@@ -66,11 +73,8 @@ function CreateUser({ history }) {
   };
 
   const handleInputPhone = (event) => {
-    setCustomerPhone(event.target.value);
-  };
-
-  const handleChange = name => (event) => {
-    setState({ ...state, [name]: event.target.checked });
+    console.log(masks.mascararTel(event.target.value));
+    setCustomerPhone(masks.mascararTel(event.target.value));
   };
 
   function validateEmail() {
@@ -78,7 +82,7 @@ function CreateUser({ history }) {
     return false;
   }
 
-  function handleCreateCustomer() {
+  function handleCustomer() {
     const userObject = {
       name: customerName,
       email: customerEmail,
@@ -119,10 +123,8 @@ function CreateUser({ history }) {
           customerName={customerName}
           customerPhone={customerPhone}
           customerState={customerState}
-          state={state}
-          handleChange={handleChange}
           validateButton={validateButton}
-          handleCreateCustomer={handleCreateCustomer}
+          handleCustomer={handleCustomer}
         />
       ) : (
         <SmallDevices
@@ -134,10 +136,8 @@ function CreateUser({ history }) {
           customerName={customerName}
           customerPhone={customerPhone}
           customerState={customerState}
-          state={state}
-          handleChange={handleChange}
           validateButton={validateButton}
-          handleCreateCustomer={handleCreateCustomer}
+          handleCustomer={handleCustomer}
         />
       )}
       {userMessage.showMessageFaild

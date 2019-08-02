@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import MaterialTable from 'material-table';
 import { receiveCustomers } from 'actions/Customers';
 import { Link } from 'react-router-dom';
-import { Button } from '@material-ui/core';
+import { Button, Paper } from '@material-ui/core';
 import Teste from './Teste';
 
 function SamplePage({ history }) {
@@ -35,7 +35,7 @@ function SamplePage({ history }) {
   return (
     <>
       <MaterialTable
-        title="Usuários"
+        title="Clientes"
         columns={state.columns}
         data={
           newCustomers === ''
@@ -61,13 +61,26 @@ function SamplePage({ history }) {
           actionsColumnIndex: -1,
         }}
       />
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={e => history.push('/app/create-user')}
+
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'flex-end',
+          padding: '15px',
+        }}
       >
-        Adiconar cliente
-      </Button>
+        <Button
+          style={{
+            padding: '16px',
+          }}
+          variant="contained"
+          color="primary"
+          onClick={e => history.push('/app/create-customer')}
+        >
+          Adicionar Cliente
+        </Button>
+      </div>
     </>
   );
 }
