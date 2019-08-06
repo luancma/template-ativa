@@ -8,6 +8,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { api } from 'api/api';
 import ButtonComponent from './ButtonComponent';
+import FormButtons from './FormButtons';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -82,28 +83,6 @@ export default function DefaultDevices({
   handleCreateUser,
 }) {
   const classes = useStyles();
-  const [states, setStates] = useState([]);
-  const [values, setValues] = React.useState({
-    state: '',
-  });
-
-  const inputLabel = React.useRef(null);
-  const [labelWidth, setLabelWidth] = React.useState(0);
-  useEffect(() => {
-    setLabelWidth(inputLabel.current.offsetWidth);
-  }, []);
-
-  function handleChangeSelect(event) {
-    setValues(oldValues => ({
-      ...oldValues,
-      [event.target.name]: event.target.value,
-    }));
-  }
-
-  useEffect(() => {
-    api('states').then(value => setStates(value.data.states));
-  }, []);
-
   return (
     <>
       <TextField
@@ -149,41 +128,8 @@ export default function DefaultDevices({
         value={userConfirmPassword}
         onChange={e => handleInputConfirmPassword(e)}
       />
-      <div
-        style={{
-          width: '40vw',
-        }}
-      >
-        <FormControl variant="outlined" className={classes.formSelect}>
-          <InputLabel ref={inputLabel} htmlFor="outlined-age-simple">
-            Estado
-          </InputLabel>
-          <Select
-            value={values.state}
-            onChange={handleChangeSelect}
-            input={(
-              <OutlinedInput
-                labelWidth={labelWidth}
-                name="state"
-                id="outlined-age-simple"
-              />
-)}
-          >
-            <MenuItem value="">
-              <em>None</em>
-            </MenuItem>
-            {states !== 0
-              && states.map(item => (
-                <MenuItem value={item.name}>{item.name}</MenuItem>
-              ))}
-          </Select>
-        </FormControl>
-      </div>
-      <ButtonComponent
-        className={classes.button}
-        state={state}
-        handleCheck={handleChange}
-      />
+      {/* <FormButtons /> */}
+
       {validateButton() ? (
         <Button
           className={classes.button}

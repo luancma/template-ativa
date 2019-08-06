@@ -79,7 +79,7 @@ function CreateUser({ history }) {
       name: userName,
       email: userEmail,
       password: userPassword,
-      confirmPassword: userConfirmPassword,
+      passwrod_confirmation: userConfirmPassword,
     };
     dispatch(actionCreateUser(userObject));
   }
