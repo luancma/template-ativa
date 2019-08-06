@@ -79,7 +79,6 @@ export const UPDATE_SEARCH_CHAT_USER = 'update_search_chat_user';
 
 // // Mail Module const
 
-
 export const ADD_LABEL = 'ADD_LABEL';
 export const GET_ALL_MAIL = 'get_all_mail';
 export const FETCH_ALL_MAIL = 'fetch_all_mail';
@@ -147,3 +146,16 @@ export const HIDE_MESSAGE_FAILD = '@user/hide_message_faild';
 export const RECEIVE_USERS = '@users/receive_all_users';
 export const RECEIVE_USERS_SUCCESS = '@users/receive_all_users_success';
 export const RECEIVE_USERS_FAILED = '@users/receive_all_users_failed';
+
+// CONTRACTS ACTIONS
+export const CREATE_NEW_CONTRACT = '@contracts/create_new_contract';
+export const RECEIVE_CONTRACTS = '@contracts/receive_contracts';
+export const SHOW_MESSAGE_CONTRACTS_FAILD = '@contracts/show_message_faild';
+export const HIDE_MESSAGE_CONTRACTS_FAILD = '@contracts/hide_message_faild';
+export const RECEIVE_CONTRACTS_SUCCESS = '@contracts/contracts_success';
+export const RECEIVE_CONTRACTS_FAILED = '@contracts/receive_all_contracts_failed';
+
+// CUSTOMERS ACTIONS
+export const RECEIVE_CUSTOMERS = '@customers/receive_customers';
+export const CREATE_NEW_CUSTOMERS = '@customers/create_new_customer';
+export const RECEIVE_CUSTOMERS_SUCCESS = '@customers/create_new_customer_success';

@@ -1,32 +1,24 @@
 import React, { useEffect, useState } from 'react';
 
-import {
-  useDispatch,
-  useSelector
-} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import {
-  Grid,
-  useMediaQuery,
-} from '@material-ui/core';
-
+import { Grid, useMediaQuery } from '@material-ui/core';
 
 import validator from 'email-validator';
 
-import {NotificationContainer, NotificationManager} from 'react-notifications';
-
 import {
-  formControll,
+  NotificationContainer,
+  NotificationManager,
+} from 'react-notifications';
 
-} from './styles';
-
+import { formControll } from './styles';
 
 import { actionCreateUser, hideMessageFaild } from '../../actions/User';
 
 import SmallDevices from './SmallDevices';
 import DefaultDevices from './DefaultDevices';
 
-function CreateUser({history}) {
+function CreateUser({ history }) {
   const dispatch = useDispatch();
 
   const userMessage = useSelector(state => state.user);
@@ -45,12 +37,11 @@ function CreateUser({history}) {
     }
   });
 
-
   const [state, setState] = React.useState({
     checkedCreate: false,
     checkedRead: false,
     checkedUpdate: false,
-    checkedDelete: false
+    checkedDelete: false,
   });
 
   const [userEmail, setEmail] = useState('');
@@ -83,13 +74,12 @@ function CreateUser({history}) {
     return false;
   }
 
-
   function handleCreateUser() {
     const userObject = {
       name: userName,
       email: userEmail,
       password: userPassword,
-      confirmPassword: userConfirmPassword
+      confirmPassword: userConfirmPassword,
     };
     dispatch(actionCreateUser(userObject));
   }
@@ -99,7 +89,8 @@ function CreateUser({history}) {
       userName.trim() !== ''
       && validateEmail()
       && userPassword.trim() !== ''
-      && userConfirmPassword.trim() !== '') {
+      && userConfirmPassword.trim() !== ''
+    ) {
       if (userPassword === userConfirmPassword) return true;
     }
     return false;
@@ -109,11 +100,40 @@ function CreateUser({history}) {
   return (
     <Grid item xs={12} sm={12} container style={formControll}>
       {matches ? (
-        <DefaultDevices validateEmail={validateEmail} handleInputEmail={handleInputEmail} handleInputName={handleInputName} handleInputPassword={handleInputPassword} handleInputConfirmPassword={handleInputConfirmPassword} userEmail={userEmail} userName={userName} userPassword={userPassword} userConfirmPassword={userConfirmPassword} state={state} handleChange={handleChange} validateButton={validateButton} handleCreateUser={handleCreateUser} />
+        <DefaultDevices
+          validateEmail={validateEmail}
+          handleInputEmail={handleInputEmail}
+          handleInputName={handleInputName}
+          handleInputPassword={handleInputPassword}
+          handleInputConfirmPassword={handleInputConfirmPassword}
+          userEmail={userEmail}
+          userName={userName}
+          userPassword={userPassword}
+          userConfirmPassword={userConfirmPassword}
+          state={state}
+          handleChange={handleChange}
+          validateButton={validateButton}
+          handleCreateUser={handleCreateUser}
+        />
       ) : (
-        <SmallDevices validateEmail={validateEmail} handleInputEmail={handleInputEmail} handleInputName={handleInputName} handleInputPassword={handleInputPassword} handleInputConfirmPassword={handleInputConfirmPassword} userEmail={userEmail} userName={userName} userPassword={userPassword} userConfirmPassword={userConfirmPassword} state={state} handleChange={handleChange} validateButton={validateButton} handleCreateUser={handleCreateUser} />
+        <SmallDevices
+          validateEmail={validateEmail}
+          handleInputEmail={handleInputEmail}
+          handleInputName={handleInputName}
+          handleInputPassword={handleInputPassword}
+          handleInputConfirmPassword={handleInputConfirmPassword}
+          userEmail={userEmail}
+          userName={userName}
+          userPassword={userPassword}
+          userConfirmPassword={userConfirmPassword}
+          state={state}
+          handleChange={handleChange}
+          validateButton={validateButton}
+          handleCreateUser={handleCreateUser}
+        />
       )}
-      {userMessage.showMessageFaild && NotificationManager.error(userMessage.alertMessage)}
+      {userMessage.showMessageFaild
+        && NotificationManager.error(userMessage.alertMessage)}
       <NotificationContainer />
     </Grid>
   );
