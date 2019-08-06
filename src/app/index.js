@@ -88,6 +88,10 @@ class App extends React.Component {
                   component={asyncComponent(() => import('./routes/ContractsList/index'))}
                 />
                 <Route
+                  path={`${match.url}/contracts`}
+                  component={asyncComponent(() => import('../containers/EditCustomer/EditCustomer'))}
+                />
+                <Route
                   component={asyncComponent(() => import('components/Error404'))}
                 />
               </Switch>

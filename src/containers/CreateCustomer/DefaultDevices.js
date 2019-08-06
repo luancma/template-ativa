@@ -1,90 +1,25 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Button, TextField, OutlinedInput } from '@material-ui/core';
 
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import { api } from 'api/api';
-
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  selectGroup: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    width: '40vw',
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-  formControl: {
-    minWidth: 120,
-  },
-  formButtons: {
-    display: 'flex',
-    flexDirection: 'row',
-    padding: '20px',
-    width: '40vw',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
-  formControll: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  formControllSmall: {
-    display: 'flex',
-    width: '70vw',
-    justifyContent: 'space-around',
-    padding: '15px',
-  },
-  button: {
-    width: '40vw',
-    padding: '14px',
-  },
-  buttonSmall: {
-    width: '70vw',
-    padding: '14px',
-  },
-  textStyle: {
-    width: '40vw',
-  },
-  textStyleSmall: {
-    width: '70vw',
-  },
-  formSelect: {
-    margin: '14px 0 14px ',
-    minWidth: '40%',
-  },
-}));
+import { masks } from 'util/masks';
+import { useStyles } from './stylesDevices';
 
 export default function DefaultDevices({
   values,
+  states,
   validateEmail,
-  handleInputEmail,
-  handleInputName,
-  handleInputPhone,
-  userEmail,
-  userName,
-  userPassword,
-  userConfirmPassword,
   validateButton,
   handleCustomer,
-  citys,
-  handleChangeCitySelect,
+  cities,
   handleChangeSelect,
-  customerPhone,
+  handleInputCustomer,
+  customer,
 }) {
   const classes = useStyles();
-  const [states, setStates] = useState([]);
 
   const inputLabel = React.useRef(null);
   const [labelWidth, setLabelWidth] = React.useState(0);
@@ -92,13 +27,10 @@ export default function DefaultDevices({
     setLabelWidth(inputLabel.current.offsetWidth);
   }, []);
 
-  useEffect(() => {
-    api('states').then(value => setStates(value.data.states));
-  }, []);
-
   return (
     <>
       <h2 style={{ marginTop: '50px' }}>Cadastro de cliente </h2>
+
       <TextField
         className={classes.textStyle}
         error={!validateEmail()}
@@ -108,8 +40,8 @@ export default function DefaultDevices({
         autoComplete="email"
         margin="normal"
         variant="outlined"
-        onChange={e => handleInputEmail(e)}
-        value={userEmail}
+        value={customer.email}
+        onChange={e => handleInputCustomer(e)}
       />
       <TextField
         className={classes.textStyle}
@@ -119,8 +51,8 @@ export default function DefaultDevices({
         autoComplete="text"
         margin="normal"
         variant="outlined"
-        value={userName}
-        onChange={e => handleInputName(e)}
+        value={customer.name}
+        onChange={e => handleInputCustomer(e)}
       />
       <TextField
         className={classes.textStyle}
@@ -129,16 +61,18 @@ export default function DefaultDevices({
         name="occupation"
         margin="normal"
         variant="outlined"
-        value={userConfirmPassword}
+        value={customer.occupation}
+        onChange={e => handleInputCustomer(e)}
       />
       <TextField
         className={classes.textStyle}
         label="Responsável"
         type="text"
-        name="occupation"
+        name="accountable"
         margin="normal"
         variant="outlined"
-        value={userConfirmPassword}
+        value={customer.accountable}
+        onChange={e => handleInputCustomer(e)}
       />
       <TextField
         inputProps={{
@@ -150,8 +84,8 @@ export default function DefaultDevices({
         name="phone"
         margin="normal"
         variant="outlined"
-        value={customerPhone}
-        onChange={e => handleInputPhone(e)}
+        value={masks.mascararTel(customer.phone)}
+        onChange={e => handleInputCustomer(e)}
       />
 
       <div className={classes.selectGroup}>
@@ -184,12 +118,12 @@ export default function DefaultDevices({
             Cidade
           </InputLabel>
           <Select
-            value={values.citys}
-            onChange={handleChangeCitySelect}
+            value={values.city}
+            onChange={handleChangeSelect}
             input={(
               <OutlinedInput
                 labelWidth={labelWidth}
-                name="citys"
+                name="city"
                 id="outlined-age-simple"
               />
 )}
@@ -197,8 +131,12 @@ export default function DefaultDevices({
             <MenuItem value="">
               <em>None</em>
             </MenuItem>
-            {citys !== 0
-              && citys.map(item => <MenuItem value={item}>{item}</MenuItem>)}
+            {cities.length !== 0
+              && cities.map(item => (
+                <MenuItem key={item.id} value={item.id}>
+                  {item.name}
+                </MenuItem>
+              ))}
           </Select>
         </FormControl>
       </div>

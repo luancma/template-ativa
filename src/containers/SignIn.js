@@ -1,23 +1,22 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
-import {connect} from 'react-redux';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+import {
+  NotificationContainer,
+  NotificationManager,
+} from 'react-notifications';
 import IntlMessages from 'util/IntlMessages';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import {
-  hideMessage,
-  showAuthLoader,
-  userSignIn,
-} from 'actions/Auth';
+import { hideMessage, showAuthLoader, userSignIn } from 'actions/Auth';
 
 class SignIn extends React.Component {
   constructor() {
     super();
     this.state = {
-      email: 'demo@example.com',
-      password: 'demo#123'
+      email: 'safety@dev.com',
+      password: '123123123',
     };
   }
 
@@ -33,25 +32,26 @@ class SignIn extends React.Component {
   }
 
   render() {
-    const {
-      email,
-      password
-    } = this.state;
-    const {showMessage, loader, alertMessage} = this.props;
+    const { email, password } = this.state;
+    const { showMessage, loader, alertMessage } = this.props;
     return (
-      <div
-        className="app-login-container d-flex justify-content-center align-items-center animated slideInUpTiny animation-duration-3">
+      <div className="app-login-container d-flex justify-content-center align-items-center animated slideInUpTiny animation-duration-3">
         <div className="app-login-main-content">
-
           <div className="app-logo-content d-flex align-items-center justify-content-center">
             <Link className="logo-lg" to="/" title="Jambo">
-              <img src={require('assets/images/logo.png')} alt="jambo" title="jambo" />
+              <img
+                src={require('assets/images/logo.png')}
+                alt="jambo"
+                title="jambo"
+              />
             </Link>
           </div>
 
           <div className="app-login-content">
             <div className="app-login-header mb-4">
-              <h1><IntlMessages id="appModule.email" /></h1>
+              <h1>
+                <IntlMessages id="appModule.email" />
+              </h1>
             </div>
 
             <div className="app-login-form">
@@ -60,7 +60,8 @@ class SignIn extends React.Component {
                   <TextField
                     label={<IntlMessages id="appModule.email" />}
                     fullWidth
-                    onChange={event => this.setState({email: event.target.value})}
+                    onChange={event => this.setState({ email: event.target.value })
+                    }
                     defaultValue={email}
                     margin="normal"
                     className="mt-1 my-sm-3"
@@ -69,7 +70,8 @@ class SignIn extends React.Component {
                     type="password"
                     label={<IntlMessages id="appModule.password" />}
                     fullWidth
-                    onChange={event => this.setState({password: event.target.value})}
+                    onChange={event => this.setState({ password: event.target.value })
+                    }
                     defaultValue={password}
                     margin="normal"
                     className="mt-1 my-sm-3"
@@ -79,10 +81,11 @@ class SignIn extends React.Component {
                     <Button
                       onClick={() => {
                         this.props.showAuthLoader();
-                        this.props.userSignIn({email, password});
+                        this.props.userSignIn({ email, password });
                       }}
                       variant="contained"
-                      color="primary">
+                      color="primary"
+                    >
                       <IntlMessages id="appModule.signIn" />
                     </Button>
 
@@ -94,16 +97,12 @@ class SignIn extends React.Component {
               </form>
             </div>
           </div>
-
         </div>
-        {
-          loader
-          && (
+        {loader && (
           <div className="loader-view">
             <CircularProgress />
           </div>
-          )
-        }
+        )}
         {showMessage && NotificationManager.error(alertMessage)}
         <NotificationContainer />
       </div>
@@ -111,17 +110,23 @@ class SignIn extends React.Component {
   }
 }
 
-const mapStateToProps = ({auth}) => {
+const mapStateToProps = ({ auth }) => {
   const {
     loader, alertMessage, showMessage, authUser
   } = auth;
   return {
-    loader, alertMessage, showMessage, authUser
+    loader,
+    alertMessage,
+    showMessage,
+    authUser,
   };
 };
 
-export default connect(mapStateToProps, {
-  userSignIn,
-  hideMessage,
-  showAuthLoader,
-})(SignIn);
+export default connect(
+  mapStateToProps,
+  {
+    userSignIn,
+    hideMessage,
+    showAuthLoader,
+  }
+)(SignIn);

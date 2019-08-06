@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import MaterialTable from 'material-table';
 import { receiveCustomers } from 'actions/Customers';
-import { Link } from 'react-router-dom';
-import { Button, Paper } from '@material-ui/core';
-import Teste from './Teste';
+import { Button } from '@material-ui/core';
+import { CustomersApi } from 'api/CustomersApi';
 
 function SamplePage({ history }) {
   const dispatch = useDispatch();
@@ -14,12 +13,8 @@ function SamplePage({ history }) {
   const customerStore = useSelector(state => state.customers);
 
   useEffect(() => {
-    dispatch(receiveCustomers());
+    CustomersApi.getListOfCustomers().then(value => setCustomers(value.data.customers));
   }, []);
-
-  useEffect(() => {
-    if (customerStore.customers.length !== 0) setCustomers(customerStore.customers);
-  });
 
   const [state, setState] = useState({
     columns: [
@@ -29,11 +24,16 @@ function SamplePage({ history }) {
   });
 
   function getId(value) {
-    customers.find(item => item.email === value && item.id);
+    customers.find(item => item.email === value);
+  }
+
+  function deleteCustomer(rowData) {
+    const valorId = customers.find(item => item.email === rowData).id;
+    return CustomersApi.removeCustomer(valorId).then(value => console.log(value.data));
   }
 
   return (
-    <>
+    <div style={{ margin: ' 10%' }}>
       <MaterialTable
         title="Clientes"
         columns={state.columns}
@@ -52,9 +52,14 @@ function SamplePage({ history }) {
             }),
           },
           {
+            icon: 'edit',
+            tooltip: 'Editar',
+            onClick: (event, rowData) => deleteCustomer(rowData.email),
+          },
+          {
             icon: 'delete',
             tooltip: 'Remover',
-            onClick: (event, rowData) => setNewCustomers(rowData.email),
+            onClick: (event, rowData) => deleteCustomer(rowData.email),
           },
         ]}
         options={{
@@ -67,7 +72,7 @@ function SamplePage({ history }) {
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'flex-end',
-          padding: '15px',
+          marginTop: '14px',
         }}
       >
         <Button
@@ -81,7 +86,7 @@ function SamplePage({ history }) {
           Adicionar Cliente
         </Button>
       </div>
-    </>
+    </div>
   );
 }
 

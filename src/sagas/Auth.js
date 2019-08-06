@@ -17,22 +17,17 @@ import {
 import { SessionApi } from 'api/SessionApi';
 
 const sessionRequest = value => SessionApi.createNewSession(value);
+
 function* singInUser(action) {
   try {
     const teste = yield call(sessionRequest, action.payload);
-    console.log(teste.headers);
-  } catch (error) {
-    yield put(yield put(showAuthMessage('Ops')));
+    if (teste.data) {
+      localStorage.setItem('user', JSON.stringify(teste.headers));
+      yield put(userSignInSuccess(JSON.stringify(teste.headers)));
+    }
+  } catch (errors) {
+    yield put(yield put(showAuthMessage('Usuário ou senha incorretos')));
   }
-
-  // try {
-  //   const response = yield call(sessionRequest());
-  //   console.log(response);
-  //   if (response.data) return console.log(response.headers);
-  //   yield put(yield put(showAuthMessage('Usuário não encontrado')));
-  // } catch (error) {
-  //   yield put(yield put(showAuthMessage('Ops')));
-  // }
 }
 
 function* singOutUser() {

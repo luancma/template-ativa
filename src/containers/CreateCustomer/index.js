@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Grid, useMediaQuery } from '@material-ui/core';
 import validator from 'email-validator';
@@ -6,9 +6,10 @@ import {
   NotificationContainer,
   NotificationManager,
 } from 'react-notifications';
-import { masks } from 'util/masks';
+import { States } from 'api/StatesApi';
+import { CustomersApi } from 'api/CustomersApi';
 import { formControll } from './styles';
-import { actionCreateUser, hideMessageFaild } from '../../actions/User';
+import { hideMessageFaild } from '../../actions/User';
 import SmallDevices from './SmallDevices';
 import DefaultDevices from './DefaultDevices';
 
@@ -23,38 +24,46 @@ function CreateUser({ history }) {
     }
   });
 
-  useEffect(() => {
+  useContext(() => {
     if (userMessage.showMessageFaild === true) {
       setTimeout(() => {
         dispatch(hideMessageFaild());
       }, 100);
     }
   });
-
-  // const [state, setState] = React.useState({
-  //   checkedCreate: false,
-  //   checkedRead: false,
-  //   checkedUpdate: false,
-  //   checkedDelete: false,
-  // });
-
-  const [customerEmail, setCustomerEmail] = useState('');
-  const [customerName, setCustomerName] = useState('');
-  const [customerPhone, setCustomerPhone] = useState('');
-  const [customerState, setCustomerState] = useState('');
-  const [citys, setCitys] = useState({
-    citys: ['Maceió', 'Recife', 'São Paulo', 'Rio Grande do Sul'],
+  const [cities, setCities] = useState([]);
+  const [states, setStates] = useState([]);
+  const [customer, setCustomer] = useState({
+    name: '',
+    email: '',
+    occupation: '',
+    accountable: '',
+    phone: '',
+    state: '',
+    city_id: '',
   });
   const [values, setValues] = useState({
     state: '',
-    citys: '',
+    city: '',
   });
 
-  function handleChangeCitySelect(event) {
-    setValues(oldValues => ({
-      ...oldValues,
+  useEffect(() => {
+    States.getListOfStates().then(value => setStates(value.data.states));
+  }, []);
+
+  useEffect(() => {
+    if (values.state) {
+      const stateId = states.find(item => item.name === values.state).id;
+      States.getListOfCityByStateId(stateId).then(value => setCities(value.data.cities));
+    }
+  }, [values.state]);
+
+  function handleInputCustomer(event) {
+    event.preventDefault();
+    setCustomer({
+      ...customer,
       [event.target.name]: event.target.value,
-    }));
+    });
   }
 
   function handleChangeSelect(event) {
@@ -64,46 +73,41 @@ function CreateUser({ history }) {
     }));
   }
 
-  const handleInputEmail = (event) => {
-    setCustomerEmail(event.target.value);
-  };
-
-  const handleInputName = (event) => {
-    setCustomerName(event.target.value);
-  };
-
-  const handleInputPhone = (event) => {
-    console.log(masks.mascararTel(event.target.value));
-    setCustomerPhone(masks.mascararTel(event.target.value));
-  };
-
   function validateEmail() {
-    if (validator.validate(customerEmail)) return true;
+    if (validator.validate(customer.email)) return true;
+    return false;
+  }
+
+  function validateButton() {
+    if (
+      customer.name.trim() !== ''
+      && validateEmail()
+      && customer.phone.trim() !== ''
+      && customer.occupation.trim() !== ''
+      && customer.accountable.trim() !== ''
+      && values.state !== ''
+      && values.city !== ''
+    ) {
+      return true;
+    }
     return false;
   }
 
   function handleCustomer() {
     const userObject = {
-      name: customerName,
-      email: customerEmail,
-      phone: customerPhone,
-      state: customerState,
-      city: citys,
+      name: customer.name,
+      email: customer.email,
+      phone: customer.phone,
+      occupation: customer.occupation,
+      accountable: customer.accountable,
+      state: values.state,
+      city_id: values.city,
     };
-    dispatch(actionCreateUser(userObject));
-  }
 
-  function validateButton() {
-    if (
-      customerName.trim() !== ''
-      && validateEmail()
-      && customerPhone.trim() !== ''
-      && values.state.trim() !== ''
-      && values.citys.trim() !== ''
-    ) {
-      return true;
-    }
-    return false;
+    userObject.phone = userObject.phone.replace(/[^\d]+/g, '');
+    CustomersApi.createNewCustomer(userObject).then(
+      value => value.data.customer && history.push('sample-page')
+    );
   }
 
   const matches = useMediaQuery('(min-width:820px)');
@@ -111,31 +115,19 @@ function CreateUser({ history }) {
     <Grid item xs={12} sm={12} container style={formControll}>
       {matches ? (
         <DefaultDevices
-          handleChangeCitySelect={handleChangeCitySelect}
+          customer={customer}
+          handleInputCustomer={handleInputCustomer}
           handleChangeSelect={handleChangeSelect}
-          citys={citys.citys}
+          states={states}
+          cities={cities}
           values={values}
           validateEmail={validateEmail}
-          handleInputEmail={handleInputEmail}
-          handleInputName={handleInputName}
-          handleInputPhone={handleInputPhone}
-          customerEmail={customerEmail}
-          customerName={customerName}
-          customerPhone={customerPhone}
-          customerState={customerState}
           validateButton={validateButton}
           handleCustomer={handleCustomer}
         />
       ) : (
         <SmallDevices
           validateEmail={validateEmail}
-          handleInputEmail={handleInputEmail}
-          handleInputName={handleInputName}
-          handleInputPhone={handleInputPhone}
-          customerEmail={customerEmail}
-          customerName={customerName}
-          customerPhone={customerPhone}
-          customerState={customerState}
           validateButton={validateButton}
           handleCustomer={handleCustomer}
         />
