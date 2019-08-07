@@ -105,9 +105,13 @@ function CreateUser({ history }) {
     };
 
     userObject.phone = userObject.phone.replace(/[^\d]+/g, '');
-    CustomersApi.createNewCustomer(userObject).then(
-      value => value.data.customer && history.push('sample-page')
-    );
+    CustomersApi.createNewCustomer(userObject)
+      .then(value => value.data.customer && history.push('sample-page'))
+      .catch((error) => {
+        const objectKeys = Object.keys(error.response.data.errors);
+        const objectMessage = error.response.data.errors[objectKeys];
+        console.log(`Error: O ${objectKeys} ${objectMessage}`);
+      });
   }
 
   const matches = useMediaQuery('(min-width:820px)');
