@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Grid, useMediaQuery } from '@material-ui/core';
 import validator from 'email-validator';
 import {
@@ -9,28 +9,17 @@ import {
 import { States } from 'api/StatesApi';
 import { CustomersApi } from 'api/CustomersApi';
 import { formControll } from './styles';
-import { hideMessageFaild } from '../../actions/User';
 import SmallDevices from './SmallDevices';
 import DefaultDevices from './DefaultDevices';
 
 function CreateUser({ history }) {
-  const dispatch = useDispatch();
-
   const userMessage = useSelector(state => state.user);
-
   useEffect(() => {
     if (userMessage.showMessageSuccess) {
       history.push('/app/list');
     }
   });
 
-  useContext(() => {
-    if (userMessage.showMessageFaild === true) {
-      setTimeout(() => {
-        dispatch(hideMessageFaild());
-      }, 100);
-    }
-  });
   const [cities, setCities] = useState([]);
   const [states, setStates] = useState([]);
   const [customer, setCustomer] = useState({
@@ -42,6 +31,7 @@ function CreateUser({ history }) {
     state: '',
     city_id: '',
   });
+  const [customerError, setCustomerError] = useState([]);
   const [values, setValues] = useState({
     state: '',
     city: '',
@@ -108,9 +98,7 @@ function CreateUser({ history }) {
     CustomersApi.createNewCustomer(userObject)
       .then(value => value.data.customer && history.push('sample-page'))
       .catch((error) => {
-        const objectKeys = Object.keys(error.response.data.errors);
-        const objectMessage = error.response.data.errors[objectKeys];
-        console.log(`Error: O ${objectKeys} ${objectMessage}`);
+        setCustomerError(error.response.data.errors);
       });
   }
 
@@ -128,6 +116,8 @@ function CreateUser({ history }) {
           validateEmail={validateEmail}
           validateButton={validateButton}
           handleCustomer={handleCustomer}
+          customerError={customerError}
+          setCustomerError={setCustomerError}
         />
       ) : (
         <SmallDevices

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button, TextField } from '@material-ui/core';
-import ButtonComponent from './ButtonComponent';
-import { textStyleSmall, buttonSmall, formControllSmall } from './styles';
+import { textStyleSmall, buttonSmall } from './styles';
 
 export default function SmallDevices({
   validateEmail,
@@ -14,7 +13,6 @@ export default function SmallDevices({
   userPassword,
   userConfirmPassword,
   state,
-  handleChange,
   validateButton,
   handleCreateUser,
 }) {
