@@ -30,7 +30,6 @@ export default function DefaultDevices({
   return (
     <>
       <h2 style={{ marginTop: '50px' }}>Cadastro de cliente </h2>
-
       <TextField
         className={classes.textStyle}
         error={!validateEmail()}
@@ -87,7 +86,6 @@ export default function DefaultDevices({
         value={masks.mascararTel(customer.phone)}
         onChange={e => handleInputCustomer(e)}
       />
-
       <div className={classes.selectGroup}>
         <FormControl variant="outlined" className={classes.formSelect}>
           <InputLabel ref={inputLabel} htmlFor="outlined-age-simple">
@@ -140,27 +138,16 @@ export default function DefaultDevices({
           </Select>
         </FormControl>
       </div>
-      {validateButton() ? (
-        <Button
-          className={classes.button}
-          onClick={e => handleCustomer(e)}
-          color="primary"
-          variant="contained"
-          size="large"
-        >
-          Criar usuário
-        </Button>
-      ) : (
-        <Button
-          className={classes.button}
-          color="primary"
-          variant="contained"
-          size="large"
-          disabled
-        >
-          Criar usuário
-        </Button>
-      )}
+      <Button
+        disabled={!validateButton()}
+        className={classes.button}
+        onClick={e => handleCustomer(e)}
+        color="primary"
+        variant="contained"
+        size="large"
+      >
+        Criar usuário
+      </Button>
     </>
   );
 }

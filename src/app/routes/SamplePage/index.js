@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import MaterialTable from 'material-table';
-import { receiveCustomers } from 'actions/Customers';
 import { Button } from '@material-ui/core';
 import { CustomersApi } from 'api/CustomersApi';
 
 function SamplePage({ history }) {
-  const dispatch = useDispatch();
   const [customers, setCustomers] = useState([]);
   const [newCustomers, setNewCustomers] = useState('');
 
@@ -24,7 +22,8 @@ function SamplePage({ history }) {
   });
 
   function getId(value) {
-    customers.find(item => item.email === value);
+    const { id } = customers.find(item => item.email === value);
+    return id;
   }
 
   function deleteCustomer(rowData) {
@@ -46,15 +45,14 @@ function SamplePage({ history }) {
           {
             icon: 'visibility',
             tooltip: 'Detalhes',
-            onClick: (event, rowData) => history.push({
-              pathname: '/app/users',
-              state: { detailEmail: getId(rowData.email) },
-            }),
           },
           {
             icon: 'edit',
             tooltip: 'Editar',
-            onClick: (event, rowData) => deleteCustomer(rowData.email),
+            onClick: (event, rowData) => history.push({
+              pathname: '/app/edit-customer',
+              state: { customerId: getId(rowData.email) },
+            }),
           },
           {
             icon: 'delete',

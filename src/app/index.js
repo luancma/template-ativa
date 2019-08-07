@@ -88,8 +88,8 @@ class App extends React.Component {
                   component={asyncComponent(() => import('./routes/ContractsList/index'))}
                 />
                 <Route
-                  path={`${match.url}/contracts`}
-                  component={asyncComponent(() => import('../containers/EditCustomer/EditCustomer'))}
+                  path={`${match.url}/edit-customer`}
+                  component={asyncComponent(() => import('../containers/EditCustomer/index'))}
                 />
                 <Route
                   component={asyncComponent(() => import('components/Error404'))}

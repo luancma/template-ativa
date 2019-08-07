@@ -9,5 +9,5 @@ export class CustomersApi {
 
   static fetchSingleCustomers = id => api.get(`customers/${id}`);
 
-  static updateSingleCustomer = (id, customers) => api.put(`customers/${id}`, customers);
+  static updateSingleCustomer = (id, customer) => api.put(`customers/${id}`, customer);
 }
