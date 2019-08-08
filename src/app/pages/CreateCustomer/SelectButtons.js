@@ -10,6 +10,7 @@ import { useStyles } from './stylesDevices';
 
 export default function SelectButtons({
   values,
+  styleForm,
   handleChangeSelect,
   states,
   cities,
@@ -21,7 +22,7 @@ export default function SelectButtons({
     setLabelWidth(inputLabel.current.offsetWidth);
   }, []);
   return (
-    <div className={classes.selectGroup}>
+    <div className={styleForm}>
       <FormControl variant="outlined" className={classes.formSelect}>
         <InputLabel ref={inputLabel} htmlFor="outlined-age-simple">
           Estado

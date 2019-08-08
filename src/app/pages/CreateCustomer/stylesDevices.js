@@ -11,6 +11,13 @@ export const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between',
     width: '40vw',
   },
+  selectGroupSmall: {
+    display: 'flex',
+    flexDirection: 'column',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    width: '70vw',
+  },
   selectEmpty: {
     marginTop: theme.spacing(2),
   },

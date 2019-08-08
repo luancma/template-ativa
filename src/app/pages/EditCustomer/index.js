@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { CustomersApi } from 'api/CustomersApi';
 import { Grid, useMediaQuery } from '@material-ui/core';
 import validator from 'email-validator';
+import {
+  NotificationContainer,
+  NotificationManager,
+} from 'react-notifications';
 import { LargeDevices } from './LargeDevices';
 import { SmallDevices } from './SmallDevices';
 import ProgressBar from './ProgressBar';
@@ -10,6 +14,10 @@ import { useStyle } from './editStyles';
 export default function EditCustomer({ location, history }) {
   const { customerId } = location.state;
   const [customer, setCustomer] = useState([]);
+  const [message, setMessage] = useState({
+    isOpen: false,
+    error: '',
+  });
   useEffect(() => {
     const require = async () => {
       const response = await CustomersApi.fetchSingleCustomers(customerId).then(
@@ -19,6 +27,13 @@ export default function EditCustomer({ location, history }) {
     };
     require();
   }, []);
+
+  // hide message
+  useEffect(() => {
+    setTimeout(() => {
+      setMessage({ isOpen: false });
+    }, 1000);
+  }, [message]);
 
   function validateButtonEdit(customer) {
     if (customer.name !== '' && validator.validate(customer.email)) {
@@ -35,10 +50,25 @@ export default function EditCustomer({ location, history }) {
     });
   }
 
+  function showMessage(error) {
+    const errMessage = error.response.data.errors;
+    setMessage({
+      ...message,
+      isOpen: true,
+      error: `${Object.keys(errMessage)} ${
+        errMessage[Object.keys(errMessage)]
+      }`,
+    });
+  }
+
   function handleEditUser(customer) {
-    setCustomer((customer.phone = customer.phone.replace(/[^\d]+/g, '')));
-    CustomersApi.updateSingleCustomer(customerId, customer);
-    history.push('/app/sample-page');
+    const newCustomerObject = customer;
+    newCustomerObject.phone = newCustomerObject.phone.replace(/[^\d]+/g, '');
+    CustomersApi.updateSingleCustomer(customerId, newCustomerObject)
+      .then(value => value.status === 204 && history.push('/app/sample-page'))
+      .catch((error) => {
+        showMessage(error);
+      });
   }
 
   const styles = useStyle();
@@ -62,6 +92,9 @@ export default function EditCustomer({ location, history }) {
             validateBtn={validateButtonEdit}
           />
         )}
+
+        {message.isOpen && NotificationManager.error(message.error)}
+        <NotificationContainer />
       </Grid>
     );
   }

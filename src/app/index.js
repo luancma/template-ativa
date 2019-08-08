@@ -65,31 +65,24 @@ class App extends React.Component {
               <Switch>
                 <Route
                   path={`${match.url}/sample-page`}
-                  component={asyncComponent(() => import('./routes/SamplePage'))}
+                  component={asyncComponent(() => import('./pages/SamplePage'))}
                 />
                 <Route
                   path={`${match.url}/create-user`}
-                  component={asyncComponent(() => import('../containers/CreateUSer'))}
+                  component={asyncComponent(() => import('./pages/CreateUSer'))}
                 />
                 <Route
                   path={`${match.url}/create-customer`}
-                  component={asyncComponent(() => import('../containers/CreateCustomer'))}
+                  component={asyncComponent(() => import('./pages/CreateCustomer'))}
                 />
-                <Route
-                  path={`${match.url}/users`}
-                  component={asyncComponent(() => import('./routes/ListUserPage/SimpleTable'))}
-                />
-                <Route
-                  path={`${match.url}/contracts`}
-                  component={asyncComponent(() => import('./routes/ContractPanel'))}
-                />
+
                 <Route
                   path={`${match.url}/contracts-list`}
-                  component={asyncComponent(() => import('./routes/ContractsList/index'))}
+                  component={asyncComponent(() => import('./pages/ContractsList'))}
                 />
                 <Route
                   path={`${match.url}/edit-customer`}
-                  component={asyncComponent(() => import('../containers/EditCustomer/index'))}
+                  component={asyncComponent(() => import('./pages/EditCustomer/index'))}
                 />
                 <Route
                   component={asyncComponent(() => import('components/Error404'))}

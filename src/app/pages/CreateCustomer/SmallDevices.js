@@ -1,16 +1,15 @@
 import React from 'react';
 import { Button, TextField, FormHelperText } from '@material-ui/core';
-
 import { masks } from 'util/masks';
-import { useStyles } from './stylesDevices';
 import SelectButtons from './SelectButtons';
+import { useStyles } from './stylesDevices';
 
-export default function DefaultDevices({
+export default function SmallDevices({
   values,
   states,
   validateEmail,
   validateButton,
-  handleCustomer,
+  handleCreateCustomer,
   cities,
   handleChangeSelect,
   customerError,
@@ -18,12 +17,11 @@ export default function DefaultDevices({
   customer,
 }) {
   const classes = useStyles();
-
   return (
     <>
       <h2 style={{ marginTop: '50px' }}>Cadastro de cliente </h2>
       <TextField
-        className={classes.textStyle}
+        className={classes.textStyleSmall}
         error={!validateEmail() || customerError.email}
         label="Email"
         type="email"
@@ -41,7 +39,7 @@ export default function DefaultDevices({
       )}
 
       <TextField
-        className={classes.textStyle}
+        className={classes.textStyleSmall}
         label="Name"
         type="text"
         name="name"
@@ -52,7 +50,7 @@ export default function DefaultDevices({
         onChange={e => handleInputCustomer(e)}
       />
       <TextField
-        className={classes.textStyle}
+        className={classes.textStyleSmall}
         label="Função"
         type="text"
         name="occupation"
@@ -62,7 +60,7 @@ export default function DefaultDevices({
         onChange={e => handleInputCustomer(e)}
       />
       <TextField
-        className={classes.textStyle}
+        className={classes.textStyleSmall}
         label="Responsável"
         type="text"
         name="accountable"
@@ -75,7 +73,7 @@ export default function DefaultDevices({
         inputProps={{
           maxLength: 15,
         }}
-        className={classes.textStyle}
+        className={classes.textStyleSmall}
         label="Telefone"
         type="text"
         name="phone"
@@ -85,6 +83,8 @@ export default function DefaultDevices({
         onChange={e => handleInputCustomer(e)}
       />
       <SelectButtons
+        styleForm={classes.selectGroupSmall}
+        styleClass={classes}
         values={values}
         handleChangeSelect={handleChangeSelect}
         cities={cities}
@@ -92,8 +92,8 @@ export default function DefaultDevices({
       />
       <Button
         disabled={!validateButton()}
-        className={classes.button}
-        onClick={e => handleCustomer(e)}
+        className={classes.buttonSmall}
+        onClick={e => handleCreateCustomer(e)}
         color="primary"
         variant="contained"
         size="large"

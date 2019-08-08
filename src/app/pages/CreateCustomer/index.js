@@ -14,6 +14,7 @@ import DefaultDevices from './DefaultDevices';
 
 function CreateUser({ history }) {
   const userMessage = useSelector(state => state.user);
+
   useEffect(() => {
     if (userMessage.showMessageSuccess) {
       history.push('/app/list');
@@ -21,6 +22,10 @@ function CreateUser({ history }) {
   });
 
   const [cities, setCities] = useState([]);
+  const [message, setMessage] = useState({
+    isOpen: false,
+    error: '',
+  });
   const [states, setStates] = useState([]);
   const [customer, setCustomer] = useState({
     name: '',
@@ -37,16 +42,25 @@ function CreateUser({ history }) {
     city: '',
   });
 
+  // get a list of states
   useEffect(() => {
     States.getListOfStates().then(value => setStates(value.data.states));
   }, []);
 
+  // get a list of cities by state value
   useEffect(() => {
     if (values.state) {
       const stateId = states.find(item => item.name === values.state).id;
       States.getListOfCityByStateId(stateId).then(value => setCities(value.data.cities));
     }
   }, [values.state]);
+
+  // hide message
+  useEffect(() => {
+    setTimeout(() => {
+      setMessage({ isOpen: false });
+    }, 1000);
+  }, [message]);
 
   function handleInputCustomer(event) {
     event.preventDefault();
@@ -83,7 +97,20 @@ function CreateUser({ history }) {
     return false;
   }
 
-  function handleCustomer() {
+  function showMessage(error) {
+    const errMessage = error.response.data.errors;
+    setCustomerError(errMessage);
+
+    setMessage({
+      ...message,
+      isOpen: true,
+      error: `${Object.keys(errMessage)} ${
+        errMessage[Object.keys(errMessage)]
+      }`,
+    });
+  }
+
+  function handleCreateCustomer() {
     const userObject = {
       name: customer.name,
       email: customer.email,
@@ -98,7 +125,7 @@ function CreateUser({ history }) {
     CustomersApi.createNewCustomer(userObject)
       .then(value => value.data.customer && history.push('sample-page'))
       .catch((error) => {
-        setCustomerError(error.response.data.errors);
+        showMessage(error);
       });
   }
 
@@ -115,19 +142,26 @@ function CreateUser({ history }) {
           values={values}
           validateEmail={validateEmail}
           validateButton={validateButton}
-          handleCustomer={handleCustomer}
+          handleCreateCustomer={handleCreateCustomer}
           customerError={customerError}
           setCustomerError={setCustomerError}
         />
       ) : (
         <SmallDevices
+          customer={customer}
+          handleInputCustomer={handleInputCustomer}
+          handleChangeSelect={handleChangeSelect}
+          states={states}
+          cities={cities}
+          values={values}
           validateEmail={validateEmail}
           validateButton={validateButton}
-          handleCustomer={handleCustomer}
+          handleCreateCustomer={handleCreateCustomer}
+          customerError={customerError}
+          setCustomerError={setCustomerError}
         />
       )}
-      {userMessage.showMessageFaild
-        && NotificationManager.error(userMessage.alertMessage)}
+      {message.isOpen && NotificationManager.error(message.error)}
       <NotificationContainer />
     </Grid>
   );

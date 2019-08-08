@@ -13,7 +13,7 @@ import {
 
 import { formControll } from './styles';
 
-import { actionCreateUser, hideMessageFaild } from '../../actions/User';
+import { actionCreateUser, hideMessageFaild } from '../../../actions/User';
 
 import SmallDevices from './SmallDevices';
 import DefaultDevices from './DefaultDevices';
