@@ -4,15 +4,17 @@ import {
   NotificationContainer,
   NotificationManager,
 } from 'react-notifications';
-import TableUsers from '../../components/TableUsers';
+import { Button } from '@material-ui/core';
+import ContractsList from './ContractsTable';
 import { useStyles } from '../CreateCustomer/stylesDevices';
 
 export default function SimpleTable({ location, history }) {
   const [tableState, setTableState] = useState({
-    title: '',
+    idCustomer: location.state.customerId,
+    title: 'Contratods',
     columns: [
       { title: 'Nome', field: 'name' },
-      { title: 'Email', field: 'email' },
+      { title: 'Contrato nº', field: 'number' },
     ],
     values: [],
     tableActions: [
@@ -48,7 +50,26 @@ export default function SimpleTable({ location, history }) {
 
   return (
     <>
-      {tableState.title && <TableUsers state={tableState} />}
+      {tableState.values.length && (
+        <>
+          <ContractsList state={tableState} />
+
+          <Button
+            style={{
+              padding: '16px',
+            }}
+            variant="contained"
+            color="primary"
+            onClick={e => history.push({
+              pathname: '/app/create-contract',
+              state: { customerId: tableState.idCustomer },
+            })
+            }
+          >
+            Adicionar Contrato
+          </Button>
+        </>
+      )}
       {message.isOpen && NotificationManager.error('Erro')}
       <NotificationContainer />
     </>

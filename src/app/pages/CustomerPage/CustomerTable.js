@@ -38,16 +38,14 @@ export function CustomerTable({ state, history }) {
   ];
 
   return (
-    <>
-      <MaterialTable
-        title={state.title}
-        columns={state.columns}
-        data={state.values}
-        actions={actions}
-        options={{
-          actionsColumnIndex: -1,
-        }}
-      />
-    </>
+    <MaterialTable
+      title={state.title}
+      columns={state.columns}
+      data={state.values}
+      actions={actions}
+      options={{
+        actionsColumnIndex: -1,
+      }}
+    />
   );
 }

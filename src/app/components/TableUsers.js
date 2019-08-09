@@ -2,8 +2,6 @@ import React from 'react';
 import MaterialTable from 'material-table';
 
 export default function TableUsers({ state, history }) {
-  console.log(state);
-
   return (
     <>
       <MaterialTable

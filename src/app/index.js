@@ -65,7 +65,7 @@ class App extends React.Component {
               <Switch>
                 <Route
                   path={`${match.url}/sample-page`}
-                  component={asyncComponent(() => import('./pages/SamplePage'))}
+                  component={asyncComponent(() => import('./pages/CustomerPage'))}
                 />
                 <Route
                   path={`${match.url}/create-user`}
@@ -80,6 +80,12 @@ class App extends React.Component {
                   path={`${match.url}/contracts-list`}
                   component={asyncComponent(() => import('./pages/ContractsList'))}
                 />
+
+                <Route
+                  path={`${match.url}/create-contract`}
+                  component={asyncComponent(() => import('./pages/CreateContract'))}
+                />
+
                 <Route
                   path={`${match.url}/edit-customer`}
                   component={asyncComponent(() => import('./pages/EditCustomer/index'))}

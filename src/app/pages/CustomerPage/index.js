@@ -18,7 +18,6 @@ function SamplePage({ history }) {
     CustomersApi.getListOfCustomers().then(value => setState({ ...state, title: 'Clientes', values: value.data.customers }));
   }, []);
 
-  console.log(state.values);
   return (
     <div style={{ margin: ' 10%' }}>
       {state.values.length !== 0 ? (
