@@ -34,7 +34,7 @@ export const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function CreateContract({ location }) {
+export default function CreateContract({ location, history }) {
   const [state, setState] = useState({
     name: '',
     number: '',
@@ -55,8 +55,11 @@ export default function CreateContract({ location }) {
       number: state.number,
       customer_id: location.state.customerId,
     };
-    console.log(user);
-    ContractsApi.createNewContract(user).then(value => console.log(value));
+
+    ContractsApi.createNewContract(user).then(value => history.push({
+      pathname: '/app/contracts-list',
+      state: { customerId: value.data.contract.customer.id },
+    }));
   }
 
   const emailValidate = validator.validate(state.email);

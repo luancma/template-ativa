@@ -3,10 +3,7 @@ import MaterialTable from 'material-table';
 import { CustomersApi } from 'api/CustomersApi';
 
 export function CustomerTable({ state, history }) {
-  function getId(value) {
-    const { id } = state.values.find(item => item.email === value);
-    return id;
-  }
+  const getId = value => state.values.find(item => item.email === value).id;
 
   function deleteCustomer(rowData) {
     const valorId = state.values.find(item => item.email === rowData).id;

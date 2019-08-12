@@ -75,20 +75,29 @@ class App extends React.Component {
                   path={`${match.url}/create-customer`}
                   component={asyncComponent(() => import('./pages/CreateCustomer'))}
                 />
-
                 <Route
                   path={`${match.url}/contracts-list`}
                   component={asyncComponent(() => import('./pages/ContractsList'))}
                 />
-
                 <Route
                   path={`${match.url}/create-contract`}
                   component={asyncComponent(() => import('./pages/CreateContract'))}
                 />
-
                 <Route
                   path={`${match.url}/edit-customer`}
                   component={asyncComponent(() => import('./pages/EditCustomer/index'))}
+                />
+                <Route
+                  path={`${match.url}/create-outsourced`}
+                  component={asyncComponent(() => import('./pages/Outsourceds/CreateOutsource'))}
+                />
+                <Route
+                  path={`${match.url}/edit-outsourced`}
+                  component={asyncComponent(() => import('./pages/Outsourceds/EditOutsourced'))}
+                />
+                <Route
+                  path={`${match.url}/outsourceds`}
+                  component={asyncComponent(() => import('./pages/Outsourceds/index'))}
                 />
                 <Route
                   component={asyncComponent(() => import('components/Error404'))}

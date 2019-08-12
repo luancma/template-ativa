@@ -15,13 +15,16 @@ export default function SimpleTable({ location, history }) {
     columns: [
       { title: 'Nome', field: 'name' },
       { title: 'Contrato nº', field: 'number' },
+      { title: 'Cliente', field: 'customer.name' },
     ],
     values: [],
     tableActions: [
       {
         icon: 'visibility',
         tooltip: 'Detalhes',
-        onClick: () => history.push('/app/users'),
+        onClick: () => history.push({
+          pathname: '/app/users',
+        }),
       },
       {
         icon: 'delete',
