@@ -6,12 +6,11 @@ import {
 } from 'react-notifications';
 import { Button } from '@material-ui/core';
 import ContractsList from './ContractsTable';
-import { useStyles } from '../CreateCustomer/stylesDevices';
 
 export default function SimpleTable({ location, history }) {
   const [tableState, setTableState] = useState({
-    idCustomer: location.state.customerId,
-    title: 'Contratods',
+    customerId: location.state.customerId,
+    title: '',
     columns: [
       { title: 'Nome', field: 'name' },
       { title: 'Contrato nº', field: 'number' },
@@ -21,7 +20,7 @@ export default function SimpleTable({ location, history }) {
     tableActions: [
       {
         icon: 'visibility',
-        tooltip: 'Detalhes',
+        tooltip: 'Unidades',
         onClick: () => history.push({
           pathname: '/app/users',
         }),
@@ -33,15 +32,16 @@ export default function SimpleTable({ location, history }) {
       },
     ],
   });
+
   const [message, setMessage] = useState({
     isOpen: false,
   });
 
   useEffect(() => {
-    ContractsApi.getListOfContracts().then(value => setTableState({
+    ContractsApi.getASingleContract(tableState.customerId).then(value => setTableState({
       ...tableState,
       title: 'Contratos',
-      values: value.data.contracts,
+      values: value.data.contract,
     }));
   }, []);
 
@@ -53,10 +53,9 @@ export default function SimpleTable({ location, history }) {
 
   return (
     <>
-      {tableState.values.length && (
+      {tableState.values.id && (
         <>
           <ContractsList state={tableState} />
-
           <Button
             style={{
               padding: '16px',
@@ -65,7 +64,7 @@ export default function SimpleTable({ location, history }) {
             color="primary"
             onClick={e => history.push({
               pathname: '/app/create-contract',
-              state: { customerId: tableState.idCustomer },
+              state: { customerId: tableState.customerId },
             })
             }
           >

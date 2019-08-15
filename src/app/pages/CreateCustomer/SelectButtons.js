@@ -15,6 +15,7 @@ export default function SelectButtons({
   states,
   cities,
 }) {
+  console.log(cities);
   const classes = useStyles();
   const inputLabel = React.useRef(null);
   const [labelWidth, setLabelWidth] = React.useState(0);
@@ -65,7 +66,7 @@ export default function SelectButtons({
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          {cities.length !== 0
+          {cities
             && cities.map(item => (
               <MenuItem key={item.id} value={item.id}>
                 {item.name}

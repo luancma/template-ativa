@@ -1,7 +1,7 @@
 import { api } from './api';
 
 export class States {
-  static getListOfStates = () => api.get('states');
+  static getListOfStates = async () => api.get('states');
 
-  static getListOfCityByStateId = id => api.get(`states/${id}/cities`);
+  static getListOfCityByStateId = async id => api.get(`states/${id}/cities`);
 }
