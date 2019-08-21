@@ -1,24 +1,23 @@
 /* eslint-disable react/no-unused-state */
 import React from 'react';
-import {Link, withRouter} from 'react-router-dom';
-import {connect} from 'react-redux';
+import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import AppBar from '@material-ui/core/AppBar';
 import Avatar from '@material-ui/core/Avatar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import {Dropdown, DropdownMenu, DropdownToggle} from 'reactstrap';
+import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
 import {
   BELOW_THE_HEADER,
   COLLAPSED_DRAWER,
   FIXED_DRAWER,
   HORIZONTAL_NAVIGATION,
 } from 'constants/ActionTypes';
-import {switchLanguage, toggleCollapsedNav} from 'actions/Setting';
+import { switchLanguage, toggleCollapsedNav } from 'actions/Setting';
 import IntlMessages from 'util/IntlMessages';
 import UserInfoPopup from 'components/UserInfo/UserInfoPopup';
 
 class Header extends React.Component {
-
   constructor() {
     super();
     this.state = {
@@ -39,7 +38,7 @@ class Header extends React.Component {
       mailNotification: false,
       appNotification: false,
       searchBox: false,
-      apps: false
+      apps: false,
     });
   };
 
@@ -59,35 +58,45 @@ class Header extends React.Component {
       <li className="jr-list-item">
         <Link className="jr-list-link" to="/app/calendar/basic">
           <i className="zmdi zmdi-calendar zmdi-hc-fw" />
-          <span className="jr-list-text"><IntlMessages id="sidebar.calendar.basic" /></span>
+          <span className="jr-list-text">
+            <IntlMessages id="sidebar.calendar.basic" />
+          </span>
         </Link>
       </li>
 
       <li className="jr-list-item">
         <Link className="jr-list-link" to="/app/to-do">
           <i className="zmdi zmdi-check-square zmdi-hc-fw" />
-          <span className="jr-list-text"><IntlMessages id="sidebar.appModule.toDo" /></span>
+          <span className="jr-list-text">
+            <IntlMessages id="sidebar.appModule.toDo" />
+          </span>
         </Link>
       </li>
 
       <li className="jr-list-item">
         <Link className="jr-list-link" to="/app/mail">
           <i className="zmdi zmdi-email zmdi-hc-fw" />
-          <span className="jr-list-text"><IntlMessages id="sidebar.appModule.mail" /></span>
+          <span className="jr-list-text">
+            <IntlMessages id="sidebar.appModule.mail" />
+          </span>
         </Link>
       </li>
 
       <li className="jr-list-item">
         <Link className="jr-list-link" to="/app/chat">
           <i className="zmdi zmdi-comment zmdi-hc-fw" />
-          <span className="jr-list-text"><IntlMessages id="sidebar.appModule.chat" /></span>
+          <span className="jr-list-text">
+            <IntlMessages id="sidebar.appModule.chat" />
+          </span>
         </Link>
       </li>
 
       <li className="jr-list-item">
         <Link className="jr-list-link" to="/app/contact">
           <i className="zmdi zmdi-account-box zmdi-hc-fw" />
-          <span className="jr-list-text"><IntlMessages id="sidebar.appModule.contact" /></span>
+          <span className="jr-list-text">
+            <IntlMessages id="sidebar.appModule.contact" />
+          </span>
         </Link>
       </li>
 
@@ -102,63 +111,84 @@ class Header extends React.Component {
 
   render() {
     const {
-      drawerType, locale, navigationStyle, horizontalNavPosition
+      drawerType,
+      locale,
+      navigationStyle,
+      horizontalNavPosition,
     } = this.props;
-    const drawerStyle = drawerType.includes(FIXED_DRAWER) ? 'd-block d-xl-none' : drawerType.includes(COLLAPSED_DRAWER) ? 'd-block' : 'd-none';
+    const drawerStyle = drawerType.includes(FIXED_DRAWER)
+      ? 'd-block d-xl-none'
+      : drawerType.includes(COLLAPSED_DRAWER)
+        ? 'd-block'
+        : 'd-none';
 
     return (
       <AppBar
-        className={`app-main-header ${(navigationStyle === HORIZONTAL_NAVIGATION && horizontalNavPosition === BELOW_THE_HEADER) ? 'app-main-header-top' : ''}`}>
+        className={`app-main-header ${
+          navigationStyle === HORIZONTAL_NAVIGATION
+          && horizontalNavPosition === BELOW_THE_HEADER
+            ? 'app-main-header-top'
+            : ''
+        }`}
+      >
         <Toolbar className="app-toolbar" disableGutters={false}>
-          {navigationStyle === HORIZONTAL_NAVIGATION
-            ? (
-              <div className="d-block d-md-none pointer mr-3" onClick={this.onToggleCollapsedNav}>
-                <span className="jr-menu-icon">
-                  <span className="menu-icon" />
-                </span>
-              </div>
-            )
-            : (
-              <IconButton
-                className={`jr-menu-icon mr-3 ${drawerStyle}`}
-                aria-label="Menu"
-                onClick={this.onToggleCollapsedNav}>
+          {navigationStyle === HORIZONTAL_NAVIGATION ? (
+            <div
+              className="d-block d-md-none pointer mr-3"
+              onClick={this.onToggleCollapsedNav}
+            >
+              <span className="jr-menu-icon">
                 <span className="menu-icon" />
-              </IconButton>
-            )
-          }
+              </span>
+            </div>
+          ) : (
+            <IconButton
+              className={`jr-menu-icon mr-3 ${drawerStyle}`}
+              aria-label="Menu"
+              onClick={this.onToggleCollapsedNav}
+            >
+              <span className="menu-icon" />
+            </IconButton>
+          )}
 
-          <Link className="app-logo mr-2 d-none d-sm-block" to="/app/sample-page">
-            <img src={require('assets/images/logo.png')} alt="Jambo" title="Jambo" />
+          <Link
+            className="app-logo mr-2 d-none d-sm-block"
+            to="/app/sample-page"
+          >
+            <img
+              src={require('assets/images/logo.png')}
+              alt="Jambo"
+              title="Jambo"
+            />
           </Link>
 
           <ul className="header-notifications list-inline ml-auto">
-            {navigationStyle === HORIZONTAL_NAVIGATION
-            && (
-            <li className="list-inline-item user-nav">
-              <Dropdown
-                className="quick-menu"
-                isOpen={this.state.userInfo}
-                toggle={this.onUserInfoSelect.bind(this)}>
+            {navigationStyle === HORIZONTAL_NAVIGATION && (
+              <li className="list-inline-item user-nav">
+                <Dropdown
+                  className="quick-menu"
+                  isOpen={this.state.userInfo}
+                  toggle={this.onUserInfoSelect.bind(this)}
+                >
+                  <DropdownToggle
+                    className="d-inline-block"
+                    tag="span"
+                    data-toggle="dropdown"
+                  >
+                    <IconButton className="icon-btn size-30">
+                      <Avatar
+                        alt="..."
+                        src="https://via.placeholder.com/150x150"
+                        className="size-30"
+                      />
+                    </IconButton>
+                  </DropdownToggle>
 
-                <DropdownToggle
-                  className="d-inline-block"
-                  tag="span"
-                  data-toggle="dropdown">
-                  <IconButton className="icon-btn size-30">
-                    <Avatar
-                      alt="..."
-                      src="https://via.placeholder.com/150x150"
-                      className="size-30"
-                    />
-                  </IconButton>
-                </DropdownToggle>
-
-                <DropdownMenu right>
-                  <UserInfoPopup />
-                </DropdownMenu>
-              </Dropdown>
-            </li>
+                  <DropdownMenu right>
+                    <UserInfoPopup />
+                  </DropdownMenu>
+                </Dropdown>
+              </li>
             )}
           </ul>
 
@@ -167,17 +197,26 @@ class Header extends React.Component {
       </AppBar>
     );
   }
-
 }
 
-
-const mapStateToProps = ({settings}) => {
+const mapStateToProps = ({ settings }) => {
   const {
-    drawerType, locale, navigationStyle, horizontalNavPosition
+    drawerType,
+    locale,
+    navigationStyle,
+    horizontalNavPosition,
   } = settings;
   return {
-    drawerType, locale, navigationStyle, horizontalNavPosition
+    drawerType,
+    locale,
+    navigationStyle,
+    horizontalNavPosition,
   };
 };
 
-export default withRouter(connect(mapStateToProps, {toggleCollapsedNav, switchLanguage})(Header));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { toggleCollapsedNav, switchLanguage }
+  )(Header)
+);
