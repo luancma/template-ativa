@@ -4,6 +4,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Input,
   OutlinedInput,
 } from '@material-ui/core';
 
@@ -11,18 +12,23 @@ export function SelectOutsourceds({
   outsourceds,
   ValuesState,
   handleChangeSelect,
-  isDisabled,
 }) {
-  console.log(isDisabled);
+  const inputLabel = React.useRef(null);
 
   return (
-    <FormControl variant="outlined">
-      <InputLabel htmlFor="outlined-age-simple">Outsourceds</InputLabel>
+    <FormControl
+      variant="outlined"
+      fullWidth
+      style={{ margin: '14px 0 14px ' }}
+    >
+      <InputLabel ref={inputLabel} htmlFor="outlined-age-simple">
+        Terceirizada
+      </InputLabel>
       <Select
         name="outsourced"
         value={ValuesState}
         onChange={handleChangeSelect}
-        input={<OutlinedInput name="state" id="outlined-age-simple" />}
+        input={<Input name="state" id="outlined-age-simple" />}
       >
         <MenuItem value="">
           <em>None</em>

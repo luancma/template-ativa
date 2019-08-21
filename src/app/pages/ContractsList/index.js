@@ -21,14 +21,18 @@ export default function SimpleTable({ location, history }) {
       {
         icon: 'visibility',
         tooltip: 'Unidades',
-        onClick: () => history.push({
-          pathname: '/app/users',
+        onClick: (event, rowData) => history.push({
+          pathname: '/app/units',
+          state: {
+            contractId: rowData.id,
+            customerId: tableState.customerId,
+          },
         }),
       },
       {
         icon: 'delete',
         tooltip: 'Remover',
-        onClick: (event, rowData) => alert(rowData.email),
+        onClick: (event, rowData) => alert(rowData.id),
       },
     ],
   });
@@ -38,10 +42,12 @@ export default function SimpleTable({ location, history }) {
   });
 
   useEffect(() => {
-    ContractsApi.getASingleContract(tableState.customerId).then(value => setTableState({
+    ContractsApi.getListOfContracts().then(value => setTableState({
       ...tableState,
       title: 'Contratos',
-      values: value.data.contract,
+      values: value.data.contracts.filter(
+        contracts => contracts.customer.id === tableState.customerId && contracts
+      ),
     }));
   }, []);
 
@@ -53,7 +59,7 @@ export default function SimpleTable({ location, history }) {
 
   return (
     <>
-      {tableState.values.id && (
+      {tableState.values && (
         <>
           <ContractsList state={tableState} />
           <Button

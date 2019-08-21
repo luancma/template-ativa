@@ -6,7 +6,7 @@ export default function ContractsList({ state }) {
     <MaterialTable
       title={state.title}
       columns={state.columns}
-      data={[state.values]}
+      data={state.values}
       actions={state.tableActions}
       options={{
         actionsColumnIndex: -1,

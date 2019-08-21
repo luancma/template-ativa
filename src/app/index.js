@@ -62,51 +62,58 @@ class App extends React.Component {
 
           <main className="app-main-content-wrapper">
             <div className="app-main-content">
-              <Switch>
-                <Route
-                  path={`${match.url}/sample-page`}
-                  component={asyncComponent(() => import('./pages/CustomerPage'))}
-                />
-                <Route
-                  path={`${match.url}/create-user`}
-                  component={asyncComponent(() => import('./pages/CreateUSer'))}
-                />
-                <Route
-                  path={`${match.url}/create-customer`}
-                  component={asyncComponent(() => import('./pages/CreateCustomer'))}
-                />
-                <Route
-                  path={`${match.url}/units`}
-                  component={asyncComponent(() => import('./pages/UnitsPage/index'))}
-                />
-                <Route
-                  path={`${match.url}/contracts-list`}
-                  component={asyncComponent(() => import('./pages/ContractsList'))}
-                />
-                <Route
-                  path={`${match.url}/create-contract`}
-                  component={asyncComponent(() => import('./pages/CreateContract'))}
-                />
-                <Route
-                  path={`${match.url}/edit-customer`}
-                  component={asyncComponent(() => import('./pages/EditCustomer/index'))}
-                />
-                <Route
-                  path={`${match.url}/create-outsourced`}
-                  component={asyncComponent(() => import('./pages/Outsourceds/CreateOutsource'))}
-                />
-                <Route
-                  path={`${match.url}/edit-outsourced`}
-                  component={asyncComponent(() => import('./pages/Outsourceds/EditOutsourced'))}
-                />
-                <Route
-                  path={`${match.url}/outsourceds`}
-                  component={asyncComponent(() => import('./pages/Outsourceds/index'))}
-                />
-                <Route
-                  component={asyncComponent(() => import('components/Error404'))}
-                />
-              </Switch>
+              <div className="app-wrapper">
+                <Switch>
+                  <Route
+                    path={`${match.url}/sample-page`}
+                    component={asyncComponent(() => import('./pages/CustomerPage'))}
+                  />
+                  <Route
+                    path={`${match.url}/create-user`}
+                    component={asyncComponent(() => import('./pages/CreateUSer'))}
+                  />
+                  <Route
+                    path={`${match.url}/create-customer`}
+                    component={asyncComponent(() => import('./pages/CreateCustomer'))}
+                  />
+
+                  <Route
+                    path={`${match.url}/contracts-list`}
+                    component={asyncComponent(() => import('./pages/ContractsList'))}
+                  />
+                  <Route
+                    path={`${match.url}/create-contract`}
+                    component={asyncComponent(() => import('./pages/CreateContract'))}
+                  />
+                  <Route
+                    path={`${match.url}/edit-customer`}
+                    component={asyncComponent(() => import('./pages/EditCustomer/index'))}
+                  />
+                  <Route
+                    path={`${match.url}/create-outsourced`}
+                    component={asyncComponent(() => import('./pages/Outsourceds/CreateOutsource'))}
+                  />
+                  <Route
+                    path={`${match.url}/edit-outsourced`}
+                    component={asyncComponent(() => import('./pages/Outsourceds/EditOutsourced'))}
+                  />
+                  <Route
+                    path={`${match.url}/outsourceds`}
+                    component={asyncComponent(() => import('./pages/Outsourceds/index'))}
+                  />
+                  <Route
+                    path={`${match.url}/units/create`}
+                    component={asyncComponent(() => import('./pages/UnitsPage/index'))}
+                  />
+                  <Route
+                    path={`${match.url}/units`}
+                    component={asyncComponent(() => import('./pages/UnitsPage/UnitsList'))}
+                  />
+                  <Route
+                    component={asyncComponent(() => import('components/Error404'))}
+                  />
+                </Switch>
+              </div>
             </div>
             <Footer />
           </main>

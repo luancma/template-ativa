@@ -15,7 +15,6 @@ export default function SelectButtons({
   states,
   cities,
 }) {
-  console.log(cities);
   const classes = useStyles();
   const inputLabel = React.useRef(null);
   const [labelWidth, setLabelWidth] = React.useState(0);

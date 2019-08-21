@@ -4,6 +4,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Input,
   OutlinedInput,
 } from '@material-ui/core';
 
@@ -13,16 +14,33 @@ export function SelectStates({
   handleChangeSelect,
   isDisabled,
 }) {
-  console.log(isDisabled);
+  const inputLabel = React.useRef(null);
+  const [labelWidth, setLabelWidth] = React.useState(0);
+  React.useEffect(() => {
+    setLabelWidth(inputLabel.current.offsetWidth);
+  }, []);
 
   return (
-    <FormControl variant="outlined" disabled={isDisabled}>
-      <InputLabel htmlFor="outlined-age-simple">Estado</InputLabel>
+    <FormControl
+      disabled={isDisabled}
+      variant="outlined"
+      fullWidth
+      style={{ margin: '14px 0 14px ' }}
+    >
+      <InputLabel ref={inputLabel} htmlFor="outlined-age-simple">
+        Estado
+      </InputLabel>
       <Select
         name="state"
         value={ValuesState}
         onChange={handleChangeSelect}
-        input={<OutlinedInput name="state" id="outlined-age-simple" />}
+        input={(
+          <Input
+            labelWidth={labelWidth}
+            name="state"
+            id="outlined-age-simple"
+          />
+)}
       >
         <MenuItem value="">
           <em>None</em>

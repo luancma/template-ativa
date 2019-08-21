@@ -4,6 +4,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Input,
   OutlinedInput,
 } from '@material-ui/core';
 import { States } from 'api/StatesApi';
@@ -11,52 +12,63 @@ import { States } from 'api/StatesApi';
 export function SelectCities({
   states,
   isDisabled,
-  stateId,
+  stateName,
   ValuesCity,
   cityCep,
   handleChangeSelect,
 }) {
   const [cities, setCities] = useState(null);
   const [cityFinded, setCityFinded] = useState('');
+  const inputLabel = React.useRef(null);
+  const [labelWidth, setLabelWidth] = React.useState(0);
+  React.useEffect(() => {
+    setLabelWidth(inputLabel.current.offsetWidth);
+  }, []);
 
-  async function getIdByState(stateId) {
-    const idState = states.filter(item => item.name === stateId)[0];
+  async function getIdByState(stateName) {
+    const idState = states.filter(item => item.name === stateName)[0];
     return idState;
   }
-  async function fetchCities(stateId) {
-    const state = await getIdByState(stateId);
 
-    if (state && cityCep) {
-      const response = await States.getListOfCityByStateId(state.id).then(
-        value => value.data.cities
-      );
-      setCities(response);
+  async function fetchCities(stateName) {
+    console.log(stateName);
+
+    const state = await getIdByState(stateName);
+    const response = await States.getListOfCityByStateId(state.id).then(
+      value => value.data.cities
+    );
+    setCities(response);
+    if (cityCep) {
       const cidade = response.filter(c => c.name === cityCep);
       const setCity = () => setCityFinded(cidade[0].id);
       setCity();
-    } else if (state) {
-      const response = await States.getListOfCityByStateId(state.id).then(
-        value => value.data.cities
-      );
-      setCities(response);
     }
   }
 
   useEffect(() => {
-    if (stateId === '') {
+    if (stateName === '') {
       setCityFinded('');
     }
-    fetchCities(stateId);
-  }, [stateId, cityCep]);
+    if (stateName) {
+      fetchCities(stateName);
+    }
+  }, [stateName, cityCep]);
 
   return (
-    <FormControl variant="outlined" disabled={isDisabled}>
-      <InputLabel htmlFor="outlined-age-simple">Cidades</InputLabel>
+    <FormControl
+      disabled={isDisabled}
+      variant="outlined"
+      fullWidth
+      style={{ margin: '14px 0 14px ' }}
+    >
+      <InputLabel ref={inputLabel} htmlFor="outlined-age-simple">
+        Cidades
+      </InputLabel>
       <Select
         name="city"
         value={cityFinded || ValuesCity}
         onChange={handleChangeSelect}
-        input={<OutlinedInput name="state" id="outlined-age-simple" />}
+        input={<Input name="state" id="outlined-age-simple" />}
       >
         <MenuItem value="">
           <em>None</em>
