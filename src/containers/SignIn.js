@@ -42,7 +42,6 @@ class SignIn extends React.Component {
     const { showMessage, loader, alertMessage } = this.props;
     return (
       <>
-        <CardBox children={[<LoginComponent />]} />
         <div className="app-login-container d-flex justify-content-center align-items-center animated slideInUpTiny animation-duration-3">
           <div className="app-login-main-content">
             <div className="app-logo-content d-flex align-items-center justify-content-center">

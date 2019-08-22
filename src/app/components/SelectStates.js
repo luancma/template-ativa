@@ -15,18 +15,9 @@ export function SelectStates({
   isDisabled,
 }) {
   const inputLabel = React.useRef(null);
-  const [labelWidth, setLabelWidth] = React.useState(0);
-  React.useEffect(() => {
-    setLabelWidth(inputLabel.current.offsetWidth);
-  }, []);
 
   return (
-    <FormControl
-      disabled={isDisabled}
-      variant="outlined"
-      fullWidth
-      style={{ margin: '14px 0 14px ' }}
-    >
+    <FormControl disabled={isDisabled} fullWidth>
       <InputLabel ref={inputLabel} htmlFor="outlined-age-simple">
         Estado
       </InputLabel>
@@ -34,13 +25,7 @@ export function SelectStates({
         name="state"
         value={ValuesState}
         onChange={handleChangeSelect}
-        input={(
-          <Input
-            labelWidth={labelWidth}
-            name="state"
-            id="outlined-age-simple"
-          />
-)}
+        input={<Input name="state" id="outlined-age-simple" />}
       >
         <MenuItem value="">
           <em>None</em>

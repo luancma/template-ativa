@@ -1,6 +1,8 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable react/no-children-prop */
 import React, { useEffect, useState, useContext } from 'react';
 import { useSelector } from 'react-redux';
-import { Grid, useMediaQuery } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 import validator from 'email-validator';
 import {
   NotificationContainer,
@@ -8,20 +10,22 @@ import {
 } from 'react-notifications';
 import { States } from 'api/StatesApi';
 import { CustomersApi } from 'api/CustomersApi';
-import { formControll } from './styles';
-import SmallDevices from './SmallDevices';
-import DefaultDevices from './DefaultDevices';
+import CardBox from 'components/CardBox';
+import { SelectStates } from 'app/components/SelectStates';
+import { SelectCities } from 'app/components/SelectCities';
+import { masks } from 'util/masks';
+import { ButtonCreate } from './ButtonCreate';
 
 function CreateUser({ history }) {
   const userMessage = useSelector(state => state.user);
 
   useEffect(() => {
     if (userMessage.showMessageSuccess) {
-      history.push('/app/list');
+      alert('Salvo');
+      history.push('/app/customers/list');
     }
   });
 
-  const [cities, setCities] = useState([]);
   const [message, setMessage] = useState({
     isOpen: false,
     error: '',
@@ -42,25 +46,28 @@ function CreateUser({ history }) {
     city: '',
   });
 
-  // get a list of states
   useEffect(() => {
     States.getListOfStates().then(value => setStates(value.data.states));
   }, []);
 
-  // get a list of cities by state value
-  useEffect(() => {
-    if (values.state) {
-      const stateId = states.find(item => item.name === values.state).id;
-      States.getListOfCityByStateId(stateId).then(value => setCities(value.data.cities));
-    }
-  }, [values.state]);
-
-  // hide message
   useEffect(() => {
     setTimeout(() => {
       setMessage({ isOpen: false });
     }, 1000);
   }, [message]);
+
+  function showMessage(error) {
+    const errMessage = error.response.data.errors;
+    setCustomerError(errMessage);
+
+    setMessage({
+      ...message,
+      isOpen: true,
+      error: `${Object.keys(errMessage)} ${
+        errMessage[Object.keys(errMessage)]
+      }`,
+    });
+  }
 
   function handleInputCustomer(event) {
     event.preventDefault();
@@ -75,39 +82,6 @@ function CreateUser({ history }) {
       ...oldValues,
       [event.target.name]: event.target.value,
     }));
-  }
-
-  function validateEmail() {
-    if (validator.validate(customer.email)) return true;
-    return false;
-  }
-
-  function validateButton() {
-    if (
-      customer.name.trim() !== ''
-      && validateEmail()
-      && customer.phone.trim() !== ''
-      && customer.occupation.trim() !== ''
-      && customer.accountable.trim() !== ''
-      && values.state !== ''
-      && values.city !== ''
-    ) {
-      return true;
-    }
-    return false;
-  }
-
-  function showMessage(error) {
-    const errMessage = error.response.data.errors;
-    setCustomerError(errMessage);
-
-    setMessage({
-      ...message,
-      isOpen: true,
-      error: `${Object.keys(errMessage)} ${
-        errMessage[Object.keys(errMessage)]
-      }`,
-    });
   }
 
   function handleCreateCustomer() {
@@ -128,42 +102,113 @@ function CreateUser({ history }) {
         showMessage(error);
       });
   }
-
-  const matches = useMediaQuery('(min-width:820px)');
   return (
-    <Grid item xs={12} sm={12} container style={formControll}>
-      {matches ? (
-        <DefaultDevices
-          customer={customer}
-          handleInputCustomer={handleInputCustomer}
-          handleChangeSelect={handleChangeSelect}
-          states={states}
-          cities={cities}
-          values={values}
-          validateEmail={validateEmail}
-          validateButton={validateButton}
-          handleCreateCustomer={handleCreateCustomer}
-          customerError={customerError}
-          setCustomerError={setCustomerError}
-        />
-      ) : (
-        <SmallDevices
-          customer={customer}
-          handleInputCustomer={handleInputCustomer}
-          handleChangeSelect={handleChangeSelect}
-          states={states}
-          cities={cities}
-          values={values}
-          validateEmail={validateEmail}
-          validateButton={validateButton}
-          handleCreateCustomer={handleCreateCustomer}
-          customerError={customerError}
-          setCustomerError={setCustomerError}
-        />
-      )}
+    <>
+      <CardBox
+        heading="Novo Cliente"
+        styleName="col-12"
+        children={[
+          <FormCreateUser
+            objects={[values, customer]}
+            key={FormCreateUser}
+            stateName={values.state}
+            cityId={values.city}
+            states={states}
+            handleInput={handleInputCustomer}
+            handleCreate={handleCreateCustomer}
+            handleChangeSelect={handleChangeSelect}
+          />,
+        ]}
+      />
       {message.isOpen && NotificationManager.error(message.error)}
       <NotificationContainer />
-    </Grid>
+    </>
+  );
+}
+
+export function FormCreateUser({
+  states,
+  handleChangeSelect,
+  cityId,
+  stateName,
+  handleCreate,
+  handleInput,
+  objects,
+}) {
+  const {
+    name, email, occupation, accountable, phone
+  } = objects[1];
+
+  return (
+    <>
+      <div className="row">
+        <div className="col-md-3">
+          <TextField
+            value={name}
+            name="name"
+            fullWidth
+            onChange={e => handleInput(e)}
+            label="Nome completo"
+          />
+        </div>
+        <div className="col-md-3">
+          <TextField
+            error={!validator.validate(email)}
+            value={email}
+            name="email"
+            onChange={e => handleInput(e)}
+            fullWidth
+            label="Email"
+          />
+        </div>
+        <div className="col-md-3">
+          <TextField
+            value={occupation}
+            name="occupation"
+            fullWidth
+            onChange={e => handleInput(e)}
+            label="Função"
+          />
+        </div>
+        <div className="col-md-3">
+          <TextField
+            value={accountable}
+            name="accountable"
+            fullWidth
+            onChange={e => handleInput(e)}
+            label="Responsável"
+          />
+        </div>
+        <div className="col-md-3">
+          <TextField
+            inputProps={{
+              maxLength: 15,
+            }}
+            value={masks.mascararTel(phone)}
+            name="phone"
+            fullWidth
+            onChange={e => handleInput(e)}
+            label="Telefone"
+          />
+        </div>
+        <div className="col-md-3">
+          <SelectStates
+            ValuesState={stateName}
+            states={states}
+            handleChangeSelect={handleChangeSelect}
+          />
+        </div>
+        <div className="col-md-3">
+          <SelectCities
+            states={states}
+            ValuesCity={cityId}
+            stateName={stateName}
+            handleChangeSelect={handleChangeSelect}
+          />
+        </div>
+      </div>
+      <ButtonCreate handleCreate={handleCreate} objects={objects} />
+    </>
   );
 }
 

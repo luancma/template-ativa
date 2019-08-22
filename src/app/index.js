@@ -65,36 +65,36 @@ class App extends React.Component {
               <div className="app-wrapper">
                 <Switch>
                   <Route
-                    path={`${match.url}/sample-page`}
+                    path={`${match.url}/customers/list`}
                     component={asyncComponent(() => import('./pages/CustomerPage'))}
                   />
                   <Route
-                    path={`${match.url}/create-user`}
+                    path={`${match.url}/users/create`}
                     component={asyncComponent(() => import('./pages/CreateUSer'))}
                   />
                   <Route
-                    path={`${match.url}/create-customer`}
+                    path={`${match.url}/customer/create`}
                     component={asyncComponent(() => import('./pages/CreateCustomer'))}
                   />
 
                   <Route
-                    path={`${match.url}/contracts-list`}
+                    path={`${match.url}/contracts/list`}
                     component={asyncComponent(() => import('./pages/ContractsList'))}
                   />
                   <Route
-                    path={`${match.url}/create-contract`}
+                    path={`${match.url}/contract/create`}
                     component={asyncComponent(() => import('./pages/CreateContract'))}
                   />
                   <Route
-                    path={`${match.url}/edit-customer`}
+                    path={`${match.url}/customer/edit`}
                     component={asyncComponent(() => import('./pages/EditCustomer/index'))}
                   />
                   <Route
-                    path={`${match.url}/create-outsourced`}
+                    path={`${match.url}/outsourced/create`}
                     component={asyncComponent(() => import('./pages/Outsourceds/CreateOutsource'))}
                   />
                   <Route
-                    path={`${match.url}/edit-outsourced`}
+                    path={`${match.url}/outsourced/edit`}
                     component={asyncComponent(() => import('./pages/Outsourceds/EditOutsourced'))}
                   />
                   <Route
@@ -106,7 +106,7 @@ class App extends React.Component {
                     component={asyncComponent(() => import('./pages/UnitsPage/index'))}
                   />
                   <Route
-                    path={`${match.url}/units`}
+                    path={`${match.url}/units/list`}
                     component={asyncComponent(() => import('./pages/UnitsPage/UnitsList'))}
                   />
                   <Route

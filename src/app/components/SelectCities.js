@@ -20,10 +20,6 @@ export function SelectCities({
   const [cities, setCities] = useState(null);
   const [cityFinded, setCityFinded] = useState('');
   const inputLabel = React.useRef(null);
-  const [labelWidth, setLabelWidth] = React.useState(0);
-  React.useEffect(() => {
-    setLabelWidth(inputLabel.current.offsetWidth);
-  }, []);
 
   async function getIdByState(stateName) {
     const idState = states.filter(item => item.name === stateName)[0];
@@ -55,12 +51,7 @@ export function SelectCities({
   }, [stateName, cityCep]);
 
   return (
-    <FormControl
-      disabled={isDisabled}
-      variant="outlined"
-      fullWidth
-      style={{ margin: '14px 0 14px ' }}
-    >
+    <FormControl disabled={isDisabled} fullWidth>
       <InputLabel ref={inputLabel} htmlFor="outlined-age-simple">
         Cidades
       </InputLabel>

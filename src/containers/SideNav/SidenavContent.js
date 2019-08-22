@@ -108,16 +108,79 @@ class SidenavContent extends Component {
           <li className="nav-header">
             <IntlMessages id="sidebar.main" />
           </li>
+          <li className="menu collapse-box">
+            <button
+              className="MuiButtonBase-root MuiButton-root MuiButton-text"
+              tabIndex="0"
+              type="button"
+            >
+              <span className="MuiButton-label">
+                <i className="zmdi zmdi-account-box zmdi-hc-fw" />
+                <span className="nav-text">
+                  <span>Clientes</span>
+                </span>
+              </span>
+              <span className="MuiTouchRipple-root" />
+            </button>
+            <ul className="sub-menu">
+              <li>
+                <a className="prepend-icon" href="/app/customers/list">
+                  <span className="nav-text">
+                    <span>Lista de clientes</span>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a className="prepend-icon" href="/app/customer/create">
+                  <span className="nav-text">
+                    <span>Adicionar cliente</span>
+                  </span>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li className="menu collapse-box">
+            <button
+              className="MuiButtonBase-root MuiButton-root MuiButton-text"
+              tabIndex="0"
+              type="button"
+            >
+              <span className="MuiButton-label">
+                <i className="zmdi zmdi-account-box zmdi-hc-fw" />
+                <span className="nav-text">
+                  <span>Usuários</span>
+                </span>
+              </span>
+              <span className="MuiTouchRipple-root" />
+            </button>
+            <ul className="sub-menu">
+              <li>
+                <a className="prepend-icon" href="/app/users">
+                  <span className="nav-text">
+                    <span>Lista de usuários</span>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a className="prepend-icon" href="/app/users/create">
+                  <span className="nav-text">
+                    <span>Adicionar Usuário</span>
+                  </span>
+                </a>
+              </li>
+            </ul>
+          </li>
           <li className="menu no-arrow">
-            <NavLink to="/app/create-user">
+            <NavLink to="/app/sample-page">
               <i className="zmdi zmdi-view-dashboard zmdi-hc-fw" />
-              <span className="nav-text">Criar usuário</span>
+              <span className="nav-text">Contratos</span>
             </NavLink>
           </li>
           <li className="menu no-arrow">
             <NavLink to="/app/sample-page">
               <i className="zmdi zmdi-view-dashboard zmdi-hc-fw" />
-              <span className="nav-text">Usuários</span>
+              <span className="nav-text">Unidades</span>
             </NavLink>
           </li>
         </ul>
