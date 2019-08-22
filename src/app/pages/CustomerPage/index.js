@@ -37,7 +37,7 @@ function SamplePage({ history }) {
               }}
               variant="contained"
               color="primary"
-              onClick={e => history.push('/app/create-customer')}
+              onClick={e => history.push('/app/customer/create')}
             >
               Adicionar Cliente
             </Button>
