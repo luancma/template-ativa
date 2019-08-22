@@ -22,7 +22,7 @@ export function FormCreateCustomer({
   return (
     <>
       <div className="row">
-        <div className="col-md-3">
+        <div className="col-md-6">
           <TextField
             value={name}
             name="name"
@@ -31,7 +31,7 @@ export function FormCreateCustomer({
             label="Nome completo"
           />
         </div>
-        <div className="col-md-3">
+        <div className="col-md-6">
           <TextField
             error={!validator.validate(email)}
             value={email}
@@ -41,7 +41,7 @@ export function FormCreateCustomer({
             label="Email"
           />
         </div>
-        <div className="col-md-3">
+        <div className="col-md-6">
           <TextField
             value={occupation}
             name="occupation"
@@ -50,7 +50,7 @@ export function FormCreateCustomer({
             label="Função"
           />
         </div>
-        <div className="col-md-3">
+        <div className="col-md-6">
           <TextField
             value={accountable}
             name="accountable"
@@ -59,7 +59,7 @@ export function FormCreateCustomer({
             label="Responsável"
           />
         </div>
-        <div className="col-md-3">
+        <div className="col-md-6">
           <TextField
             inputProps={{
               maxLength: 15,
@@ -71,14 +71,14 @@ export function FormCreateCustomer({
             label="Telefone"
           />
         </div>
-        <div className="col-md-3">
+        <div className="col-md-6">
           <SelectStates
             ValuesState={stateName}
             states={states}
             handleChangeSelect={handleChangeSelect}
           />
         </div>
-        <div className="col-md-3">
+        <div className="col-md-6">
           <SelectCities
             states={states}
             ValuesCity={cityId}
