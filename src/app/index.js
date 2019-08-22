@@ -69,6 +69,10 @@ class App extends React.Component {
                     component={asyncComponent(() => import('./pages/CustomerPage'))}
                   />
                   <Route
+                    path={`${match.url}/users/list`}
+                    component={asyncComponent(() => import('./pages/Users'))}
+                  />
+                  <Route
                     path={`${match.url}/users/create`}
                     component={asyncComponent(() => import('./pages/CreateUSer'))}
                   />

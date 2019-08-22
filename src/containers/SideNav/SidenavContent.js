@@ -156,7 +156,7 @@ class SidenavContent extends Component {
             </button>
             <ul className="sub-menu">
               <li>
-                <a className="prepend-icon" href="/app/users">
+                <a className="prepend-icon" href="/app/users/list">
                   <span className="nav-text">
                     <span>Lista de usuários</span>
                   </span>
