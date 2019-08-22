@@ -1,9 +1,9 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable react/no-children-prop */
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
+
 import { useSelector } from 'react-redux';
-import { TextField } from '@material-ui/core';
-import validator from 'email-validator';
+
 import {
   NotificationContainer,
   NotificationManager,
@@ -11,17 +11,13 @@ import {
 import { States } from 'api/StatesApi';
 import { CustomersApi } from 'api/CustomersApi';
 import CardBox from 'components/CardBox';
-import { SelectStates } from 'app/components/SelectStates';
-import { SelectCities } from 'app/components/SelectCities';
-import { masks } from 'util/masks';
-import { ButtonCreate } from './ButtonCreate';
+import { FormCreateCustomer } from './FormCreateCustomer';
 
 function CreateUser({ history }) {
   const userMessage = useSelector(state => state.user);
 
   useEffect(() => {
     if (userMessage.showMessageSuccess) {
-      alert('Salvo');
       history.push('/app/customers/list');
     }
   });
@@ -108,9 +104,9 @@ function CreateUser({ history }) {
         heading="Novo Cliente"
         styleName="col-12"
         children={[
-          <FormCreateUser
+          <FormCreateCustomer
             objects={[values, customer]}
-            key={FormCreateUser}
+            key={FormCreateCustomer}
             stateName={values.state}
             cityId={values.city}
             states={states}
@@ -125,91 +121,4 @@ function CreateUser({ history }) {
     </>
   );
 }
-
-export function FormCreateUser({
-  states,
-  handleChangeSelect,
-  cityId,
-  stateName,
-  handleCreate,
-  handleInput,
-  objects,
-}) {
-  const {
-    name, email, occupation, accountable, phone
-  } = objects[1];
-
-  return (
-    <>
-      <div className="row">
-        <div className="col-md-3">
-          <TextField
-            value={name}
-            name="name"
-            fullWidth
-            onChange={e => handleInput(e)}
-            label="Nome completo"
-          />
-        </div>
-        <div className="col-md-3">
-          <TextField
-            error={!validator.validate(email)}
-            value={email}
-            name="email"
-            onChange={e => handleInput(e)}
-            fullWidth
-            label="Email"
-          />
-        </div>
-        <div className="col-md-3">
-          <TextField
-            value={occupation}
-            name="occupation"
-            fullWidth
-            onChange={e => handleInput(e)}
-            label="Função"
-          />
-        </div>
-        <div className="col-md-3">
-          <TextField
-            value={accountable}
-            name="accountable"
-            fullWidth
-            onChange={e => handleInput(e)}
-            label="Responsável"
-          />
-        </div>
-        <div className="col-md-3">
-          <TextField
-            inputProps={{
-              maxLength: 15,
-            }}
-            value={masks.mascararTel(phone)}
-            name="phone"
-            fullWidth
-            onChange={e => handleInput(e)}
-            label="Telefone"
-          />
-        </div>
-        <div className="col-md-3">
-          <SelectStates
-            ValuesState={stateName}
-            states={states}
-            handleChangeSelect={handleChangeSelect}
-          />
-        </div>
-        <div className="col-md-3">
-          <SelectCities
-            states={states}
-            ValuesCity={cityId}
-            stateName={stateName}
-            handleChangeSelect={handleChangeSelect}
-          />
-        </div>
-      </div>
-      <ButtonCreate handleCreate={handleCreate} objects={objects} />
-    </>
-  );
-}
-
 export default CreateUser;
