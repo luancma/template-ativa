@@ -1,12 +1,17 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
 
-export default function ButtonCreate({ validateButton, handleSubmit }) {
+export default function ButtonCreate({
+  validateButton,
+  handleSubmit,
+  history,
+}) {
   const buttonStyle = {
     display: 'flex',
     flexDirection: 'row-reverse',
     marginTop: '20px',
   };
+
   return (
     <div className="row">
       <div className="col-md-12" style={buttonStyle}>

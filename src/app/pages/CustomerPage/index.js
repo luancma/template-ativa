@@ -4,7 +4,7 @@ import { Button, CircularProgress } from '@material-ui/core';
 import { CustomersApi } from 'api/CustomersApi';
 import { CustomerTable } from './CustomerTable';
 
-function SamplePage({ history }) {
+function SamplePage({ history, match }) {
   const [state, setState] = useState({
     title: '',
     columns: [
@@ -19,7 +19,7 @@ function SamplePage({ history }) {
   }, []);
 
   return (
-    <div style={{ margin: ' 10%' }}>
+    <div>
       {state.values.length !== 0 ? (
         <>
           <CustomerTable state={state} history={history} />
@@ -37,7 +37,7 @@ function SamplePage({ history }) {
               }}
               variant="contained"
               color="primary"
-              onClick={e => history.push('/app/customer/create')}
+              onClick={e => history.push('/app/cliente/criar')}
             >
               Adicionar Cliente
             </Button>

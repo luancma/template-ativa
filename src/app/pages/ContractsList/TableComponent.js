@@ -1,7 +1,7 @@
 import React from 'react';
 import MaterialTable from 'material-table';
 
-export default function ContractsList({ state }) {
+export default function TableComponent({ state }) {
   return (
     <MaterialTable
       title={state.title}

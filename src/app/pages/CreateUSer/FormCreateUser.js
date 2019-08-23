@@ -3,7 +3,12 @@ import { TextField, Button } from '@material-ui/core';
 import validator from 'email-validator';
 import ButtonCreate from './ButtonCreate';
 
-export function FormCreateUser({ handleSubmit, handleChangeValue, user }) {
+export function FormCreateUser({
+  handleSubmit,
+  handleChangeValue,
+  user,
+  history,
+}) {
   const validateEmail = validator.validate(user.email);
 
   function validateButton() {
@@ -59,6 +64,7 @@ export function FormCreateUser({ handleSubmit, handleChangeValue, user }) {
         <div className="col-md-6">
           <TextField
             fullWidth
+            type="password"
             label="Senha"
             value={user.password}
             name="password"
@@ -68,6 +74,7 @@ export function FormCreateUser({ handleSubmit, handleChangeValue, user }) {
         <div className="col-md-6">
           <TextField
             fullWidth
+            type="password"
             label="Confirmar senha"
             value={user.confirmPassword}
             name="confirmPassword"

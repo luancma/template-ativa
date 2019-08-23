@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import TableUsers from 'app/components/TableUsers';
 import { UnitsApi } from 'api/UnitsApi';
+import { Button } from '@material-ui/core';
 
-export default function UnitsPage() {
+export default function UnitsPage({ history }) {
   const [units, setUnits] = useState([]);
-  useEffect(
-    () => UnitsApi.getListOfUnits().then(value => setUnits(value.data.units)),
-    []
-  );
+
+  useEffect(() => {
+    UnitsApi.getListOfUnits().then(value => setUnits(value.data.units));
+  }, []);
 
   const state = {
     title: 'Lista de Unidades',
@@ -19,5 +20,10 @@ export default function UnitsPage() {
     values: units,
   };
 
-  return <TableUsers state={state} />;
+  return (
+    <>
+      <Button onClick={e => history.goBack()}>Voltar</Button>
+      <TableUsers state={state} />
+    </>
+  );
 }

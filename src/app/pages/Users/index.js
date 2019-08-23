@@ -18,7 +18,7 @@ export default function Users({ history }) {
   }, []);
 
   return (
-    <div style={{ margin: ' 10%' }}>
+    <div>
       {state.values.length !== 0 ? (
         <>
           <UserList state={state} history={history} />
@@ -36,7 +36,7 @@ export default function Users({ history }) {
               }}
               variant="contained"
               color="primary"
-              onClick={e => history.push('/app/users/create')}
+              onClick={e => history.push('/app/usuarios/criar')}
             >
               Adicionar Cliente
             </Button>

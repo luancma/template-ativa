@@ -124,14 +124,14 @@ class SidenavContent extends Component {
             </button>
             <ul className="sub-menu">
               <li>
-                <a className="prepend-icon" href="/app/customers/list">
+                <a className="prepend-icon" href="/app/clientes/lista">
                   <span className="nav-text">
                     <span>Lista de clientes</span>
                   </span>
                 </a>
               </li>
               <li>
-                <a className="prepend-icon" href="/app/customer/create">
+                <a className="prepend-icon" href="/app/cliente/criar">
                   <span className="nav-text">
                     <span>Adicionar cliente</span>
                   </span>
@@ -156,14 +156,14 @@ class SidenavContent extends Component {
             </button>
             <ul className="sub-menu">
               <li>
-                <a className="prepend-icon" href="/app/users/list">
+                <a className="prepend-icon" href="/app/usuarios/lista">
                   <span className="nav-text">
                     <span>Lista de usuários</span>
                   </span>
                 </a>
               </li>
               <li>
-                <a className="prepend-icon" href="/app/users/create">
+                <a className="prepend-icon" href="/app/usuarios/criar">
                   <span className="nav-text">
                     <span>Adicionar Usuário</span>
                   </span>
@@ -172,13 +172,13 @@ class SidenavContent extends Component {
             </ul>
           </li>
           <li className="menu no-arrow">
-            <NavLink to="/app/sample-page">
+            <NavLink to="/app/contratos/lista">
               <i className="zmdi zmdi-view-dashboard zmdi-hc-fw" />
               <span className="nav-text">Contratos</span>
             </NavLink>
           </li>
           <li className="menu no-arrow">
-            <NavLink to="/app/sample-page">
+            <NavLink to="/app/unidades">
               <i className="zmdi zmdi-view-dashboard zmdi-hc-fw" />
               <span className="nav-text">Unidades</span>
             </NavLink>

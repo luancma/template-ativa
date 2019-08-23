@@ -38,10 +38,17 @@ function CreateUser({ history }) {
 
   function handleSubmit(event) {
     UsersApi.createNewUserRequest(valuesUser)
-      .then(value => console.log(value.data))
+      .then(value => createSuccess())
       .catch((error) => {
         showMessage(error);
       });
+  }
+
+  function createSuccess() {
+    setTimeout(() => {
+      alert('Salvo com sucesso');
+    }, 2000);
+    history.push('/app/usuarios/lista');
   }
 
   function handleChangeValue(event) {

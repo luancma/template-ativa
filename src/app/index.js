@@ -14,6 +14,7 @@ import {
 } from 'constants/ActionTypes';
 import { isIOS, isMobile } from 'react-device-detect';
 import TopNav from 'components/TopNav';
+import ContainerHeader from 'components/ContainerHeader';
 import asyncComponent from '../util/asyncComponent';
 import Tour from '../components/Tour/index';
 
@@ -24,6 +25,7 @@ class App extends React.Component {
       drawerType,
       navigationStyle,
       horizontalNavPosition,
+      history,
     } = this.props;
     const drawerStyle = drawerType.includes(FIXED_DRAWER)
       ? 'fixed-drawer'
@@ -41,7 +43,6 @@ class App extends React.Component {
     return (
       <div className={`app-container ${drawerStyle}`}>
         <Tour />
-
         <Sidebar />
         <div className="app-main-container">
           <div
@@ -63,54 +64,68 @@ class App extends React.Component {
           <main className="app-main-content-wrapper">
             <div className="app-main-content">
               <div className="app-wrapper">
+                {/* <ContainerHeader
+                  match={history.location}
+                  title={history.location.state}
+                /> */}
                 <Switch>
                   <Route
-                    path={`${match.url}/customers/list`}
+                    path={`${match.url}/clientes/lista`}
                     component={asyncComponent(() => import('./pages/CustomerPage'))}
                   />
                   <Route
-                    path={`${match.url}/users/list`}
+                    path={`${match.url}/usuarios/lista`}
                     component={asyncComponent(() => import('./pages/Users'))}
                   />
                   <Route
-                    path={`${match.url}/users/create`}
+                    path={`${match.url}/usuarios/criar`}
                     component={asyncComponent(() => import('./pages/CreateUSer'))}
                   />
                   <Route
-                    path={`${match.url}/customer/create`}
+                    path={`${match.url}/cliente/criar`}
                     component={asyncComponent(() => import('./pages/CreateCustomer'))}
                   />
 
                   <Route
-                    path={`${match.url}/contracts/list`}
+                    path={`${match.url}/contrato`}
                     component={asyncComponent(() => import('./pages/ContractsList'))}
                   />
+
                   <Route
-                    path={`${match.url}/contract/create`}
+                    path={`${match.url}/contratos/lista`}
+                    component={asyncComponent(() => import('./pages/ContractsList/ContractsList'))}
+                  />
+
+                  <Route
+                    path={`${match.url}/contrato/criar`}
                     component={asyncComponent(() => import('./pages/CreateContract'))}
                   />
                   <Route
-                    path={`${match.url}/customer/edit`}
+                    path={`${match.url}/cliente/edit`}
                     component={asyncComponent(() => import('./pages/EditCustomer/index'))}
                   />
                   <Route
-                    path={`${match.url}/outsourced/create`}
+                    path={`${match.url}/terceirizada/criar`}
                     component={asyncComponent(() => import('./pages/Outsourceds/CreateOutsource'))}
                   />
                   <Route
-                    path={`${match.url}/outsourced/edit`}
+                    path={`${match.url}/terceirizada/editar`}
                     component={asyncComponent(() => import('./pages/Outsourceds/EditOutsourced'))}
                   />
                   <Route
-                    path={`${match.url}/outsourceds`}
+                    path={`${match.url}/terceirizadas`}
                     component={asyncComponent(() => import('./pages/Outsourceds/index'))}
                   />
                   <Route
-                    path={`${match.url}/units/create`}
+                    path={`${match.url}/unidades/create`}
                     component={asyncComponent(() => import('./pages/UnitsPage/index'))}
                   />
                   <Route
-                    path={`${match.url}/units/list`}
+                    path={`${match.url}/unidades/lista`}
+                    component={asyncComponent(() => import('./pages/UnitsPage/UnitsList'))}
+                  />
+                  <Route
+                    path={`${match.url}/unidades/lista/id`}
                     component={asyncComponent(() => import('./pages/UnitsPage/UnitsList'))}
                   />
                   <Route
