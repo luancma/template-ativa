@@ -8,7 +8,9 @@ import { States } from 'api/StatesApi';
 import Axios from 'axios';
 import { ButtonComponent } from './ButtonComponent';
 
-export function FormUnits({ contractInfo }) {
+export default function FormUnits({ contractInfo, history }) {
+  const routerParameter = history.location.pathname.split('/').slice(-1)[0];
+
   const [states, setStates] = useState([]);
   const [outsourceds, setOutsources] = useState([]);
   const [units, setUnits] = useState({
@@ -19,7 +21,7 @@ export function FormUnits({ contractInfo }) {
     complement: '',
     city_id: '',
     description: '',
-    contract_id: contractInfo.contractId,
+    contract_id: routerParameter,
   });
   const [cep, setCep] = useState({
     cepNumber: '',
@@ -43,7 +45,6 @@ export function FormUnits({ contractInfo }) {
     const response = await States.getListOfCityByStateId(state.id).then(
       value => value.data.cities
     );
-    console.log(6, city);
     if (city) {
       const cidade = response.filter(c => c.name === city);
       console.log(values);
@@ -75,16 +76,6 @@ export function FormUnits({ contractInfo }) {
     fetchStates();
     fetchOutsources();
   }, []);
-
-  async function fetchCep() {
-    const response = await Axios.get(
-      `https://api.postmon.com.br/v1/cep/${cep.cepNumber}`
-    ).then(value => value.data);
-
-    setCep({ ...cep, cepDetails: response });
-
-    console.log(response);
-  }
 
   useEffect(() => {
     if (cep.cepDetails.cep && cep.cepNumber.length < 8) {
@@ -127,6 +118,16 @@ export function FormUnits({ contractInfo }) {
     }
   }, [cep.cepNumber, cep.cepDetails]);
 
+  async function fetchCep() {
+    const response = await Axios.get(
+      `https://api.postmon.com.br/v1/cep/${cep.cepNumber}`
+    ).then(value => value.data);
+
+    setCep({ ...cep, cepDetails: response });
+
+    console.log(response);
+  }
+
   function handleChangeSelect(event) {
     console.log(4, event);
 
@@ -153,7 +154,7 @@ export function FormUnits({ contractInfo }) {
   const unitObject = {
     name: units.name,
     city_id: values.city,
-    cep: cep.cepNumber,
+    code: cep.cepNumber,
     state: values.state,
     outsourced_id: values.outsourced,
     complement: units.complement,

@@ -8,6 +8,14 @@ export const receiveContracts = () => ({
   type: RECEIVE_CONTRACTS,
 });
 
+export const actionCreateNewContract = contract => ({
+  type: CREATE_NEW_CONTRACT,
+});
+
+export const actionCreateNewContractSuccess = contract => ({
+  type: CREATE_NEW_CONTRACT,
+});
+
 export const fetchAllContractsSuccess = contracts => ({
   type: RECEIVE_CONTRACTS_SUCCESS,
   payload: contracts,

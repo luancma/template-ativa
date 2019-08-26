@@ -23,7 +23,7 @@ export default function SimpleTable({ location, history, match }) {
         icon: 'visibility',
         tooltip: 'Unidades',
         onClick: (event, rowData) => history.push({
-          pathname: '/app/unidades/lista/id',
+          pathname: `/app/unidades/lista/${location.state.customerId}`,
           state: {
             contractId: rowData.id,
             customerId: tableState.customerId,

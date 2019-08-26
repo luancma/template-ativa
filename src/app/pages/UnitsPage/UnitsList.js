@@ -4,10 +4,19 @@ import { UnitsApi } from 'api/UnitsApi';
 import { Button } from '@material-ui/core';
 
 export default function UnitsPage({ history }) {
+  const { contractId, customerId } = history.location.state;
+
   const [units, setUnits] = useState([]);
 
+  const thisRequest = async () => UnitsApi.getListOfUnits().then(value => value.data.units.filter(i => i.contract.id === contractId && i));
+
+  async function teste() {
+    const teste = await thisRequest();
+    await setUnits(teste);
+  }
+
   useEffect(() => {
-    UnitsApi.getListOfUnits().then(value => setUnits(value.data.units));
+    teste();
   }, []);
 
   const state = {
@@ -18,12 +27,33 @@ export default function UnitsPage({ history }) {
       { title: 'Cidade', field: 'city.name' },
     ],
     values: units,
+    tableActions: [
+      {
+        icon: 'edit',
+        tooltip: 'Editar',
+        onClick: (event, rowData) => history.push({
+          pathname: `/app/unidades/editar/${rowData.id}`,
+          state: { unitId: rowData.id },
+        }),
+      },
+      {
+        icon: 'delete',
+        tooltip: 'Remover',
+        onClick: (event, rowData) => alert(rowData.id),
+      },
+    ],
   };
 
   return (
     <>
-      <Button onClick={e => history.goBack()}>Voltar</Button>
       <TableUsers state={state} />
+      <Button
+        onClick={() => {
+          history.push(`/app/unidades/criar/${contractId}`);
+        }}
+      >
+        Criar unidade
+      </Button>
     </>
   );
 }

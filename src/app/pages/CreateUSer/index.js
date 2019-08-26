@@ -28,6 +28,9 @@ function CreateUser({ history }) {
   }, [message]);
 
   function showMessage(error) {
+    if (error.data) {
+      console.log(error.data);
+    }
     const { errors } = error.response.data;
     setMessage({
       ...message,
@@ -38,17 +41,10 @@ function CreateUser({ history }) {
 
   function handleSubmit(event) {
     UsersApi.createNewUserRequest(valuesUser)
-      .then(value => createSuccess())
+      .then(value => console.log(value.data))
       .catch((error) => {
-        showMessage(error);
+        showMessage(error.response);
       });
-  }
-
-  function createSuccess() {
-    setTimeout(() => {
-      alert('Salvo com sucesso');
-    }, 2000);
-    history.push('/app/usuarios/lista');
   }
 
   function handleChangeValue(event) {

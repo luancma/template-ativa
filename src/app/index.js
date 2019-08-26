@@ -64,10 +64,6 @@ class App extends React.Component {
           <main className="app-main-content-wrapper">
             <div className="app-main-content">
               <div className="app-wrapper">
-                {/* <ContainerHeader
-                  match={history.location}
-                  title={history.location.state}
-                /> */}
                 <Switch>
                   <Route
                     path={`${match.url}/clientes/lista`}
@@ -85,17 +81,14 @@ class App extends React.Component {
                     path={`${match.url}/cliente/criar`}
                     component={asyncComponent(() => import('./pages/CreateCustomer'))}
                   />
-
                   <Route
                     path={`${match.url}/contrato`}
                     component={asyncComponent(() => import('./pages/ContractsList'))}
                   />
-
                   <Route
                     path={`${match.url}/contratos/lista`}
                     component={asyncComponent(() => import('./pages/ContractsList/ContractsList'))}
                   />
-
                   <Route
                     path={`${match.url}/contrato/criar`}
                     component={asyncComponent(() => import('./pages/CreateContract'))}
@@ -117,16 +110,20 @@ class App extends React.Component {
                     component={asyncComponent(() => import('./pages/Outsourceds/index'))}
                   />
                   <Route
-                    path={`${match.url}/unidades/create`}
-                    component={asyncComponent(() => import('./pages/UnitsPage/index'))}
+                    path={`${match.url}/unidades/criar/:id`}
+                    component={asyncComponent(() => import('./pages/UnitsPage/FormUnits'))}
                   />
                   <Route
                     path={`${match.url}/unidades/lista`}
                     component={asyncComponent(() => import('./pages/UnitsPage/UnitsList'))}
                   />
                   <Route
-                    path={`${match.url}/unidades/lista/id`}
+                    path={`${match.url}/unidades/lista/:id`}
                     component={asyncComponent(() => import('./pages/UnitsPage/UnitsList'))}
+                  />
+                  <Route
+                    path={`${match.url}/unidades/editar/:id`}
+                    component={asyncComponent(() => import('./pages/UnitsPage/EditUnit'))}
                   />
                   <Route
                     component={asyncComponent(() => import('components/Error404'))}
