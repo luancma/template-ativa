@@ -1,6 +1,6 @@
 /*Theme Dark Indigo Styles*/
-$app-primary-dark-indigo: #3f51b5 !default;
-$secondary-dark-indigo: #FF4081;
+$app-primary-dark-indigo: #0a5ebd !default;
+$secondary-dark-indigo: #ff4081;
 
 $sidebar-dark-indigo: #252525 !default;
 $sidebar-text-dark-indigo: #a1a1a1 !default;
@@ -167,7 +167,6 @@ $link-hover-dark-indigo: $white;
 //_right-sidebar.scss
 .dark-indigo .color-theme-header {
   background-color: $app-primary-dark-indigo;
-
 }
 
 //_sidebar.scss
@@ -336,7 +335,6 @@ $link-hover-dark-indigo: $white;
 }
 
 .dark-indigo .app-top-nav {
-
   & .navbar-nav {
     & li.nav-item > a,
     & li.nav-item > .nav-link {
@@ -366,7 +364,6 @@ $link-hover-dark-indigo: $white;
 
 .dark-indigo .header-notifications .app-notification {
   & .jr-list-link {
-
     @include hover-focus-active {
       color: $app-primary-dark-indigo;
       border-color: $app-primary-dark-indigo;
@@ -530,7 +527,6 @@ $link-hover-dark-indigo: $white;
       background-color: $app-primary-dark-indigo;
       border-color: $app-primary-dark-indigo;
     }
-
   }
 
   > .jr-flat-btn {
@@ -579,11 +575,20 @@ $link-hover-dark-indigo: $white;
 
 // Gradient Color Class
 .dark-indigo .bg-gradient-primary {
-  @include gradient-directional($app-primary-dark-indigo, lighten($app-primary-dark-indigo, 16%), 0deg);
+  @include gradient-directional(
+    $app-primary-dark-indigo,
+    lighten($app-primary-dark-indigo, 16%),
+    0deg
+  );
 }
 
 .dark-indigo .bg-gradient-primary-x {
-  @include gradient-x(darken($app-primary-dark-indigo, 10%), lighten($app-primary-dark-indigo, 16%), 70%, 100%);
+  @include gradient-x(
+    darken($app-primary-dark-indigo, 10%),
+    lighten($app-primary-dark-indigo, 16%),
+    70%,
+    100%
+  );
 }
 
 //Profile style
@@ -602,15 +607,13 @@ $link-hover-dark-indigo: $white;
 }
 
 .dark-indigo .dropdown-item {
-
   &.active,
   &:active {
     background-color: $app-primary-dark-indigo;
     color: $white;
   }
 
-  &[class*="text-"] {
-
+  &[class*='text-'] {
     &.active,
     &:active {
       background-color: transparent;

@@ -3,9 +3,21 @@ import {
 } from 'redux-saga/effects';
 import { CustomersApi } from 'api/CustomersApi';
 import { receiveCustomersSuccess } from 'actions/Customers';
-import { RECEIVE_CUSTOMERS } from 'constants/ActionTypes';
+import { RECEIVE_CUSTOMERS, CREATE_NEW_CUSTOMERS } from 'constants/ActionTypes';
 
 const receiveCustomersRequest = () => CustomersApi.getListOfCustomers();
+
+const createNewCustomerRequest = userObject => CustomersApi.createNewCustomer(userObject);
+
+function* createNewCustomer(action) {
+  console.log(action.payload);
+  try {
+    // const response = yield call(createNewCustomerRequest(payload));
+    console.log('1');
+  } catch (error) {
+    console.log('2');
+  }
+}
 
 function* fetchCustomers() {
   try {
@@ -21,6 +33,10 @@ function* fetchCustomers() {
 
 export function* receiveCustomers() {
   yield takeEvery(RECEIVE_CUSTOMERS, fetchCustomers);
+}
+
+export function* createCustomer() {
+  yield takeEvery(CREATE_NEW_CUSTOMERS, createNewCustomer);
 }
 
 export default function* rootSaga() {

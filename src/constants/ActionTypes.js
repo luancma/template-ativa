@@ -149,6 +149,7 @@ export const RECEIVE_USERS_FAILED = '@users/receive_all_users_failed';
 
 // CONTRACTS ACTIONS
 export const CREATE_NEW_CONTRACT = '@contracts/create_new_contract';
+export const CREATE_NEW_CONTRACT_SUCCESS = '@contracts/create_new_contract_success';
 export const RECEIVE_CONTRACTS = '@contracts/receive_contracts';
 export const SHOW_MESSAGE_CONTRACTS_FAILD = '@contracts/show_message_faild';
 export const HIDE_MESSAGE_CONTRACTS_FAILD = '@contracts/hide_message_faild';

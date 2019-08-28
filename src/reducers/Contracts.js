@@ -7,6 +7,7 @@ import {
   HIDE_MESSAGE_CONTRACTS_FAILD,
   SHOW_MESSAGE_SUCCESS,
   HIDE_MESSAGE_SUCCESS,
+  CREATE_NEW_CONTRACT_SUCCESS,
 } from '../constants/ActionTypes';
 
 const INIT_STATE = {
@@ -23,7 +24,14 @@ export default (state = INIT_STATE, action) => {
     case CREATE_NEW_CONTRACT: {
       return {
         ...state,
-        contract: action.payload,
+        showLoading: true,
+      };
+    }
+    case CREATE_NEW_CONTRACT_SUCCESS: {
+      return {
+        ...state,
+        showLoading: false,
+        contracts: action.payload,
       };
     }
     case RECEIVE_CONTRACTS: {

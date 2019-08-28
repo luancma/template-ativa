@@ -5,7 +5,9 @@ export class CustomersApi {
 
   static createNewCustomer = customer => api.post('customers', customer);
 
+  static removeCustomer = id => api.delete(`customers/${id}`);
+
   static fetchSingleCustomers = id => api.get(`customers/${id}`);
 
-  static updateSingleCustomer = (id, customers) => api.put(`customers/${id}`, customers);
+  static updateSingleCustomer = (id, customer) => api.put(`customers/${id}`, customer);
 }

@@ -1,5 +1,5 @@
 export class InstallationsApi {
-  static getListOfInstallations = () => api.get('installations')
+  static getListOfInstallations = () => api.get('installations');
 
-  static createNewInstallation = installations => api.post('installations', installations)
+  static createNewInstallation = installations => api.post('installations', installations);
 }

@@ -1,21 +1,19 @@
 /* eslint-disable class-methods-use-this */
-import React, {Component} from 'react';
-import {NavLink, withRouter} from 'react-router-dom';
+import React, { Component } from 'react';
+import { NavLink, withRouter } from 'react-router-dom';
 
 import IntlMessages from 'util/IntlMessages';
 import CustomScrollbars from 'util/CustomScrollbars';
 
-
 class SidenavContent extends Component {
   componentDidMount() {
-    const {history} = this.props;
+    const { history } = this.props;
     const that = this;
-    const pathname = `${history.location.pathname}`;// get current path
+    const pathname = `${history.location.pathname}`; // get current path
 
     const menuLi = document.getElementsByClassName('menu');
     for (let i = 0; i < menuLi.length; i++) {
       menuLi[i].onclick = function (event) {
-
         const parentLiEle = that.closest(this, 'li');
         if (menuLi[i].classList.contains('menu') && parentLiEle !== null) {
           event.stopPropagation();
@@ -28,7 +26,10 @@ class SidenavContent extends Component {
         } else {
           for (let j = 0; j < menuLi.length; j++) {
             const parentLi = that.closest(this, 'li');
-            if (menuLi[j] !== this && (parentLi === null || !parentLi.classList.contains('open'))) {
+            if (
+              menuLi[j] !== this
+              && (parentLi === null || !parentLi.classList.contains('open'))
+            ) {
               menuLi[j].classList.remove('open');
             } else if (menuLi[j].classList.contains('open')) {
               menuLi[j].classList.remove('open');
@@ -40,7 +41,7 @@ class SidenavContent extends Component {
       };
     }
 
-    const activeLi = document.querySelector(`a[href="${pathname}"]`);// select current a element
+    const activeLi = document.querySelector(`a[href="${pathname}"]`); // select current a element
     try {
       const activeNav = this.closest(activeLi, 'ul'); // select closest ul
       if (activeNav.classList.contains('sub-menu')) {
@@ -48,17 +49,14 @@ class SidenavContent extends Component {
       } else {
         this.closest(activeLi, 'li').classList.add('open');
       }
-    } catch (error) {
-
-    }
+    } catch (error) {}
   }
 
   componentWillReceiveProps(nextProps) {
+    const { history } = nextProps;
+    const pathname = `${history.location.pathname}`; // get current path
 
-    const {history} = nextProps;
-    const pathname = `${history.location.pathname}`;// get current path
-
-    const activeLi = document.querySelector(`a[href="${pathname}"]`);// select current a element
+    const activeLi = document.querySelector(`a[href="${pathname}"]`); // select current a element
     try {
       const activeNav = this.closest(activeLi, 'ul'); // select closest ul
       if (activeNav.classList.contains('sub-menu')) {
@@ -66,16 +64,20 @@ class SidenavContent extends Component {
       } else {
         this.closest(activeLi, 'li').classList.add('open');
       }
-    } catch (error) {
-
-    }
+    } catch (error) {}
   }
 
   closest(el, selector) {
     try {
       let matchesFn;
       // find vendor prefix
-      ['matches', 'webkitMatchesSelector', 'mozMatchesSelector', 'msMatchesSelector', 'oMatchesSelector'].some((fn) => {
+      [
+        'matches',
+        'webkitMatchesSelector',
+        'mozMatchesSelector',
+        'msMatchesSelector',
+        'oMatchesSelector',
+      ].some((fn) => {
         if (typeof document.body[fn] === 'function') {
           matchesFn = fn;
           return true;
@@ -93,10 +95,8 @@ class SidenavContent extends Component {
         }
         el = parent;
       }
-    // eslint-disable-next-line no-empty
-    } catch (e) {
-
-    }
+      // eslint-disable-next-line no-empty
+    } catch (e) {}
 
     return null;
   }
@@ -105,32 +105,82 @@ class SidenavContent extends Component {
     return (
       <CustomScrollbars className=" scrollbar">
         <ul className="nav-menu">
-
           <li className="nav-header">
             <IntlMessages id="sidebar.main" />
           </li>
-          <li className="menu no-arrow">
-            <NavLink to="/app/sample-page">
-              <i className="zmdi zmdi-view-dashboard zmdi-hc-fw" />
-              <span className="nav-text">
-                Início
+          <li className="menu collapse-box">
+            <button
+              className="MuiButtonBase-root MuiButton-root MuiButton-text"
+              tabIndex="0"
+              type="button"
+            >
+              <span className="MuiButton-label">
+                <i className="zmdi zmdi-account-box zmdi-hc-fw" />
+                <span className="nav-text">
+                  <span>Clientes</span>
+                </span>
               </span>
+              <span className="MuiTouchRipple-root" />
+            </button>
+            <ul className="sub-menu">
+              <li>
+                <a className="prepend-icon" href="/app/clientes/lista">
+                  <span className="nav-text">
+                    <span>Lista de clientes</span>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a className="prepend-icon" href="/app/cliente/criar">
+                  <span className="nav-text">
+                    <span>Adicionar cliente</span>
+                  </span>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li className="menu collapse-box">
+            <button
+              className="MuiButtonBase-root MuiButton-root MuiButton-text"
+              tabIndex="0"
+              type="button"
+            >
+              <span className="MuiButton-label">
+                <i className="zmdi zmdi-account-box zmdi-hc-fw" />
+                <span className="nav-text">
+                  <span>Usuários</span>
+                </span>
+              </span>
+              <span className="MuiTouchRipple-root" />
+            </button>
+            <ul className="sub-menu">
+              <li>
+                <a className="prepend-icon" href="/app/usuarios/lista">
+                  <span className="nav-text">
+                    <span>Lista de usuários</span>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a className="prepend-icon" href="/app/usuarios/criar">
+                  <span className="nav-text">
+                    <span>Adicionar Usuário</span>
+                  </span>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li className="menu no-arrow">
+            <NavLink to="/app/contratos/lista">
+              <i className="zmdi zmdi-view-dashboard zmdi-hc-fw" />
+              <span className="nav-text">Contratos</span>
             </NavLink>
           </li>
           <li className="menu no-arrow">
-            <NavLink to="/app/create-user">
+            <NavLink to="/app/unidades">
               <i className="zmdi zmdi-view-dashboard zmdi-hc-fw" />
-              <span className="nav-text">
-                Criar usuário
-              </span>
-            </NavLink>
-          </li>
-          <li className="menu no-arrow">
-            <NavLink to="/app/list">
-              <i className="zmdi zmdi-view-dashboard zmdi-hc-fw" />
-              <span className="nav-text">
-                Teste
-              </span>
+              <span className="nav-text">Unidades</span>
             </NavLink>
           </li>
         </ul>
