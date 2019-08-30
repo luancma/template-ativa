@@ -1,16 +1,13 @@
 module.exports = {
-  ecmaFeatures: {
-    jsx: true,
-    modules: true,
-  },
   env: {
     browser: true,
     node: true,
     mocha: true,
   },
-  parser: 'babel-eslint',
-  extends: 'airbnb',
+  extends: ['airbnb', 'prettier', 'prettier/react'],
   rules: {
+    'prettier/prettier': 'error',
+    //
     'react/jsx-no-target-blank': 0,
     'func-names': 0,
     'max-len': 0,
@@ -26,7 +23,6 @@ module.exports = {
     'global-require': 0,
     'react/prop-types': 0,
     'comma-dangle': ['off'],
-    parser: 'babel-eslint',
     rules: {
       quotes: [2, 'single'],
       strict: [2, 'never'],
@@ -42,7 +38,7 @@ module.exports = {
     'padded-blocks': ['off'],
     'react/jsx-closing-bracket-location': ['off'],
     'react/jsx-filename-extension': [
-      1,
+      'warn',
       {
         extensions: ['.js', '.jsx'],
       },
@@ -62,5 +58,5 @@ module.exports = {
     'react/sort-comp': ['warn'],
     'class-methods-use-this': ['warn'],
   },
-  plugins: ['react'],
+  plugins: ['react', 'prettier'],
 };

@@ -5,7 +5,6 @@ import {
   Select,
   MenuItem,
   Input,
-  OutlinedInput,
 } from '@material-ui/core';
 import { States } from 'api/StatesApi';
 
@@ -27,8 +26,6 @@ export function SelectCities({
   }
 
   async function fetchCities(stateName) {
-    console.log(stateName);
-
     const state = await getIdByState(stateName);
     const response = await States.getListOfCityByStateId(state.id).then(
       value => value.data.cities
@@ -36,6 +33,8 @@ export function SelectCities({
     setCities(response);
     if (cityCep) {
       const cidade = response.filter(c => c.name === cityCep);
+      console.log(4, cidade);
+
       const setCity = () => setCityFinded(cidade[0].id);
       setCity();
     }
@@ -64,8 +63,8 @@ export function SelectCities({
         <MenuItem value="">
           <em>None</em>
         </MenuItem>
-        {cities
-          && cities.map(item => (
+        {cities &&
+          cities.map(item => (
             <MenuItem key={item.id} value={item.id}>
               {item.name}
             </MenuItem>

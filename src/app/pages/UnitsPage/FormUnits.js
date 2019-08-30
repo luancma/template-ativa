@@ -47,7 +47,6 @@ export default function FormUnits({ contractInfo, history }) {
     );
     if (city) {
       const cidade = response.filter(c => c.name === city);
-      console.log(values);
 
       setValues({
         ...values,
@@ -154,7 +153,7 @@ export default function FormUnits({ contractInfo, history }) {
   const unitObject = {
     name: units.name,
     city_id: values.city,
-    code: cep.cepNumber,
+    zip_code: cep.cepNumber,
     state: values.state,
     outsourced_id: values.outsourced,
     complement: units.complement,
