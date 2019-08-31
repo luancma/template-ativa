@@ -8,25 +8,29 @@ export function CustomerTable({ state, history }) {
 
   function deleteCustomer(rowData) {
     const valorId = values.find(item => item.email === rowData).id;
-    return CustomersApi.removeCustomer(valorId).then(value => console.log(value.data));
+    return CustomersApi.removeCustomer(valorId).then(value =>
+      console.log(value.data)
+    );
   }
 
   const actions = [
     {
       icon: 'visibility',
       tooltip: 'Detalhes',
-      onClick: (event, rowData) => history.push({
-        pathname: '/app/contrato',
-        state: { customerId: getId(rowData.email) },
-      }),
+      onClick: (event, rowData) =>
+        history.push({
+          pathname: '/app/contrato',
+          state: { customerId: getId(rowData.email) },
+        }),
     },
     {
       icon: 'edit',
       tooltip: 'Editar',
-      onClick: (event, rowData) => history.push({
-        pathname: '/app/clientes/editar',
-        state: { customerId: getId(rowData.email) },
-      }),
+      onClick: (event, rowData) =>
+        history.push({
+          pathname: '/app/clientes/editar',
+          state: { customerId: getId(rowData.email) },
+        }),
     },
     {
       icon: 'delete',

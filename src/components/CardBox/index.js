@@ -20,8 +20,8 @@ const CardBox = ({
     )}
 
     <div className={`jr-card ${cardStyle}`}>
-      {!headerOutside
-        && (heading && (
+      {!headerOutside &&
+        (heading && (
           <div className={`jr-card-header ${headingStyle}`}>
             <h3 className="card-heading">{heading}</h3>
             {children.length > 1 && (

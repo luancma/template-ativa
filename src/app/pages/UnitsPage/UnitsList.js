@@ -8,7 +8,10 @@ export default function UnitsPage({ history }) {
 
   const [units, setUnits] = useState([]);
 
-  const thisRequest = async () => UnitsApi.getListOfUnits().then(value => value.data.units.filter(i => i.contract.id === contractId && i));
+  const thisRequest = async () =>
+    UnitsApi.getListOfUnits().then(value =>
+      value.data.units.filter(i => i.contract.id === contractId && i)
+    );
 
   async function teste() {
     const teste = await thisRequest();
@@ -31,10 +34,11 @@ export default function UnitsPage({ history }) {
       {
         icon: 'edit',
         tooltip: 'Editar',
-        onClick: (event, rowData) => history.push({
-          pathname: `/app/unidades/editar/${rowData.id}`,
-          state: { unitId: rowData.id },
-        }),
+        onClick: (event, rowData) =>
+          history.push({
+            pathname: `/app/unidades/editar/${rowData.id}`,
+            state: { unitId: rowData.id },
+          }),
       },
       {
         icon: 'delete',

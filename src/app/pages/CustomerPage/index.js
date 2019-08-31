@@ -15,7 +15,9 @@ function SamplePage({ history, match }) {
   });
 
   useEffect(() => {
-    CustomersApi.getListOfCustomers().then(value => setState({ ...state, title: 'Clientes', values: value.data.customers }));
+    CustomersApi.getListOfCustomers().then(value =>
+      setState({ ...state, title: 'Clientes', values: value.data.customers })
+    );
   }, []);
 
   return (

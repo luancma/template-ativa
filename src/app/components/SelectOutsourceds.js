@@ -5,7 +5,7 @@ import {
   Select,
   MenuItem,
   Input,
-  OutlinedInput,
+  FormHelperText,
 } from '@material-ui/core';
 
 export function SelectOutsourceds({
@@ -16,11 +16,7 @@ export function SelectOutsourceds({
   const inputLabel = React.useRef(null);
 
   return (
-    <FormControl
-      fullWidth
-      style={{ margin: '14px 0 14px ' }}
-    >
-
+    <FormControl fullWidth style={{ margin: '14px 0 14px ' }}>
       <InputLabel ref={inputLabel} htmlFor="outlined-age-simple">
         Terceirizada
       </InputLabel>
@@ -33,13 +29,19 @@ export function SelectOutsourceds({
         <MenuItem value="">
           <em>None</em>
         </MenuItem>
-        {outsourceds
-          && outsourceds.map(item => (
+        {outsourceds &&
+          outsourceds.map(item => (
             <MenuItem key={item.id} value={item.id}>
               {item.fantasy_name}
             </MenuItem>
           ))}
       </Select>
+
+      {ValuesState === '' && (
+        <FormHelperText error>
+          Esse campo não pode ficar em branco
+        </FormHelperText>
+      )}
     </FormControl>
   );
 }

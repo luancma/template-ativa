@@ -6,6 +6,7 @@ import { SelectOutsourceds } from 'app/components/SelectOutsourceds';
 import { OutsourcedsApi } from 'api/OutsourcedsApi';
 import { States } from 'api/StatesApi';
 import Axios from 'axios';
+
 import { ButtonComponent } from './ButtonComponent';
 
 export default function FormUnits({ contractInfo, history }) {
@@ -98,6 +99,16 @@ export default function FormUnits({ contractInfo, history }) {
       setDisabled(false);
     }
 
+    async function fetchCep() {
+      const response = await Axios.get(
+        `https://api.postmon.com.br/v1/cep/${cep.cepNumber}`
+      ).then(value => value.data);
+
+      setCep({ ...cep, cepDetails: response });
+
+      console.log(response);
+    }
+
     if (!cep.cepDetails.cep && cep.cepNumber.length === 8) {
       fetchCep().then(value => setDisabled(true));
     }
@@ -116,16 +127,6 @@ export default function FormUnits({ contractInfo, history }) {
       fetchCities(nome, cidade);
     }
   }, [cep.cepNumber, cep.cepDetails]);
-
-  async function fetchCep() {
-    const response = await Axios.get(
-      `https://api.postmon.com.br/v1/cep/${cep.cepNumber}`
-    ).then(value => value.data);
-
-    setCep({ ...cep, cepDetails: response });
-
-    console.log(response);
-  }
 
   function handleChangeSelect(event) {
     console.log(4, event);
