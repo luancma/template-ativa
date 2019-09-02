@@ -8,12 +8,19 @@ import { States } from 'api/StatesApi';
 import Axios from 'axios';
 
 import { ButtonComponent } from './ButtonComponent';
+import CardBox from 'components/CardBox';
+import useFetch from 'app/hooks/useFetch';
 
 export default function FormUnits({ contractInfo, history }) {
   const routerParameter = history.location.pathname.split('/').slice(-1)[0];
 
-  const [states, setStates] = useState([]);
-  const [outsourceds, setOutsources] = useState([]);
+  const { data: states } = useFetch(States.getListOfStates, 'states');
+
+  const { data: outsourceds } = useFetch(
+    OutsourcedsApi.getListOfOutsourceds,
+    'outsourceds'
+  );
+
   const [units, setUnits] = useState({
     street: '',
     name: '',
@@ -57,25 +64,6 @@ export default function FormUnits({ contractInfo, history }) {
       });
     }
   }
-
-  async function fetchOutsources() {
-    const response = await OutsourcedsApi.getListOfOutsourceds().then(
-      value => value.data.outsourceds
-    );
-    setOutsources(response);
-  }
-
-  async function fetchStates() {
-    const response = await States.getListOfStates().then(
-      value => value.data.states
-    );
-    setStates(response);
-  }
-
-  useEffect(() => {
-    fetchStates();
-    fetchOutsources();
-  }, []);
 
   useEffect(() => {
     if (cep.cepDetails.cep && cep.cepNumber.length < 8) {
@@ -167,130 +155,137 @@ export default function FormUnits({ contractInfo, history }) {
 
   return (
     <>
-      <div className="row">
-        <div className="col-md-6">
-          <TextField
-            fullWidth
-            label="Nome da unidade"
-            type="text"
-            name="name"
-            autoComplete="name"
-            margin="normal"
-            value={units.name}
-            onChange={e => handleInputValues(e)}
-          />
-        </div>
-        <div className="col-md-6">
-          <SelectOutsourceds
-            outsourceds={outsourceds}
-            isDisabled={isDisabled}
-            ValuesState={values.outsourced}
-            handleChangeSelect={handleChangeSelect}
-          />
-        </div>
-        <div className="col-md-3">
-          <TextField
-            fullWidth
-            label="Cep"
-            type="text"
-            name="cepNumber"
-            autoComplete="text"
-            margin="normal"
-            value={cep.cepNumber}
-            onChange={e => handleInputCep(e)}
-          />
-        </div>
-        <div className="col-md-3">
-          <TextField
-            fullWidth
-            label="Complemento"
-            type="text"
-            name="complement"
-            autoComplete="text"
-            margin="normal"
-            value={units.complement}
-            onChange={e => handleInputValues(e)}
-          />
-        </div>
-        <div className="col-md-3">
-          <TextField
-            fullWidth
-            label="Número"
-            type="text"
-            name="number"
-            autoComplete="text"
-            margin="normal"
-            value={units.number}
-            onChange={e => handleInputValues(e)}
-          />
-        </div>
-        <div className="col-md-3">
-          <TextField
-            disabled={isDisabled}
-            fullWidth
-            label="Logradouro"
-            type="text"
-            name="street"
-            autoComplete="text"
-            margin="normal"
-            value={units.street}
-            onChange={e => handleInputValues(e)}
-          />
-        </div>
+      <CardBox
+        heading="Adicionar unidade"
+        styleName="col-12"
+        children={
+          <>
+            <div className="row">
+              <div className="col-md-6">
+                <TextField
+                  fullWidth
+                  label="Nome da unidade"
+                  type="text"
+                  name="name"
+                  autoComplete="name"
+                  margin="normal"
+                  value={units.name}
+                  onChange={e => handleInputValues(e)}
+                />
+              </div>
+              <div className="col-md-6">
+                <SelectOutsourceds
+                  outsourceds={outsourceds}
+                  disabled
+                  ValuesState={values.outsourced}
+                  handleChangeSelect={handleChangeSelect}
+                />
+              </div>
+              <div className="col-md-6">
+                <TextField
+                  fullWidth
+                  label="Cep"
+                  type="text"
+                  name="cepNumber"
+                  autoComplete="text"
+                  margin="normal"
+                  value={cep.cepNumber}
+                  onChange={e => handleInputCep(e)}
+                />
+              </div>
+              <div className="col-md-6">
+                <TextField
+                  fullWidth
+                  label="Complemento"
+                  type="text"
+                  name="complement"
+                  autoComplete="text"
+                  margin="normal"
+                  value={units.complement}
+                  onChange={e => handleInputValues(e)}
+                />
+              </div>
+              <div className="col-md-6">
+                <TextField
+                  fullWidth
+                  label="Número"
+                  type="text"
+                  name="number"
+                  autoComplete="text"
+                  margin="normal"
+                  value={units.number}
+                  onChange={e => handleInputValues(e)}
+                />
+              </div>
+              <div className="col-md-6">
+                <TextField
+                  disabled
+                  fullWidth
+                  label="Logradouro"
+                  type="text"
+                  name="street"
+                  autoComplete="text"
+                  margin="normal"
+                  value={units.street}
+                  onChange={e => handleInputValues(e)}
+                />
+              </div>
 
-        <div className="col-md-3">
-          <TextField
-            disabled={isDisabled}
-            fullWidth
-            label="Bairro"
-            type="text"
-            name="neighborhood"
-            autoComplete="text"
-            margin="normal"
-            value={units.neighborhood}
-            onChange={e => handleInputValues(e)}
-          />
-        </div>
+              <div className="col-md-6">
+                <TextField
+                  disabled
+                  fullWidth
+                  label="Bairro"
+                  type="text"
+                  name="neighborhood"
+                  autoComplete="text"
+                  value={units.neighborhood}
+                  onChange={e => handleInputValues(e)}
+                />
+              </div>
 
-        <div className="col-md-3">
-          <SelectStates
-            states={states}
-            isDisabled={isDisabled}
-            ValuesState={values.state}
-            handleChangeSelect={handleChangeSelect}
-          />
-        </div>
-        <div className="col-md-3">
-          <SelectCities
-            states={states}
-            isDisabled={isDisabled}
-            stateName={values.state}
-            cityCep={values.cityByCep}
-            ValuesCity={values.city}
-            handleChangeSelect={handleChangeSelect}
-          />
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-md-12">
-          <TextField
-            multiline
-            fullWidth
-            label="Descrição da unidade"
-            type="text"
-            name="description"
-            autoComplete="text"
-            margin="normal"
-            value={units.description}
-            onChange={e => handleInputValues(e)}
-          />
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-md-12">
-          <ButtonComponent units={unitObject} />
-        </div>
-      </div>
+              <div className="col-md-6">
+                <SelectStates
+                  states={states}
+                  isDisabled={true}
+                  ValuesState={values.state}
+                  handleChangeSelect={handleChangeSelect}
+                />
+              </div>
+              <div className="col-md-6">
+                <SelectCities
+                  states={states}
+                  isDisabled={true}
+                  stateName={values.state}
+                  cityCep={values.cityByCep}
+                  ValuesCity={values.city}
+                  handleChangeSelect={handleChangeSelect}
+                />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-md-12">
+                <TextField
+                  multiline
+                  fullWidth
+                  label="Descrição da unidade"
+                  type="text"
+                  name="description"
+                  autoComplete="text"
+                  margin="normal"
+                  value={units.description}
+                  onChange={e => handleInputValues(e)}
+                />
+              </div>
+            </div>
+            <div className="row">
+              <div className="col-md-12">
+                <ButtonComponent units={unitObject} />
+              </div>
+            </div>
+          </>
+        }
+      />
     </>
   );
 }

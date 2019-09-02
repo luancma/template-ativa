@@ -6,7 +6,7 @@ import { UnitsApi } from 'api/UnitsApi';
 import { OutsourcedsApi } from 'api/OutsourcedsApi';
 import { States } from 'api/StatesApi';
 import useFetch from '../../hooks/useFetch';
-import { SelectTeste } from '../../dumb/SelectTeste';
+import { SelectTeste } from '../../components/SelectTeste';
 import { fetchCep, fetchCities } from '../../../util/myFunctions';
 
 export function FormUpdate({ history }) {

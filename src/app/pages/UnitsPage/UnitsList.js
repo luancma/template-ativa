@@ -32,6 +32,15 @@ export default function UnitsPage({ history }) {
     values: units,
     tableActions: [
       {
+        icon: 'visibility',
+        tooltip: 'Detalhes',
+        onClick: (event, rowData) =>
+          history.push({
+            pathname: `/app/ordem/${contractId}/detalhes`,
+            state: { unitId: rowData.id },
+          }),
+      },
+      {
         icon: 'edit',
         tooltip: 'Editar',
         onClick: (event, rowData) =>
@@ -43,7 +52,8 @@ export default function UnitsPage({ history }) {
       {
         icon: 'delete',
         tooltip: 'Remover',
-        onClick: (event, rowData) => alert(rowData.id),
+        onClick: (event, rowData) =>
+          UnitsApi.deleteUnit(rowData.id).then(() => alert('Deletado')),
       },
     ],
   };
