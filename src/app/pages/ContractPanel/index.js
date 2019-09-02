@@ -54,11 +54,11 @@ function NestedList() {
       <List
         component="nav"
         aria-labelledby="nested-list-subheader"
-        subheader={(
+        subheader={
           <ListSubheader component="div" id="nested-list-subheader">
             <span style={{ fontSize: '16px' }}>Gerenciamento de contratos</span>
           </ListSubheader>
-)}
+        }
         className={classes.root}
       >
         <ListItem button>

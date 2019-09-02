@@ -21,32 +21,35 @@ function SamplePage({ history, match }) {
   }, []);
 
   return (
-    <div>
+    <div className="container">
       {state.values.length !== 0 ? (
         <>
           <CustomerTable state={state} history={history} />
-          <div
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'flex-end',
-              marginTop: '14px',
-            }}
-          >
-            <Button
+          <div className="row">
+            <div
+              className="col-12 col-md-12"
               style={{
-                padding: '16px',
+                display: 'flex',
+                flexDirection: 'row-reverse',
+                marginTop: '14px',
               }}
-              variant="contained"
-              color="primary"
-              onClick={e => history.push('/app/cliente/criar')}
             >
-              Adicionar Cliente
-            </Button>
+              <Button
+                className="col-md-4 col-lg-3 col-12"
+                size="large"
+                variant="contained"
+                color="primary"
+                onClick={e => history.push('/app/cliente/criar')}
+              >
+                Adicionar Cliente
+              </Button>
+            </div>
           </div>
         </>
       ) : (
-        <CircularProgress />
+        <div className="loader-view">
+          <CircularProgress />
+        </div>
       )}
     </div>
   );

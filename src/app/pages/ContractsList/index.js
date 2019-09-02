@@ -22,13 +22,14 @@ export default function SimpleTable({ location, history, match }) {
       {
         icon: 'visibility',
         tooltip: 'Unidades',
-        onClick: (event, rowData) => history.push({
-          pathname: `/app/unidades/lista/${location.state.customerId}`,
-          state: {
-            contractId: rowData.id,
-            customerId: tableState.customerId,
-          },
-        }),
+        onClick: (event, rowData) =>
+          history.push({
+            pathname: `/app/unidades/lista/${location.state.customerId}`,
+            state: {
+              contractId: rowData.id,
+              customerId: tableState.customerId,
+            },
+          }),
       },
       {
         icon: 'delete',
@@ -43,13 +44,16 @@ export default function SimpleTable({ location, history, match }) {
   });
 
   useEffect(() => {
-    ContractsApi.getListOfContracts().then(value => setTableState({
-      ...tableState,
-      title: 'Contratos',
-      values: value.data.contracts.filter(
-        contracts => contracts.customer.id === tableState.customerId && contracts
-      ),
-    }));
+    ContractsApi.getListOfContracts().then(value =>
+      setTableState({
+        ...tableState,
+        title: 'Contratos',
+        values: value.data.contracts.filter(
+          contracts =>
+            contracts.customer.id === tableState.customerId && contracts
+        ),
+      })
+    );
   }, []);
 
   useEffect(() => {
@@ -58,7 +62,6 @@ export default function SimpleTable({ location, history, match }) {
     }, 3000);
   }, [message]);
 
-  console.log(history.location);
   return (
     <>
       {tableState.values && (
@@ -81,10 +84,11 @@ function ButtonCreate({ history, tableState }) {
       }}
       variant="contained"
       color="primary"
-      onClick={e => history.push({
-        pathname: '/app/contrato/criar',
-        state: { customerId: tableState.customerId },
-      })
+      onClick={e =>
+        history.push({
+          pathname: '/app/contrato/criar',
+          state: { customerId: tableState.customerId },
+        })
       }
     >
       Adicionar Contrato

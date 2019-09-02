@@ -10,8 +10,6 @@ import {
 import IntlMessages from 'util/IntlMessages';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { hideMessage, showAuthLoader, userSignIn } from 'actions/Auth';
-import CardBox from 'components/CardBox';
-import PriceItem from 'components/pricingTable/ItemThird';
 
 function LoginComponent() {
   return <div />;
@@ -45,13 +43,13 @@ class SignIn extends React.Component {
         <div className="app-login-container d-flex justify-content-center align-items-center animated slideInUpTiny animation-duration-3">
           <div className="app-login-main-content">
             <div className="app-logo-content d-flex align-items-center justify-content-center">
-              <Link className="logo-lg" to="/" title="Jambo">
+              {/* <Link className="logo-lg" to="/" title="Jambo">
                 <img
                   src={require('assets/images/logo.png')}
                   alt="jambo"
                   title="jambo"
                 />
-              </Link>
+              </Link> */}
             </div>
 
             <div className="app-login-content">
@@ -67,7 +65,8 @@ class SignIn extends React.Component {
                     <TextField
                       label={<IntlMessages id="appModule.email" />}
                       fullWidth
-                      onChange={event => this.setState({ email: event.target.value })
+                      onChange={event =>
+                        this.setState({ email: event.target.value })
                       }
                       defaultValue={email}
                       margin="normal"
@@ -77,7 +76,8 @@ class SignIn extends React.Component {
                       type="password"
                       label={<IntlMessages id="appModule.password" />}
                       fullWidth
-                      onChange={event => this.setState({ password: event.target.value })
+                      onChange={event =>
+                        this.setState({ password: event.target.value })
                       }
                       defaultValue={password}
                       margin="normal"
@@ -120,9 +120,7 @@ class SignIn extends React.Component {
 }
 
 const mapStateToProps = ({ auth }) => {
-  const {
-    loader, alertMessage, showMessage, authUser
-  } = auth;
+  const { loader, alertMessage, showMessage, authUser } = auth;
   return {
     loader,
     alertMessage,

@@ -42,7 +42,7 @@ class Header extends React.Component {
     });
   };
 
-  onToggleCollapsedNav = (e) => {
+  onToggleCollapsedNav = e => {
     const val = !this.props.navCollapsed;
     this.props.toggleCollapsedNav(val);
   };
@@ -119,14 +119,14 @@ class Header extends React.Component {
     const drawerStyle = drawerType.includes(FIXED_DRAWER)
       ? 'd-block d-xl-none'
       : drawerType.includes(COLLAPSED_DRAWER)
-        ? 'd-block'
-        : 'd-none';
+      ? 'd-block'
+      : 'd-none';
 
     return (
       <AppBar
         className={`app-main-header ${
-          navigationStyle === HORIZONTAL_NAVIGATION
-          && horizontalNavPosition === BELOW_THE_HEADER
+          navigationStyle === HORIZONTAL_NAVIGATION &&
+          horizontalNavPosition === BELOW_THE_HEADER
             ? 'app-main-header-top'
             : ''
         }`}
@@ -153,7 +153,7 @@ class Header extends React.Component {
 
           <Link
             className="app-logo mr-2 d-none d-sm-block"
-            to="/app/customers/list"
+            to="/app/clientes/lista"
           >
             <img
               src={require('assets/images/logo.png')}

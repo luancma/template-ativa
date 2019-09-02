@@ -4,7 +4,7 @@ import CardBox from 'components/CardBox';
 export default function CreateServiceOrder() {
   return (
     <CardBox
-      heading="Adicionar unidade"
+      heading={<Heading />}
       styleName="col-12"
       children={
         <>
@@ -12,5 +12,12 @@ export default function CreateServiceOrder() {
         </>
       }
     />
+  );
+}
+function Heading() {
+  return (
+    <div className="col-12">
+      <span>Criar Ordem de Serviço</span>
+    </div>
   );
 }

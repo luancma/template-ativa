@@ -51,7 +51,7 @@ export default (state = INIT_STATE, action) => {
       return {
         ...state,
         authUser: null,
-        initURL: '/app/customers/list',
+        initURL: '/app/clientes/lista',
         loader: false,
       };
     }

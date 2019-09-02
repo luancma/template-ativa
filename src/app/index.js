@@ -138,7 +138,7 @@ class App extends React.Component {
                   <Route
                     path={`${match.url}/unidades/lista`}
                     component={asyncComponent(() =>
-                      import('./pages/UnitsPage/UnitsList')
+                      import('./pages/UnitsPage/AllUnitsList')
                     )}
                   />
                   <Route

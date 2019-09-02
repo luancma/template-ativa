@@ -13,7 +13,7 @@ class SidenavContent extends Component {
 
     const menuLi = document.getElementsByClassName('menu');
     for (let i = 0; i < menuLi.length; i++) {
-      menuLi[i].onclick = function (event) {
+      menuLi[i].onclick = function(event) {
         const parentLiEle = that.closest(this, 'li');
         if (menuLi[i].classList.contains('menu') && parentLiEle !== null) {
           event.stopPropagation();
@@ -27,8 +27,8 @@ class SidenavContent extends Component {
           for (let j = 0; j < menuLi.length; j++) {
             const parentLi = that.closest(this, 'li');
             if (
-              menuLi[j] !== this
-              && (parentLi === null || !parentLi.classList.contains('open'))
+              menuLi[j] !== this &&
+              (parentLi === null || !parentLi.classList.contains('open'))
             ) {
               menuLi[j].classList.remove('open');
             } else if (menuLi[j].classList.contains('open')) {
@@ -77,7 +77,7 @@ class SidenavContent extends Component {
         'mozMatchesSelector',
         'msMatchesSelector',
         'oMatchesSelector',
-      ].some((fn) => {
+      ].some(fn => {
         if (typeof document.body[fn] === 'function') {
           matchesFn = fn;
           return true;
@@ -178,7 +178,7 @@ class SidenavContent extends Component {
             </NavLink>
           </li>
           <li className="menu no-arrow">
-            <NavLink to="/app/unidades">
+            <NavLink to="/app/unidades/lista">
               <i className="zmdi zmdi-view-dashboard zmdi-hc-fw" />
               <span className="nav-text">Unidades</span>
             </NavLink>
