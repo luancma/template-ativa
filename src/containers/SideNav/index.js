@@ -1,21 +1,24 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {withRouter} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import Drawer from '@material-ui/core/Drawer';
 import UserInfo from 'components/UserInfo';
-import {COLLAPSED_DRAWER, FIXED_DRAWER, HORIZONTAL_NAVIGATION} from 'constants/ActionTypes';
-import {toggleCollapsedNav, updateWindowWidth} from 'actions/Setting';
+import {
+  COLLAPSED_DRAWER,
+  FIXED_DRAWER,
+  HORIZONTAL_NAVIGATION,
+} from 'constants/ActionTypes';
+import { toggleCollapsedNav, updateWindowWidth } from 'actions/Setting';
 import SidenavContent from './SidenavContent';
 
 class SideNav extends React.PureComponent {
-
   onToggleCollapsedNav = (e) => {
     const val = !this.props.navCollapsed;
     this.props.toggleCollapsedNav(val);
   };
 
   componentDidMount() {
-    const {updateWindowWidth} = this.props;
+    const { updateWindowWidth } = this.props;
     window.addEventListener('resize', () => {
       updateWindowWidth(window.innerWidth);
     });
@@ -25,9 +28,16 @@ class SideNav extends React.PureComponent {
     const {
       navCollapsed, drawerType, width, navigationStyle
     } = this.props;
-    let drawerStyle = drawerType.includes(FIXED_DRAWER) ? 'd-xl-flex' : drawerType.includes(COLLAPSED_DRAWER) ? '' : 'd-flex';
+    let drawerStyle = drawerType.includes(FIXED_DRAWER)
+      ? 'd-xl-flex'
+      : drawerType.includes(COLLAPSED_DRAWER)
+        ? ''
+        : 'd-flex';
     let type = 'permanent';
-    if (drawerType.includes(COLLAPSED_DRAWER) || (drawerType.includes(FIXED_DRAWER) && width < 1200)) {
+    if (
+      drawerType.includes(COLLAPSED_DRAWER)
+      || (drawerType.includes(FIXED_DRAWER) && width < 1200)
+    ) {
       type = 'temporary';
     }
 
@@ -54,13 +64,21 @@ class SideNav extends React.PureComponent {
   }
 }
 
-const mapStateToProps = ({settings}) => {
+const mapStateToProps = ({ settings }) => {
   const {
     navCollapsed, drawerType, width, navigationStyle
   } = settings;
   return {
-    navCollapsed, drawerType, width, navigationStyle
+    navCollapsed,
+    drawerType,
+    width,
+    navigationStyle,
   };
 };
 
-export default withRouter(connect(mapStateToProps, {toggleCollapsedNav, updateWindowWidth})(SideNav));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { toggleCollapsedNav, updateWindowWidth }
+  )(SideNav)
+);

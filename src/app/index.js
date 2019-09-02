@@ -14,6 +14,7 @@ import {
 } from 'constants/ActionTypes';
 import { isIOS, isMobile } from 'react-device-detect';
 import TopNav from 'components/TopNav';
+import ContainerHeader from 'components/ContainerHeader';
 import asyncComponent from '../util/asyncComponent';
 import Tour from '../components/Tour/index';
 
@@ -24,6 +25,7 @@ class App extends React.Component {
       drawerType,
       navigationStyle,
       horizontalNavPosition,
+      history,
     } = this.props;
     const drawerStyle = drawerType.includes(FIXED_DRAWER)
       ? 'fixed-drawer'
@@ -41,7 +43,6 @@ class App extends React.Component {
     return (
       <div className={`app-container ${drawerStyle}`}>
         <Tour />
-
         <Sidebar />
         <div className="app-main-container">
           <div
@@ -62,31 +63,73 @@ class App extends React.Component {
 
           <main className="app-main-content-wrapper">
             <div className="app-main-content">
-              <Switch>
-                <Route
-                  path={`${match.url}/sample-page`}
-                  component={asyncComponent(() => import('./routes/SamplePage'))}
-                />
-                <Route
-                  path={`${match.url}/create-user`}
-                  component={asyncComponent(() => import('../containers/CreateUSer'))}
-                />
-                <Route
-                  path={`${match.url}/users`}
-                  component={asyncComponent(() => import('./routes/ListUserPage/SimpleTable'))}
-                />
-                <Route
-                  path={`${match.url}/contracts`}
-                  component={asyncComponent(() => import('./routes/ContractPanel'))}
-                />
-                <Route
-                  path={`${match.url}/contracts-list`}
-                  component={asyncComponent(() => import('./routes/ContractsList/index'))}
-                />
-                <Route
-                  component={asyncComponent(() => import('components/Error404'))}
-                />
-              </Switch>
+              <div className="app-wrapper">
+                <Switch>
+                  <Route
+                    path={`${match.url}/clientes/lista`}
+                    component={asyncComponent(() => import('./pages/CustomerPage'))}
+                  />
+                  <Route
+                    path={`${match.url}/usuarios/lista`}
+                    component={asyncComponent(() => import('./pages/Users'))}
+                  />
+                  <Route
+                    path={`${match.url}/usuarios/criar`}
+                    component={asyncComponent(() => import('./pages/CreateUSer'))}
+                  />
+                  <Route
+                    path={`${match.url}/cliente/criar`}
+                    component={asyncComponent(() => import('./pages/CreateCustomer'))}
+                  />
+                  <Route
+                    path={`${match.url}/contrato`}
+                    component={asyncComponent(() => import('./pages/ContractsList'))}
+                  />
+                  <Route
+                    path={`${match.url}/contratos/lista`}
+                    component={asyncComponent(() => import('./pages/ContractsList/ContractsList'))}
+                  />
+                  <Route
+                    path={`${match.url}/contrato/criar`}
+                    component={asyncComponent(() => import('./pages/CreateContract'))}
+                  />
+                  <Route
+                    path={`${match.url}/cliente/edit`}
+                    component={asyncComponent(() => import('./pages/EditCustomer/index'))}
+                  />
+                  <Route
+                    path={`${match.url}/terceirizada/criar`}
+                    component={asyncComponent(() => import('./pages/Outsourceds/CreateOutsource'))}
+                  />
+                  <Route
+                    path={`${match.url}/terceirizada/editar`}
+                    component={asyncComponent(() => import('./pages/Outsourceds/EditOutsourced'))}
+                  />
+                  <Route
+                    path={`${match.url}/terceirizadas`}
+                    component={asyncComponent(() => import('./pages/Outsourceds/index'))}
+                  />
+                  <Route
+                    path={`${match.url}/unidades/criar/:id`}
+                    component={asyncComponent(() => import('./pages/UnitsPage/FormUnits'))}
+                  />
+                  <Route
+                    path={`${match.url}/unidades/lista`}
+                    component={asyncComponent(() => import('./pages/UnitsPage/UnitsList'))}
+                  />
+                  <Route
+                    path={`${match.url}/unidades/lista/:id`}
+                    component={asyncComponent(() => import('./pages/UnitsPage/UnitsList'))}
+                  />
+                  <Route
+                    path={`${match.url}/unidades/editar/:id`}
+                    component={asyncComponent(() => import('./pages/UnitsPage/EditUnit'))}
+                  />
+                  <Route
+                    component={asyncComponent(() => import('components/Error404'))}
+                  />
+                </Switch>
+              </div>
             </div>
             <Footer />
           </main>

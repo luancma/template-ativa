@@ -1,6 +1,6 @@
 /*Theme Indigo Styles*/
-$app-primary-indigo: #3f51b5 !default;
-$secondary-indigo: #FF4081;
+$app-primary-indigo: #0a5ebd !default;
+$secondary-indigo: #ff4081;
 
 $sidebar-indigo: rgba($app-primary-indigo, 0.25) !default;
 $sidebar-text-indigo: #868e96 !default;
@@ -163,7 +163,6 @@ $sidebar-text-indigo: #868e96 !default;
 //_right-sidebar.scss
 .indigo .color-theme-header {
   background-color: $app-primary-indigo;
-
 }
 
 //_sidebar.scss
@@ -347,7 +346,6 @@ $sidebar-text-indigo: #868e96 !default;
 }
 
 .indigo .app-top-nav {
-
   & .navbar-nav {
     & li.nav-item > a,
     & li.nav-item > .nav-link {
@@ -377,7 +375,6 @@ $sidebar-text-indigo: #868e96 !default;
 
 .indigo .header-notifications .app-notification {
   & .jr-list-link {
-
     @include hover-focus-active {
       color: $app-primary-indigo;
       border-color: $app-primary-indigo;
@@ -589,11 +586,20 @@ $sidebar-text-indigo: #868e96 !default;
 
 // Gradient Color Class
 .indigo .bg-gradient-primary {
-  @include gradient-directional($app-primary-indigo, lighten($app-primary-indigo, 16%), 0deg);
+  @include gradient-directional(
+    $app-primary-indigo,
+    lighten($app-primary-indigo, 16%),
+    0deg
+  );
 }
 
 .indigo .bg-gradient-primary-x {
-  @include gradient-x(darken($app-primary-indigo, 10%), lighten($app-primary-indigo, 16%), 70%, 100%);
+  @include gradient-x(
+    darken($app-primary-indigo, 10%),
+    lighten($app-primary-indigo, 16%),
+    70%,
+    100%
+  );
 }
 
 //Profile style
@@ -612,15 +618,13 @@ $sidebar-text-indigo: #868e96 !default;
 }
 
 .indigo .dropdown-item {
-
   &.active,
   &:active {
     background-color: $app-primary-indigo;
     color: $white;
   }
 
-  &[class*="text-"] {
-
+  &[class*='text-'] {
     &.active,
     &:active {
       background-color: transparent;
