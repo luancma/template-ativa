@@ -43,19 +43,19 @@ export default function FormButtons() {
         <Select
           value={values.state}
           onChange={handleChangeSelect}
-          input={(
+          input={
             <OutlinedInput
               labelWidth={labelWidth}
               name="state"
               id="outlined-age-simple"
             />
-)}
+          }
         >
           <MenuItem value="">
             <em>None</em>
           </MenuItem>
-          {states !== 0
-            && states.map(item => (
+          {states !== 0 &&
+            states.map(item => (
               <MenuItem value={item.name}>{item.name}</MenuItem>
             ))}
         </Select>
