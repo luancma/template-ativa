@@ -35,10 +35,11 @@ export const useStyles = makeStyles(theme => ({
 }));
 
 export default function CreateContract({ location, history }) {
+  const routerParameter = history.location.pathname.split('/').slice(-1)[0];
+
   const [state, setState] = useState({
     name: '',
     number: '',
-    idUser: '',
   });
 
   function handleInputState(event) {
@@ -53,13 +54,10 @@ export default function CreateContract({ location, history }) {
     const user = {
       name: state.name,
       number: state.number,
-      customer_id: location.state.customerId,
+      customer_id: routerParameter,
     };
 
-    ContractsApi.createNewContract(user).then(value => history.push({
-      pathname: '/app/contracts-list',
-      state: { customerId: value.data.contract.customer.id },
-    }));
+    ContractsApi.createNewContract(user).then(value => history.goBack());
   }
 
   const emailValidate = validator.validate(state.email);

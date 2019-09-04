@@ -88,7 +88,8 @@ class App extends React.Component {
                     )}
                   />
                   <Route
-                    path={`${match.url}/contrato`}
+                    path={`${match.url}/contrato/:id`}
+                    exact
                     component={asyncComponent(() =>
                       import('./pages/ContractsList')
                     )}
@@ -100,7 +101,7 @@ class App extends React.Component {
                     )}
                   />
                   <Route
-                    path={`${match.url}/contrato/criar`}
+                    path={`${match.url}/contrato/criar/:id`}
                     component={asyncComponent(() =>
                       import('./pages/CreateContract')
                     )}
@@ -130,19 +131,22 @@ class App extends React.Component {
                     )}
                   />
                   <Route
-                    path={`${match.url}/unidades/criar/:id`}
-                    component={asyncComponent(() =>
-                      import('./pages/UnitsPage/FormUnits')
-                    )}
-                  />
-                  <Route
                     path={`${match.url}/unidades/lista`}
+                    exact
                     component={asyncComponent(() =>
                       import('./pages/UnitsPage/AllUnitsList')
                     )}
                   />
                   <Route
+                    path={`${match.url}/unidades/criar/:id`}
+                    exact
+                    component={asyncComponent(() =>
+                      import('./pages/UnitsPage/FormUnits')
+                    )}
+                  />
+                  <Route
                     path={`${match.url}/unidades/lista/:id`}
+                    exact
                     component={asyncComponent(() =>
                       import('./pages/UnitsPage/UnitsList')
                     )}

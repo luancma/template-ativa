@@ -2,38 +2,35 @@ import React, { useState, useEffect } from 'react';
 import { Button, Grid } from '@material-ui/core';
 import { UnitsApi } from 'api/UnitsApi';
 
-export function ButtonComponent({ units }) {
+export function ButtonComponent({ units, history }) {
   const [isDisabled, setDisabled] = useState(true);
 
-  useEffect(() => {
-    console.log(3, units);
-    if (
-      units.city_id !== ''
-      && units.description !== ''
-      && units.outsourced_id !== ''
-    ) {
-      console.log(4, units);
-      return setDisabled(false);
-    }
-    return setDisabled(true);
-  });
+  function handleCreateUnits() {
+    UnitsApi.createNewUnit(units).then(value => history.goBack());
 
-  function handleCreateUnits(e) {
-    e.preventDefault();
-    UnitsApi.createNewUnit(units).then(value => console.log(value.data));
+    setDisabled(false);
   }
 
   return (
-    <Grid container direction="row" justify="flex-end">
-      <Button
-        size="large"
-        onClick={e => handleCreateUnits(e)}
-        variant="contained"
-        color="primary"
-        disabled={isDisabled}
+    <div className="row">
+      <div
+        className="col-12 col-md-12"
+        style={{
+          display: 'flex',
+          flexDirection: 'row-reverse',
+          marginTop: '14px',
+        }}
       >
-        Criar Unidade
-      </Button>
-    </Grid>
+        <Button
+          className="col-md-4 col-lg-3 col-12"
+          size="large"
+          variant="contained"
+          color="primary"
+          onClick={e => handleCreateUnits()}
+        >
+          Criar unidade
+        </Button>
+      </div>
+    </div>
   );
 }

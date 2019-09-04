@@ -1,3 +1,4 @@
+/* eslint-disable react/no-children-prop */
 import React, { useState, useEffect } from 'react';
 import { TextField } from '@material-ui/core';
 import { SelectStates } from 'app/components/SelectStates';
@@ -6,10 +7,9 @@ import { SelectOutsourceds } from 'app/components/SelectOutsourceds';
 import { OutsourcedsApi } from 'api/OutsourcedsApi';
 import { States } from 'api/StatesApi';
 import Axios from 'axios';
-
-import { ButtonComponent } from './ButtonComponent';
 import CardBox from 'components/CardBox';
 import useFetch from 'app/hooks/useFetch';
+import { ButtonComponent } from './ButtonComponent';
 
 export default function FormUnits({ contractInfo, history }) {
   const routerParameter = history.location.pathname.split('/').slice(-1)[0];
@@ -156,7 +156,7 @@ export default function FormUnits({ contractInfo, history }) {
   return (
     <>
       <CardBox
-        heading="Adicionar unidade"
+        heading={<h1>Adicionar unidade</h1>}
         styleName="col-12"
         children={
           <>
@@ -247,7 +247,7 @@ export default function FormUnits({ contractInfo, history }) {
               <div className="col-md-6">
                 <SelectStates
                   states={states}
-                  isDisabled={true}
+                  isDisabled
                   ValuesState={values.state}
                   handleChangeSelect={handleChangeSelect}
                 />
@@ -255,7 +255,7 @@ export default function FormUnits({ contractInfo, history }) {
               <div className="col-md-6">
                 <SelectCities
                   states={states}
-                  isDisabled={true}
+                  isDisabled
                   stateName={values.state}
                   cityCep={values.cityByCep}
                   ValuesCity={values.city}
@@ -280,7 +280,7 @@ export default function FormUnits({ contractInfo, history }) {
             </div>
             <div className="row">
               <div className="col-md-12">
-                <ButtonComponent units={unitObject} />
+                <ButtonComponent history={history} units={unitObject} />
               </div>
             </div>
           </>

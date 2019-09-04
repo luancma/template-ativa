@@ -12,7 +12,7 @@ import { toggleCollapsedNav, updateWindowWidth } from 'actions/Setting';
 import SidenavContent from './SidenavContent';
 
 class SideNav extends React.PureComponent {
-  onToggleCollapsedNav = (e) => {
+  onToggleCollapsedNav = e => {
     const val = !this.props.navCollapsed;
     this.props.toggleCollapsedNav(val);
   };
@@ -25,18 +25,16 @@ class SideNav extends React.PureComponent {
   }
 
   render() {
-    const {
-      navCollapsed, drawerType, width, navigationStyle
-    } = this.props;
+    const { navCollapsed, drawerType, width, navigationStyle } = this.props;
     let drawerStyle = drawerType.includes(FIXED_DRAWER)
       ? 'd-xl-flex'
       : drawerType.includes(COLLAPSED_DRAWER)
-        ? ''
-        : 'd-flex';
+      ? ''
+      : 'd-flex';
     let type = 'permanent';
     if (
-      drawerType.includes(COLLAPSED_DRAWER)
-      || (drawerType.includes(FIXED_DRAWER) && width < 1200)
+      drawerType.includes(COLLAPSED_DRAWER) ||
+      (drawerType.includes(FIXED_DRAWER) && width < 1200)
     ) {
       type = 'temporary';
     }
@@ -65,9 +63,7 @@ class SideNav extends React.PureComponent {
 }
 
 const mapStateToProps = ({ settings }) => {
-  const {
-    navCollapsed, drawerType, width, navigationStyle
-  } = settings;
+  const { navCollapsed, drawerType, width, navigationStyle } = settings;
   return {
     navCollapsed,
     drawerType,

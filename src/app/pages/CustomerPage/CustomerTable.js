@@ -19,7 +19,7 @@ export function CustomerTable({ state, history }) {
       tooltip: 'Detalhes',
       onClick: (event, rowData) =>
         history.push({
-          pathname: '/app/contrato',
+          pathname: `/app/contrato/${rowData.id}`,
           state: { customerId: getId(rowData.email) },
         }),
     },

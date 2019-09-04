@@ -4,7 +4,6 @@ import {
   NotificationContainer,
   NotificationManager,
 } from 'react-notifications';
-import ContainerHeader from 'components/ContainerHeader';
 import TableComponent from './TableComponent';
 
 export default function ContractsList({ history, match }) {
@@ -29,11 +28,13 @@ export default function ContractsList({ history, match }) {
   });
 
   useEffect(() => {
-    ContractsApi.getListOfContracts().then(value => setTableState({
-      ...tableState,
-      title: 'Contratos',
-      values: value.data.contracts,
-    }));
+    ContractsApi.getListOfContracts().then(value =>
+      setTableState({
+        ...tableState,
+        title: 'Contratos',
+        values: value.data.contracts,
+      })
+    );
   }, []);
 
   useEffect(() => {
