@@ -1,14 +1,12 @@
-import {
-  all, fork, put, takeEvery, call
-} from 'redux-saga/effects';
+import { all, fork, put, takeEvery, call } from 'redux-saga/effects';
 import { CustomersApi } from 'api/CustomersApi';
 import { receiveCustomersSuccess } from 'actions/Customers';
 import { RECEIVE_CUSTOMERS, CREATE_NEW_CUSTOMERS } from 'constants/ActionTypes';
 
 const receiveCustomersRequest = () => CustomersApi.getListOfCustomers();
 
-const createNewCustomerRequest = userObject => CustomersApi.createNewCustomer(userObject);
-
+const createNewCustomerRequest = userObject =>
+  CustomersApi.createNewCustomer(userObject);
 function* createNewCustomer(action) {
   console.log(action.payload);
   try {

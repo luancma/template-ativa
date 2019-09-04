@@ -11,10 +11,6 @@ import IntlMessages from 'util/IntlMessages';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { hideMessage, showAuthLoader, userSignIn } from 'actions/Auth';
 
-function LoginComponent() {
-  return <div />;
-}
-
 class SignIn extends React.Component {
   constructor() {
     super();
@@ -25,13 +21,15 @@ class SignIn extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.props.showMessage) {
+    const { showMessage, history, authUser } = this.props;
+
+    if (showMessage) {
       setTimeout(() => {
-        this.props.hideMessage();
+        hideMessage();
       }, 100);
     }
-    if (this.props.authUser !== null) {
-      this.props.history.push('/');
+    if (authUser !== null) {
+      history.push('/');
     }
   }
 

@@ -14,7 +14,7 @@ const INIT_STATE = {
   loader: false,
   alertMessage: '',
   showMessage: false,
-  initURL: '',
+  initURL: '/app/clientes/lista',
   authUser: localStorage.getItem('user'),
 };
 
@@ -38,7 +38,8 @@ export default (state = INIT_STATE, action) => {
       return {
         ...state,
         loader: false,
-        authUser: '/app/clientes/lista',
+        authUser: action.payload,
+        initURL: '/app/clientes/lista',
       };
     }
     case INIT_URL: {

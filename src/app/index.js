@@ -14,7 +14,6 @@ import {
 } from 'constants/ActionTypes';
 import { isIOS, isMobile } from 'react-device-detect';
 import TopNav from 'components/TopNav';
-import ContainerHeader from 'components/ContainerHeader';
 import asyncComponent from '../util/asyncComponent';
 import Tour from '../components/Tour/index';
 
