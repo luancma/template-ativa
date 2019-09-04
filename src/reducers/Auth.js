@@ -38,7 +38,7 @@ export default (state = INIT_STATE, action) => {
       return {
         ...state,
         loader: false,
-        authUser: action.payload,
+        authUser: '/app/clientes/lista',
       };
     }
     case INIT_URL: {
@@ -51,7 +51,7 @@ export default (state = INIT_STATE, action) => {
       return {
         ...state,
         authUser: null,
-        initURL: '/app/clientes/lista',
+        initURL: '/signin',
         loader: false,
       };
     }
