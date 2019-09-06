@@ -17,6 +17,17 @@ export default function ContractsList({ history, match }) {
     values: [],
     tableActions: [
       {
+        icon: 'visibility',
+        tooltip: 'Detalhes',
+        onClick: (event, rowData) => history.push(`/app/unidades/lista/${rowData.id}`),
+
+      },
+      {
+        icon: 'edit',
+        tooltip: 'Editar',
+        onClick: (event, rowData) => alert(rowData.id),
+      },
+      {
         icon: 'delete',
         tooltip: 'Remover',
         onClick: (event, rowData) => alert(rowData.id),

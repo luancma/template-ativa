@@ -11,7 +11,7 @@ export default function OutsourcedTable({ state, history }) {
   const tableActions = [
     {
       icon: 'edit',
-      tooltip: 'Detalhes',
+      tooltip: 'Editar',
       onClick: (event, rowData) => history.push({
         pathname: '/app/edit-outsourced',
         state: { idOutsourced: getId(rowData.email) },

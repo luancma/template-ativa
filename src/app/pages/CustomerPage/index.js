@@ -21,7 +21,7 @@ function SamplePage({ history, match }) {
   }, []);
 
   return (
-    <div className="container">
+    <div>
       {state.values.length !== 0 ? (
         <>
           <CustomerTable state={state} history={history} />
@@ -47,10 +47,10 @@ function SamplePage({ history, match }) {
           </div>
         </>
       ) : (
-        <div className="loader-view">
-          <CircularProgress />
-        </div>
-      )}
+          <div className="loader-view">
+            <CircularProgress />
+          </div>
+        )}
     </div>
   );
 }

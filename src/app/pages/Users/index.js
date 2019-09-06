@@ -11,6 +11,8 @@ export default function Users({ history }) {
       { title: 'Email', field: 'email' },
     ],
     values: [],
+
+
   });
 
   useEffect(() => {
@@ -31,9 +33,8 @@ export default function Users({ history }) {
             }}
           >
             <Button
-              style={{
-                padding: '16px',
-              }}
+              className="col-md-4 col-lg-3 col-12"
+              size="large"
               variant="contained"
               color="primary"
               onClick={e => history.push('/app/usuarios/criar')}
@@ -43,8 +44,8 @@ export default function Users({ history }) {
           </div>
         </>
       ) : (
-        <CircularProgress />
-      )}
+          <CircularProgress />
+        )}
     </div>
   );
 }

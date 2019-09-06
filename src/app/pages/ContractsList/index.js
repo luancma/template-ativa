@@ -17,7 +17,7 @@ export default function SimpleTable({ location, history, match }) {
   );
 
   const tableState = {
-    title: 'Contratos',
+    title: `Contratos`,
     columns: [
       { title: 'Nome', field: 'name' },
       { title: 'Contrato nº', field: 'number' },

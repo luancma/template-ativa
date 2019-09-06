@@ -3,16 +3,19 @@ import TableUsers from 'app/components/TableUsers';
 import { UnitsApi } from 'api/UnitsApi';
 import { Button } from '@material-ui/core';
 import useFetch from 'app/hooks/useFetch';
+import { ContractsApi } from 'api/ContractsApi';
 
 export default function UnitsPage({ history }) {
   const routerParameter = history.location.pathname.split('/').slice(-1)[0];
-
   const { data: unitsData } = useFetch(UnitsApi.getListOfUnits, 'units');
+  const contractInfo = async () => await ContractsApi.getASingleContract(routerParameter)
+  const { data: customerData } = useFetch(contractInfo, 'contract');
 
-  console.log(unitsData);
+
+
 
   const state = {
-    title: 'Lista de Unidades',
+    title: `Lista de unidades: ${customerData.name}`,
     columns: [
       { title: 'Nome', field: 'name' },
       { title: 'Contrato nº', field: 'contract.number' },
@@ -46,6 +49,10 @@ export default function UnitsPage({ history }) {
       },
     ],
   };
+
+  if (!state && !customerData) {
+    return <h1>Loading</h1>
+  }
 
   return (
     <div>

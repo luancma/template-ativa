@@ -11,6 +11,60 @@ import IntlMessages from 'util/IntlMessages';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { hideMessage, showAuthLoader, userSignIn } from 'actions/Auth';
 
+
+
+// form paradas 
+
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
+function FormDialog() {
+  const [open, setOpen] = React.useState(false);
+
+  function handleClickOpen() {
+    setOpen(true);
+  }
+
+  function handleClose() {
+    setOpen(false);
+  }
+
+  return (
+    <div>
+      <Button variant="text" color="primary" onClick={handleClickOpen} style={{ textTransform: 'none', }}>
+        Esqueceu sua senha?
+      </Button>
+      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+        <DialogTitle id="form-dialog-title">Recuperar Senha</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Por favor, informe o email cadastrado.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="name"
+            label="Email"
+            type="email"
+            fullWidth
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancelar
+          </Button>
+          <Button onClick={handleClose} color="primary">
+            Enviar
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
+}
+
 class SignIn extends React.Component {
   constructor() {
     super();
@@ -53,7 +107,7 @@ class SignIn extends React.Component {
             <div className="app-login-content">
               <div className="app-login-header mb-4">
                 <h1>
-                  <IntlMessages id="appModule.email" />
+                  Bem vindo !
                 </h1>
               </div>
 
@@ -91,12 +145,10 @@ class SignIn extends React.Component {
                         variant="contained"
                         color="primary"
                       >
-                        <IntlMessages id="appModule.signIn" />
+                        <span>Entrar</span>
                       </Button>
 
-                      <Link to="/signup">
-                        <IntlMessages id="signIn.signUp" />
-                      </Link>
+                      <FormDialog />
                     </div>
                   </fieldset>
                 </form>

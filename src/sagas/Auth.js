@@ -22,8 +22,15 @@ function* singInUser(action) {
   try {
     const teste = yield call(sessionRequest, action.payload);
     if (teste.data) {
-      localStorage.setItem('user', JSON.stringify(teste.headers));
-      yield put(userSignInSuccess(JSON.stringify(teste.headers)));
+      async function reqItem(headers) {
+        const req = await localStorage.setItem('user', JSON.stringify(headers));
+        const res = localStorage.getItem('user', JSON.stringify(headers));
+        return await res
+      }
+      if (teste.headers) {
+        const teste2 = yield call(reqItem, teste.headers)
+        yield put(userSignInSuccess(teste2))
+      }
     }
   } catch (errors) {
     yield put(yield put(showAuthMessage('Usuário ou senha incorretos')));
