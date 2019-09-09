@@ -7,6 +7,7 @@ import {
 import { Button } from '@material-ui/core';
 import useFetch from 'app/hooks/useFetch';
 import TableComponent from './TableComponent';
+import CardBox from 'components/CardBox';
 
 export default function SimpleTable({ location, history, match }) {
   const routerParameter = history.location.pathname.split('/').slice(-1)[0];
@@ -15,6 +16,10 @@ export default function SimpleTable({ location, history, match }) {
     ContractsApi.getListOfContracts,
     'contracts'
   );
+
+  const getSingle = () => ContractsApi.getASingleContract(routerParameter)
+
+  const { data: singleContract } = useFetch(getSingle, 'contract')
 
   const tableState = {
     title: `Contratos`,
@@ -53,39 +58,21 @@ export default function SimpleTable({ location, history, match }) {
 
   return (
     <>
-      {tableState.values && (
-        <>
+      <>
+        <CardBox children={
+          <div>
+            <h1>Titular do contrato:</h1>
+            <h1>Nome do contrato: </h1>
+            <h1>Número do contrato: </h1>
+          </div>}
+        />
+        <div className="col-12">
           <TableComponent state={tableState} />
-          <ButtonCreate history={history} index={routerParameter} />
-        </>
+        </div>
+      </>
       )}
       {message.isOpen && NotificationManager.error('Erro')}
       <NotificationContainer />
     </>
-  );
-}
-
-function ButtonCreate({ history, index }) {
-  return (
-    <div className="row">
-      <div
-        className="col-12 col-md-12"
-        style={{
-          display: 'flex',
-          flexDirection: 'row-reverse',
-          marginTop: '14px',
-        }}
-      >
-        <Button
-          className="col-md-4 col-lg-3 col-12"
-          size="large"
-          variant="contained"
-          color="primary"
-          onClick={e => history.push(`/app/contrato/criar/${index}`)}
-        >
-          Adicionar Contrato
-        </Button>
-      </div>
-    </div>
   );
 }

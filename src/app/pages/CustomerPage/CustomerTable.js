@@ -15,6 +15,11 @@ export function CustomerTable({ state, history }) {
 
   const actions = [
     {
+      icon: 'add_circle',
+      tooltip: 'Adicionar Contrato',
+      onClick: (event, rowData) => history.push(`/app/contrato/criar/${rowData.id}`)
+    },
+    {
       icon: 'visibility',
       tooltip: 'Detalhes',
       onClick: (event, rowData) =>
