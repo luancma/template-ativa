@@ -8,18 +8,33 @@ import { UsersApi } from 'api/UsersApi';
 
 import CardBox from 'components/CardBox';
 import { FormCreateUser } from './FormCreateUser';
+import { userInfo } from 'os';
+
+
 
 function CreateUser({ history }) {
+
+  const [state, setState] = React.useState({
+
+  });
+
   const [message, setMessage] = useState({
     isOpen: false,
     error: '',
   });
+
   const [valuesUser, setValuesUser] = useState({
     name: '',
     email: '',
     password: '',
     confirmPassword: '',
+    user_index: false,
+    user_show: false,
+    user_create: false,
+    user_update: false,
+    user_delete: false
   });
+
 
   useEffect(() => {
     setTimeout(() => {
@@ -27,24 +42,15 @@ function CreateUser({ history }) {
     }, 1000);
   }, [message]);
 
+
+
   function showMessage(error) {
-    if (error.data) {
-      console.log(error.data);
-    }
-    const { errors } = error.response.data;
+    const { errors } = error.data;
     setMessage({
       ...message,
       isOpen: true,
       error: `${Object.keys(errors)} ${errors[Object.keys(errors)]}`,
     });
-  }
-
-  function handleSubmit(event) {
-    UsersApi.createNewUserRequest(valuesUser)
-      .then(value => console.log(value.data))
-      .catch((error) => {
-        showMessage(error.response);
-      });
   }
 
   function handleChangeValue(event) {
@@ -54,6 +60,21 @@ function CreateUser({ history }) {
       [event.target.name]: event.target.value,
     });
   }
+
+  function handleSubmit() {
+    console.log(valuesUser)
+    UsersApi.createNewUserRequest(valuesUser)
+      .then(value => history.push('/app/usuarios/lista'))
+      .catch((error) => {
+        showMessage(error.response);
+      });
+  }
+
+
+  const handleChangeCheck = name => event => {
+    setValuesUser({ ...valuesUser, [name]: event.target.checked });
+  };
+
 
   return (
     <>
@@ -65,6 +86,8 @@ function CreateUser({ history }) {
             handleSubmit={handleSubmit}
             handleChangeValue={handleChangeValue}
             user={valuesUser}
+            state={state}
+            handleChangeCheck={handleChangeCheck}
           />,
         ]}
         styleName="col-12"

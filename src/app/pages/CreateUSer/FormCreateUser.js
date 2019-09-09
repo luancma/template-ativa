@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button } from '@material-ui/core';
+import { TextField, FormGroup, Checkbox, FormControlLabel } from '@material-ui/core';
 import validator from 'email-validator';
 import ButtonCreate from './ButtonCreate';
+
 
 export function FormCreateUser({
   handleSubmit,
   handleChangeValue,
   user,
-  history,
+  state,
+  handleChangeCheck
 }) {
   const validateEmail = validator.validate(user.email);
 
@@ -36,6 +38,7 @@ export function FormCreateUser({
     },
     user
   );
+
 
   return (
     <>
@@ -82,10 +85,53 @@ export function FormCreateUser({
           />
         </div>
       </div>
+      <div className="row" style={{ marginTop: '20px' }}>
+        <FormCheckBox state={state} handleChange={handleChangeCheck} />
+      </div>
+
       <ButtonCreate
         validateButton={validateButton}
         handleSubmit={handleSubmit}
       />
     </>
   );
+}
+
+function FormCheckBox({ state, handleChange }) {
+  return (
+    <div className="col-12">
+      <FormGroup row style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <FormControlLabel
+          control={
+            <Checkbox checked={state.user_create} color="primary" onChange={handleChange('user_create')} value={true} />
+          }
+          label="Criar"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox checked={state.user_update} color="primary" onChange={handleChange('user_update')} value={true} />
+          }
+          label="Atualizar"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox checked={state.user_show} color="primary" onChange={handleChange('user_show')} value={true} />
+          }
+          label="Visualizar"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox checked={state.user_index} color="primary" onChange={handleChange('user_index')} value={true} />
+          }
+          label="Visualizar todos"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox checked={state.user_delete} color="primary" onChange={handleChange('user_delete')} value={true} />
+          }
+          label="Remover"
+        />
+      </FormGroup>
+    </div >
+  )
 }

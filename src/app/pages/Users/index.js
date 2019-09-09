@@ -11,8 +11,6 @@ export default function Users({ history }) {
       { title: 'Email', field: 'email' },
     ],
     values: [],
-
-
   });
 
   useEffect(() => {
@@ -39,7 +37,7 @@ export default function Users({ history }) {
               color="primary"
               onClick={e => history.push('/app/usuarios/criar')}
             >
-              Adicionar Cliente
+              Adicionar Usuário
             </Button>
           </div>
         </>

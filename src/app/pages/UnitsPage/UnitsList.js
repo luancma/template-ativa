@@ -4,6 +4,10 @@ import { UnitsApi } from 'api/UnitsApi';
 import { Button } from '@material-ui/core';
 import useFetch from 'app/hooks/useFetch';
 import { ContractsApi } from 'api/ContractsApi';
+import {
+  NotificationContainer,
+  NotificationManager,
+} from 'react-notifications';
 
 export default function UnitsPage({ history }) {
   const routerParameter = history.location.pathname.split('/').slice(-1)[0];
@@ -50,8 +54,8 @@ export default function UnitsPage({ history }) {
     ],
   };
 
-  if (!state && !customerData) {
-    return <h1>Loading</h1>
+  if (!customerData.name && !unitsData.item) {
+    return <NotificationContainer />
   }
 
   return (
