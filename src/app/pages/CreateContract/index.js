@@ -9,7 +9,6 @@ import {
   NotificationManager,
 } from 'react-notifications';
 
-
 export default function CreateContract({ location, history }) {
   const routerParameter = history.location.pathname.split('/').slice(-1)[0];
 
@@ -19,7 +18,6 @@ export default function CreateContract({ location, history }) {
   });
 
   const [customerError, setCustomerError] = useState([]);
-
 
   const [message, setMessage] = useState({
     isOpen: false,
@@ -41,10 +39,9 @@ export default function CreateContract({ location, history }) {
       isOpen: true,
       error: `${Object.keys(errMessage)} ${
         errMessage[Object.keys(errMessage)]
-        }`,
+      }`,
     });
   }
-
 
   function handleInputState(event) {
     event.preventDefault();
@@ -60,66 +57,80 @@ export default function CreateContract({ location, history }) {
       customer_id: routerParameter,
     };
 
-    ContractsApi.createNewContract(user).then(value => history.goBack()).catch((error) => {
-      showMessage(error);
-    });
+    ContractsApi.createNewContract(user)
+      .then(value =>
+        history.push(`/app/contrato/detalhes/${value.contract.id}`)
+      )
+      .catch(error => {
+        showMessage(error);
+      });
   }
   const emailValidate = validator.validate(state.email);
 
   return (
     <>
-      <CardBox heading="Criar contrato" styleName="col-12" children={
-        <>
-          <div className="row">
-            <div className="col-6">
-              <TextField
-                fullWidth
-                error={emailValidate}
-                label="Nome"
-                type="name"
-                name="name"
-                autoComplete="name"
-                margin="normal"
-                variant="outlined"
-                onChange={e => handleInputState(e)}
-                value={state.email}
-              />
-            </div>
+      <CardBox
+        heading="Criar contrato"
+        styleName="col-12"
+        children={
+          <>
+            <div className="row">
+              <div className="col-6">
+                <TextField
+                  fullWidth
+                  error={emailValidate}
+                  label="Nome"
+                  type="name"
+                  name="name"
+                  autoComplete="name"
+                  margin="normal"
+                  variant="outlined"
+                  onChange={e => handleInputState(e)}
+                  value={state.email}
+                />
+              </div>
 
-            <div className="col-6">
-              <TextField
-                inputProps={{
-                  maxLength: 10,
+              <div className="col-6">
+                <TextField
+                  inputProps={{
+                    maxLength: 10,
+                  }}
+                  fullWidth
+                  label="Número do contrato"
+                  type="text"
+                  name="number"
+                  autoComplete="number"
+                  margin="normal"
+                  variant="outlined"
+                  value={state.number}
+                  onChange={e => handleInputState(e)}
+                />
+              </div>
+            </div>
+            <div className="row">
+              <div
+                className="col-md-12"
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row-reverse',
+                  marginTop: '20px',
                 }}
-                fullWidth
-                label="Número do contrato"
-                type="text"
-                name="number"
-                autoComplete="number"
-                margin="normal"
-                variant="outlined"
-                value={state.number}
-                onChange={e => handleInputState(e)}
-              />
-            </div>
-          </div>
-          <div className="row" >
-            <div className="col-md-12" style={{ display: 'flex', flexDirection: 'row-reverse', marginTop: '20px' }}>
-              <Button
-                onClick={() => handleCreateNewCustomer()}
-                color="primary"
-                variant="contained"
-                size="large"
               >
-                Criar contrato
-         </Button>
+                <Button
+                  onClick={() => handleCreateNewCustomer()}
+                  color="primary"
+                  variant="contained"
+                  size="large"
+                >
+                  Criar contrato
+                </Button>
+              </div>
             </div>
-          </div>
-        </>
-      } />
+          </>
+        }
+      />
       {message.isOpen && NotificationManager.error(message.error)}
       <NotificationContainer />
     </>
-  )
+  );
 }
-

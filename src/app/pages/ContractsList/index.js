@@ -1,15 +1,17 @@
+/* eslint-disable react/no-children-prop */
 import React, { useEffect, useState } from 'react';
 import { ContractsApi } from 'api/ContractsApi';
 import {
   NotificationContainer,
   NotificationManager,
 } from 'react-notifications';
-import { Button } from '@material-ui/core';
 import useFetch from 'app/hooks/useFetch';
-import TableComponent from './TableComponent';
 import CardBox from 'components/CardBox';
+import { CustomersApi } from 'api/CustomersApi';
+import MaterialTable from 'material-table';
+import TableComponent from './TableComponent';
 
-export default function SimpleTable({ location, history, match }) {
+export default function SimpleTable({ history }) {
   const routerParameter = history.location.pathname.split('/').slice(-1)[0];
 
   const { data: contractTeste } = useFetch(
@@ -17,12 +19,12 @@ export default function SimpleTable({ location, history, match }) {
     'contracts'
   );
 
-  const getSingle = () => ContractsApi.getASingleContract(routerParameter)
+  const getSingle = () => CustomersApi.fetchSingleCustomers(routerParameter);
 
-  const { data: singleContract } = useFetch(getSingle, 'contract')
+  const { data: singleCustomer } = useFetch(getSingle, 'customer');
 
   const tableState = {
-    title: `Contratos`,
+    title: `Contratos do usuário `,
     columns: [
       { title: 'Nome', field: 'name' },
       { title: 'Contrato nº', field: 'number' },
@@ -36,12 +38,7 @@ export default function SimpleTable({ location, history, match }) {
         icon: 'visibility',
         tooltip: 'Unidades',
         onClick: (event, rowData) =>
-          history.push(`/app/unidades/lista/${rowData.id}`),
-      },
-      {
-        icon: 'delete',
-        tooltip: 'Remover',
-        onClick: (event, rowData) => alert(rowData.id),
+          history.push(`/app/contrato/detalhes/${rowData.id}`),
       },
     ],
   };
@@ -56,23 +53,65 @@ export default function SimpleTable({ location, history, match }) {
     }, 3000);
   }, [message]);
 
+  if (!singleCustomer.name) {
+    return <h1>Carregando</h1>;
+  }
+
   return (
     <>
       <>
-        <CardBox children={
-          <div>
-            <h1>Titular do contrato:</h1>
-            <h1>Nome do contrato: </h1>
-            <h1>Número do contrato: </h1>
-          </div>}
+        <CardBox
+          heading={
+            <h6 className="MuiTypography-root MuiTypography-h6">
+              Informações do cliente
+            </h6>
+          }
+          styleName="col-12"
+          children={<ContractInfo contractInfo={singleCustomer} />}
         />
         <div className="col-12">
           <TableComponent state={tableState} />
         </div>
       </>
-      )}
       {message.isOpen && NotificationManager.error('Erro')}
       <NotificationContainer />
     </>
+  );
+}
+
+function ContractInfo({ contractInfo }) {
+  return (
+    <div>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'flex-start ',
+        }}
+      >
+        <span style={{ fontSize: '16px' }}>Nome do cliente:</span>
+        <span style={{ fontSize: '16px' }}>{contractInfo.name}</span>
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'flex-start ',
+        }}
+      >
+        <span style={{ fontSize: '16px' }}>Email do cliente:</span>
+        <span style={{ fontSize: '16px' }}>{contractInfo.email}</span>
+      </div>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'flex-start',
+        }}
+      >
+        <span style={{ fontSize: '16px' }}>Função:</span>
+        <span style={{ fontSize: '16px' }}>{contractInfo.occupation}</span>
+      </div>
+    </div>
   );
 }
