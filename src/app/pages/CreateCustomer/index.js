@@ -1,9 +1,6 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable react/no-children-prop */
 import React, { useEffect, useState } from 'react';
-
-import { useSelector } from 'react-redux';
-
 import {
   NotificationContainer,
   NotificationManager,
@@ -12,21 +9,19 @@ import { States } from 'api/StatesApi';
 import { CustomersApi } from 'api/CustomersApi';
 import CardBox from 'components/CardBox';
 import { FormCreateCustomer } from './FormCreateCustomer';
+import useFetch from 'app/hooks/useFetch';
 
 function CreateUser({ history }) {
-  const userMessage = useSelector(state => state.user);
 
-  useEffect(() => {
-    if (userMessage.showMessageSuccess) {
-      history.push('/app/customers/list');
-    }
-  });
+  const routerParameter = history.location.pathname.split('/').slice(-1)[0];
+
+  const { data: states } = useFetch(States.getListOfStates, 'states')
 
   const [message, setMessage] = useState({
     isOpen: false,
     error: '',
   });
-  const [states, setStates] = useState([]);
+
   const [customer, setCustomer] = useState({
     name: '',
     email: '',
@@ -36,15 +31,14 @@ function CreateUser({ history }) {
     state: '',
     city_id: '',
   });
+
   const [customerError, setCustomerError] = useState([]);
+
   const [values, setValues] = useState({
     state: '',
     city: '',
   });
 
-  useEffect(() => {
-    States.getListOfStates().then(value => setStates(value.data.states));
-  }, []);
 
   useEffect(() => {
     setTimeout(() => {
@@ -61,7 +55,7 @@ function CreateUser({ history }) {
       isOpen: true,
       error: `${Object.keys(errMessage)} ${
         errMessage[Object.keys(errMessage)]
-      }`,
+        }`,
     });
   }
 
@@ -93,9 +87,9 @@ function CreateUser({ history }) {
 
     userObject.phone = userObject.phone.replace(/[^\d]+/g, '');
     CustomersApi.createNewCustomer(userObject)
-      .then(value => value.data.customer && history.push('sample-page'))
+      .then(value => history.push(`/app/cliente/detalhes/${routerParameter}`))
       .catch((error) => {
-        showMessage(error);
+        alert('Erro')
       });
   }
   return (

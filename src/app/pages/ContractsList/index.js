@@ -8,8 +8,9 @@ import {
 import useFetch from 'app/hooks/useFetch';
 import CardBox from 'components/CardBox';
 import { CustomersApi } from 'api/CustomersApi';
-import MaterialTable from 'material-table';
 import TableComponent from './TableComponent';
+import { Button } from '@material-ui/core';
+
 
 export default function SimpleTable({ history }) {
   const routerParameter = history.location.pathname.split('/').slice(-1)[0];
@@ -24,7 +25,7 @@ export default function SimpleTable({ history }) {
   const { data: singleCustomer } = useFetch(getSingle, 'customer');
 
   const tableState = {
-    title: `Contratos do usuário `,
+    title: "Contratos do cliente",
     columns: [
       { title: 'Nome', field: 'name' },
       { title: 'Contrato nº', field: 'number' },
@@ -63,13 +64,16 @@ export default function SimpleTable({ history }) {
         <CardBox
           heading={
             <h6 className="MuiTypography-root MuiTypography-h6">
-              Informações do cliente
+              Detalhes do cliente
             </h6>
           }
           styleName="col-12"
           children={<ContractInfo contractInfo={singleCustomer} />}
         />
         <div className="col-12">
+          <div style={{ display: 'flex', justifyContent: 'flex-end', margin: "0 0 20px 20px" }}>
+            <Button size="large" variant="contained" color="primary" onClick={e => history.push(`/app/contrato/criar/${routerParameter}`)}>Adicionar Contrato</Button>
+          </div>
           <TableComponent state={tableState} />
         </div>
       </>

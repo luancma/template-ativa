@@ -24,7 +24,7 @@ export function CustomerTable({ state, history }) {
       tooltip: 'Detalhes',
       onClick: (event, rowData) =>
         history.push({
-          pathname: `/app/contrato/${rowData.id}`,
+          pathname: `/app/cliente/detalhes/${rowData.id}`,
           state: { customerId: getId(rowData.email) },
         }),
     },
@@ -33,7 +33,7 @@ export function CustomerTable({ state, history }) {
       tooltip: 'Editar',
       onClick: (event, rowData) =>
         history.push({
-          pathname: '/app/clientes/editar',
+          pathname: '/app/cliente/edit',
           state: { customerId: getId(rowData.email) },
         }),
     },

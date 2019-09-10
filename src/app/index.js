@@ -29,8 +29,8 @@ class App extends React.Component {
     const drawerStyle = drawerType.includes(FIXED_DRAWER)
       ? 'fixed-drawer'
       : drawerType.includes(COLLAPSED_DRAWER)
-      ? 'collapsible-drawer'
-      : 'mini-drawer';
+        ? 'collapsible-drawer'
+        : 'mini-drawer';
 
     // set default height and overflow for iOS mobile Safari 10+ support.
     if (isIOS && isMobile) {
@@ -49,7 +49,7 @@ class App extends React.Component {
               navigationStyle === HORIZONTAL_NAVIGATION
                 ? 'app-header-horizontal'
                 : ''
-            }`}
+              }`}
           >
             {navigationStyle === HORIZONTAL_NAVIGATION &&
               horizontalNavPosition === ABOVE_THE_HEADER && (
@@ -86,6 +86,21 @@ class App extends React.Component {
                       import('./pages/CreateCustomer')
                     )}
                   />
+
+                  <Route
+                    path={`${match.url}/cliente/detalhes/:id`}
+                    component={asyncComponent(() =>
+                      import('./pages/ContractsList')
+                    )}
+                  />
+
+                  <Route
+                    path={`${match.url}/cliente/edit`}
+                    component={asyncComponent(() =>
+                      import('./pages/EditCustomer/index')
+                    )}
+                  />
+
                   <Route
                     path={`${match.url}/contrato/:id`}
                     exact
@@ -110,12 +125,6 @@ class App extends React.Component {
                     path={`${match.url}/contrato/criar/:id`}
                     component={asyncComponent(() =>
                       import('./pages/CreateContract')
-                    )}
-                  />
-                  <Route
-                    path={`${match.url}/cliente/edit`}
-                    component={asyncComponent(() =>
-                      import('./pages/EditCustomer/index')
                     )}
                   />
                   <Route

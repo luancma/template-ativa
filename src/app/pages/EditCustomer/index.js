@@ -65,7 +65,7 @@ export default function EditCustomer({ location, history }) {
     const newCustomerObject = customer;
     newCustomerObject.phone = newCustomerObject.phone.replace(/[^\d]+/g, '');
     CustomersApi.updateSingleCustomer(customerId, newCustomerObject)
-      .then(value => value.status === 204 && history.push('/app/sample-page'))
+      .then(value => value.status === 204 && history.push('/app/clientes/lista'))
       .catch((error) => {
         showMessage(error);
       });

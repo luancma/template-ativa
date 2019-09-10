@@ -9,7 +9,7 @@ import {
   NotificationManager,
 } from 'react-notifications';
 
-export default function CreateContract({ location, history }) {
+export default function CreateContract({ history }) {
   const routerParameter = history.location.pathname.split('/').slice(-1)[0];
 
   const [state, setState] = useState({
@@ -17,31 +17,6 @@ export default function CreateContract({ location, history }) {
     number: '',
   });
 
-  const [customerError, setCustomerError] = useState([]);
-
-  const [message, setMessage] = useState({
-    isOpen: false,
-    error: '',
-  });
-
-  useEffect(() => {
-    setTimeout(() => {
-      setMessage({ isOpen: false });
-    }, 1000);
-  }, [message]);
-
-  function showMessage(error) {
-    const errMessage = error.response.data.errors;
-    setCustomerError(errMessage);
-
-    setMessage({
-      ...message,
-      isOpen: true,
-      error: `${Object.keys(errMessage)} ${
-        errMessage[Object.keys(errMessage)]
-      }`,
-    });
-  }
 
   function handleInputState(event) {
     event.preventDefault();
@@ -51,26 +26,25 @@ export default function CreateContract({ location, history }) {
     });
   }
   function handleCreateNewCustomer() {
-    const user = {
+    const contract = {
       name: state.name,
       number: state.number,
       customer_id: routerParameter,
     };
 
-    ContractsApi.createNewContract(user)
-      .then(value =>
-        history.push(`/app/contrato/detalhes/${value.contract.id}`)
+    ContractsApi.createNewContract(contract)
+      .then(value => value.data.contract &&
+        history.push(`/app/contrato/detalhes/${value.data.contract.id}`)
       )
       .catch(error => {
-        showMessage(error);
+        console.log(error);
       });
   }
-  const emailValidate = validator.validate(state.email);
 
   return (
     <>
       <CardBox
-        heading="Criar contrato"
+        heading={<span style={{ fontSize: "1.25rem", fontWeight: "500" }}>Criar contrato</span>}
         styleName="col-12"
         children={
           <>
@@ -78,7 +52,6 @@ export default function CreateContract({ location, history }) {
               <div className="col-6">
                 <TextField
                   fullWidth
-                  error={emailValidate}
                   label="Nome"
                   type="name"
                   name="name"
@@ -129,8 +102,6 @@ export default function CreateContract({ location, history }) {
           </>
         }
       />
-      {message.isOpen && NotificationManager.error(message.error)}
-      <NotificationContainer />
     </>
   );
 }
