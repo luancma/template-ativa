@@ -15,9 +15,7 @@ export function FormCreateCustomer({
   handleInput,
   objects,
 }) {
-  const {
-    name, email, occupation, accountable, phone
-  } = objects[1];
+  const { name, email, occupation, accountable, phone } = objects[1];
 
   return (
     <>

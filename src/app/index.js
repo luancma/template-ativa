@@ -29,8 +29,8 @@ class App extends React.Component {
     const drawerStyle = drawerType.includes(FIXED_DRAWER)
       ? 'fixed-drawer'
       : drawerType.includes(COLLAPSED_DRAWER)
-        ? 'collapsible-drawer'
-        : 'mini-drawer';
+      ? 'collapsible-drawer'
+      : 'mini-drawer';
 
     // set default height and overflow for iOS mobile Safari 10+ support.
     if (isIOS && isMobile) {
@@ -49,7 +49,7 @@ class App extends React.Component {
               navigationStyle === HORIZONTAL_NAVIGATION
                 ? 'app-header-horizontal'
                 : ''
-              }`}
+            }`}
           >
             {navigationStyle === HORIZONTAL_NAVIGATION &&
               horizontalNavPosition === ABOVE_THE_HEADER && (
@@ -66,6 +66,7 @@ class App extends React.Component {
                 <Switch>
                   <Route
                     path={`${match.url}/clientes/lista`}
+                    exact
                     component={asyncComponent(() =>
                       import('./pages/CustomerPage')
                     )}
@@ -89,6 +90,7 @@ class App extends React.Component {
 
                   <Route
                     path={`${match.url}/cliente/detalhes/:id`}
+                    exact
                     component={asyncComponent(() =>
                       import('./pages/ContractsList')
                     )}

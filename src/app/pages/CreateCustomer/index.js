@@ -8,14 +8,13 @@ import {
 import { States } from 'api/StatesApi';
 import { CustomersApi } from 'api/CustomersApi';
 import CardBox from 'components/CardBox';
-import { FormCreateCustomer } from './FormCreateCustomer';
 import useFetch from 'app/hooks/useFetch';
+import { FormCreateCustomer } from './FormCreateCustomer';
 
 function CreateUser({ history }) {
-
   const routerParameter = history.location.pathname.split('/').slice(-1)[0];
 
-  const { data: states } = useFetch(States.getListOfStates, 'states')
+  const { data: states } = useFetch(States.getListOfStates, 'states');
 
   const [message, setMessage] = useState({
     isOpen: false,
@@ -39,7 +38,6 @@ function CreateUser({ history }) {
     city: '',
   });
 
-
   useEffect(() => {
     setTimeout(() => {
       setMessage({ isOpen: false });
@@ -55,7 +53,7 @@ function CreateUser({ history }) {
       isOpen: true,
       error: `${Object.keys(errMessage)} ${
         errMessage[Object.keys(errMessage)]
-        }`,
+      }`,
     });
   }
 
@@ -87,9 +85,11 @@ function CreateUser({ history }) {
 
     userObject.phone = userObject.phone.replace(/[^\d]+/g, '');
     CustomersApi.createNewCustomer(userObject)
-      .then(value => history.push(`/app/cliente/detalhes/${routerParameter}`))
-      .catch((error) => {
-        alert('Erro')
+      .then(value =>
+        history.push(`/app/cliente/detalhes/${value.data.customer.id}`)
+      )
+      .catch(error => {
+        alert('Erro');
       });
   }
   return (
