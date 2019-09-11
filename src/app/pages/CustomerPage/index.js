@@ -24,18 +24,17 @@ function SamplePage({ history, match }) {
     <div>
       {state.values.length !== 0 ? (
         <>
-          <CustomerTable state={state} history={history} />
           <div className="row">
             <div
               className="col-12 col-md-12"
               style={{
                 display: 'flex',
                 flexDirection: 'row-reverse',
-                marginTop: '14px',
+                marginBottom: '20px',
               }}
             >
               <Button
-                className="col-md-4 col-lg-3 col-12"
+                className="col-3"
                 size="large"
                 variant="contained"
                 color="primary"
@@ -45,12 +44,13 @@ function SamplePage({ history, match }) {
               </Button>
             </div>
           </div>
+          <CustomerTable state={state} history={history} />
         </>
       ) : (
-          <div className="loader-view">
-            <CircularProgress />
-          </div>
-        )}
+        <div className="loader-view">
+          <CircularProgress />
+        </div>
+      )}
     </div>
   );
 }

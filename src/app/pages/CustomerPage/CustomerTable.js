@@ -17,7 +17,8 @@ export function CustomerTable({ state, history }) {
     {
       icon: 'add_circle',
       tooltip: 'Adicionar Contrato',
-      onClick: (event, rowData) => history.push(`/app/contrato/criar/${rowData.id}`)
+      onClick: (event, rowData) =>
+        history.push(`/app/contrato/criar/${rowData.id}`),
     },
     {
       icon: 'visibility',
