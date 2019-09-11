@@ -21,13 +21,12 @@ export default function Users({ history }) {
     <div>
       {state.values.length !== 0 ? (
         <>
-          <UserList state={state} history={history} />
           <div
             style={{
               display: 'flex',
               flexDirection: 'row',
               justifyContent: 'flex-end',
-              marginTop: '14px',
+              marginBottom: '20px',
             }}
           >
             <Button
@@ -40,6 +39,7 @@ export default function Users({ history }) {
               Adicionar Usuário
             </Button>
           </div>
+          <UserList state={state} history={history} />
         </>
       ) : (
           <CircularProgress />

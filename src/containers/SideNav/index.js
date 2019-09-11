@@ -29,8 +29,8 @@ class SideNav extends React.PureComponent {
     let drawerStyle = drawerType.includes(FIXED_DRAWER)
       ? 'd-xl-flex'
       : drawerType.includes(COLLAPSED_DRAWER)
-      ? ''
-      : 'd-flex';
+        ? ''
+        : 'd-flex';
     let type = 'permanent';
     if (
       drawerType.includes(COLLAPSED_DRAWER) ||
@@ -55,6 +55,7 @@ class SideNav extends React.PureComponent {
           }}
         >
           <UserInfo />
+          {/* The sidebar menu options */}
           <SidenavContent />
         </Drawer>
       </div>

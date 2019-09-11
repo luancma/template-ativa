@@ -13,7 +13,7 @@ class SidenavContent extends Component {
 
     const menuLi = document.getElementsByClassName('menu');
     for (let i = 0; i < menuLi.length; i++) {
-      menuLi[i].onclick = function(event) {
+      menuLi[i].onclick = function (event) {
         const parentLiEle = that.closest(this, 'li');
         if (menuLi[i].classList.contains('menu') && parentLiEle !== null) {
           event.stopPropagation();
@@ -49,7 +49,7 @@ class SidenavContent extends Component {
       } else {
         this.closest(activeLi, 'li').classList.add('open');
       }
-    } catch (error) {}
+    } catch (error) { }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -64,7 +64,7 @@ class SidenavContent extends Component {
       } else {
         this.closest(activeLi, 'li').classList.add('open');
       }
-    } catch (error) {}
+    } catch (error) { }
   }
 
   closest(el, selector) {
@@ -96,7 +96,7 @@ class SidenavContent extends Component {
         el = parent;
       }
       // eslint-disable-next-line no-empty
-    } catch (e) {}
+    } catch (e) { }
 
     return null;
   }
@@ -108,68 +108,19 @@ class SidenavContent extends Component {
           <li className="nav-header">
             <IntlMessages id="sidebar.main" />
           </li>
-          <li className="menu collapse-box">
-            <button
-              className="MuiButtonBase-root MuiButton-root MuiButton-text"
-              tabIndex="0"
-              type="button"
-            >
-              <span className="MuiButton-label">
-                <i className="zmdi zmdi-account-box zmdi-hc-fw" />
-                <span className="nav-text">
-                  <span>Clientes</span>
-                </span>
-              </span>
-              <span className="MuiTouchRipple-root" />
-            </button>
-            <ul className="sub-menu">
-              <li>
-                <a className="prepend-icon" href="/app/clientes/lista">
-                  <span className="nav-text">
-                    <span>Lista de clientes</span>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a className="prepend-icon" href="/app/cliente/criar">
-                  <span className="nav-text">
-                    <span>Adicionar cliente</span>
-                  </span>
-                </a>
-              </li>
-            </ul>
+
+          <li className="menu no-arrow">
+            <NavLink to="/app/clientes/lista">
+              <i className="zmdi zmdi-view-dashboard zmdi-hc-fw" />
+              <span className="nav-text">Clientes</span>
+            </NavLink>
           </li>
 
-          <li className="menu collapse-box">
-            <button
-              className="MuiButtonBase-root MuiButton-root MuiButton-text"
-              tabIndex="0"
-              type="button"
-            >
-              <span className="MuiButton-label">
-                <i className="zmdi zmdi-account-box zmdi-hc-fw" />
-                <span className="nav-text">
-                  <span>Usuários</span>
-                </span>
-              </span>
-              <span className="MuiTouchRipple-root" />
-            </button>
-            <ul className="sub-menu">
-              <li>
-                <a className="prepend-icon" href="/app/usuarios/lista">
-                  <span className="nav-text">
-                    <span>Lista de usuários</span>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a className="prepend-icon" href="/app/usuarios/criar">
-                  <span className="nav-text">
-                    <span>Adicionar Usuário</span>
-                  </span>
-                </a>
-              </li>
-            </ul>
+          <li className="menu no-arrow">
+            <NavLink to="/app/usuarios/lista">
+              <i className="zmdi zmdi-view-dashboard zmdi-hc-fw" />
+              <span className="nav-text">Usuários</span>
+            </NavLink>
           </li>
           <li className="menu no-arrow">
             <NavLink to="/app/contratos/lista">
