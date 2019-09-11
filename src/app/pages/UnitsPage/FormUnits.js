@@ -183,6 +183,9 @@ export default function FormUnits({ contractInfo, history }) {
               </div>
               <div className="col-md-6">
                 <TextField
+                  inputProps={{
+                    maxLength: 8,
+                  }}
                   fullWidth
                   label="Cep"
                   type="text"

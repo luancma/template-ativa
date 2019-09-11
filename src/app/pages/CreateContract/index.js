@@ -17,7 +17,6 @@ export default function CreateContract({ history }) {
     number: '',
   });
 
-
   function handleInputState(event) {
     event.preventDefault();
     setState({
@@ -33,8 +32,10 @@ export default function CreateContract({ history }) {
     };
 
     ContractsApi.createNewContract(contract)
-      .then(value => value.data.contract &&
-        history.push(`/app/contrato/detalhes/${value.data.contract.id}`)
+      .then(
+        value =>
+          value.data.contract &&
+          history.push(`/app/contrato/detalhes/${value.data.contract.id}`)
       )
       .catch(error => {
         console.log(error);
@@ -44,7 +45,11 @@ export default function CreateContract({ history }) {
   return (
     <>
       <CardBox
-        heading={<span style={{ fontSize: "1.25rem", fontWeight: "500" }}>Criar contrato</span>}
+        heading={
+          <span style={{ fontSize: '1.25rem', fontWeight: '500' }}>
+            Criar contrato
+          </span>
+        }
         styleName="col-12"
         children={
           <>
