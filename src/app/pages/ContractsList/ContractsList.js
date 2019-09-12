@@ -19,8 +19,8 @@ export default function ContractsList({ history, match }) {
       {
         icon: 'visibility',
         tooltip: 'Detalhes',
-        onClick: (event, rowData) => history.push(`/app/unidades/lista/${rowData.id}`),
-
+        onClick: (event, rowData) =>
+          history.push(`/app/unidades/lista/${rowData.id}`),
       },
       {
         icon: 'edit',

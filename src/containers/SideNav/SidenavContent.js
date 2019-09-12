@@ -13,7 +13,7 @@ class SidenavContent extends Component {
 
     const menuLi = document.getElementsByClassName('menu');
     for (let i = 0; i < menuLi.length; i++) {
-      menuLi[i].onclick = function (event) {
+      menuLi[i].onclick = function(event) {
         const parentLiEle = that.closest(this, 'li');
         if (menuLi[i].classList.contains('menu') && parentLiEle !== null) {
           event.stopPropagation();
@@ -49,7 +49,7 @@ class SidenavContent extends Component {
       } else {
         this.closest(activeLi, 'li').classList.add('open');
       }
-    } catch (error) { }
+    } catch (error) {}
   }
 
   componentWillReceiveProps(nextProps) {
@@ -64,7 +64,7 @@ class SidenavContent extends Component {
       } else {
         this.closest(activeLi, 'li').classList.add('open');
       }
-    } catch (error) { }
+    } catch (error) {}
   }
 
   closest(el, selector) {
@@ -96,7 +96,7 @@ class SidenavContent extends Component {
         el = parent;
       }
       // eslint-disable-next-line no-empty
-    } catch (e) { }
+    } catch (e) {}
 
     return null;
   }
@@ -120,18 +120,6 @@ class SidenavContent extends Component {
             <NavLink to="/app/usuarios/lista">
               <i className="zmdi zmdi-view-dashboard zmdi-hc-fw" />
               <span className="nav-text">Usuários</span>
-            </NavLink>
-          </li>
-          <li className="menu no-arrow">
-            <NavLink to="/app/contratos/lista">
-              <i className="zmdi zmdi-view-dashboard zmdi-hc-fw" />
-              <span className="nav-text">Contratos</span>
-            </NavLink>
-          </li>
-          <li className="menu no-arrow">
-            <NavLink to="/app/unidades/lista">
-              <i className="zmdi zmdi-view-dashboard zmdi-hc-fw" />
-              <span className="nav-text">Unidades</span>
             </NavLink>
           </li>
         </ul>

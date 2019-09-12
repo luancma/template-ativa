@@ -8,9 +8,10 @@ import {
 import useFetch from 'app/hooks/useFetch';
 import CardBox from 'components/CardBox';
 import { CustomersApi } from 'api/CustomersApi';
-import TableComponent from './TableComponent';
 import { Button } from '@material-ui/core';
-
+import TableComponent from './TableComponent';
+import { style } from './style';
+import ContractDetails from '../../components/CustomerInfo/index';
 
 export default function SimpleTable({ history }) {
   const routerParameter = history.location.pathname.split('/').slice(-1)[0];
@@ -25,7 +26,7 @@ export default function SimpleTable({ history }) {
   const { data: singleCustomer } = useFetch(getSingle, 'customer');
 
   const tableState = {
-    title: "Contratos do cliente",
+    title: 'Contratos do cliente',
     columns: [
       { title: 'Nome', field: 'name' },
       { title: 'Contrato nº', field: 'number' },
@@ -68,11 +69,20 @@ export default function SimpleTable({ history }) {
             </h6>
           }
           styleName="col-12"
-          children={<ContractInfo contractInfo={singleCustomer} />}
+          children={<ContractDetails contractInfo={singleCustomer} />}
         />
         <div className="col-12">
-          <div style={{ display: 'flex', justifyContent: 'flex-end', margin: "0 0 20px 20px" }}>
-            <Button size="large" variant="contained" color="primary" onClick={e => history.push(`/app/contrato/criar/${routerParameter}`)}>Adicionar Contrato</Button>
+          <div style={style.buttonStyle}>
+            <Button
+              size="large"
+              variant="contained"
+              color="primary"
+              onClick={e =>
+                history.push(`/app/contrato/criar/${routerParameter}`)
+              }
+            >
+              Adicionar Contrato
+            </Button>
           </div>
           <TableComponent state={tableState} />
         </div>
@@ -80,42 +90,5 @@ export default function SimpleTable({ history }) {
       {message.isOpen && NotificationManager.error('Erro')}
       <NotificationContainer />
     </>
-  );
-}
-
-function ContractInfo({ contractInfo }) {
-  return (
-    <div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'flex-start ',
-        }}
-      >
-        <span style={{ fontSize: '16px' }}>Nome do cliente:</span>
-        <span style={{ fontSize: '16px' }}>{contractInfo.name}</span>
-      </div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'flex-start ',
-        }}
-      >
-        <span style={{ fontSize: '16px' }}>Email do cliente:</span>
-        <span style={{ fontSize: '16px' }}>{contractInfo.email}</span>
-      </div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'flex-start',
-        }}
-      >
-        <span style={{ fontSize: '16px' }}>Função:</span>
-        <span style={{ fontSize: '16px' }}>{contractInfo.occupation}</span>
-      </div>
-    </div>
   );
 }
