@@ -12,6 +12,7 @@ import { Button } from '@material-ui/core';
 import TableComponent from './TableComponent';
 import { style } from './style';
 import ContractDetails from '../../components/CustomerInfo/index';
+import CircularProgress from 'components/CircularProgress';
 
 export default function SimpleTable({ history }) {
   const routerParameter = history.location.pathname.split('/').slice(-1)[0];
@@ -56,7 +57,11 @@ export default function SimpleTable({ history }) {
   }, [message]);
 
   if (!singleCustomer.name) {
-    return <h1>Carregando</h1>;
+    return (
+      <div className="loader-view">
+        <CircularProgress />
+      </div>
+    );
   }
 
   return (

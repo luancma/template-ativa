@@ -6,6 +6,7 @@ import TableComponent from '../ContractsList/TableComponent';
 import { UnitsApi } from 'api/UnitsApi';
 import { Button } from '@material-ui/core';
 import ContractDetailsComponent from '../../components/ContractInfo/index';
+import CircularProgress from 'components/CircularProgress';
 
 export default function ContractInfo({ history }) {
   const routerParameter = history.location.pathname.split('/').slice(-1)[0];
@@ -35,7 +36,11 @@ export default function ContractInfo({ history }) {
   };
 
   if (contractInfo.length === 0) {
-    return <h1>Loading</h1>;
+    return (
+      <div className="loader-view">
+        <CircularProgress />
+      </div>
+    );
   }
 
   return (
@@ -43,7 +48,7 @@ export default function ContractInfo({ history }) {
       <CardBox
         styleName="col-12"
         heading={
-          <h6 class="MuiTypography-root MuiTypography-h6">
+          <h6 className="MuiTypography-root MuiTypography-h6">
             Detalhes do contrato
           </h6>
         }
