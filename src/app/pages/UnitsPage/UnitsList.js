@@ -1,22 +1,19 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable no-return-await */
 import React, { useEffect, useState } from 'react';
 import TableUsers from 'app/components/TableUsers';
 import { UnitsApi } from 'api/UnitsApi';
 import { Button } from '@material-ui/core';
 import useFetch from 'app/hooks/useFetch';
 import { ContractsApi } from 'api/ContractsApi';
-import {
-  NotificationContainer,
-  NotificationManager,
-} from 'react-notifications';
+import { NotificationContainer } from 'react-notifications';
 
 export default function UnitsPage({ history }) {
   const routerParameter = history.location.pathname.split('/').slice(-1)[0];
   const { data: unitsData } = useFetch(UnitsApi.getListOfUnits, 'units');
-  const contractInfo = async () => await ContractsApi.getASingleContract(routerParameter)
+  const contractInfo = async () =>
+    await ContractsApi.getASingleContract(routerParameter);
   const { data: customerData } = useFetch(contractInfo, 'contract');
-
-
-
 
   const state = {
     title: `Lista de unidades: ${customerData.name}`,
@@ -55,7 +52,7 @@ export default function UnitsPage({ history }) {
   };
 
   if (!customerData.name && !unitsData.item) {
-    return <NotificationContainer />
+    return <NotificationContainer />;
   }
 
   return (

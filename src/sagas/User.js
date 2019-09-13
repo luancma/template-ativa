@@ -1,7 +1,5 @@
 /* eslint-disable no-unused-expressions */
-import {
-  all, fork, put, call, takeEvery
-} from 'redux-saga/effects';
+import { all, fork, put, call, takeEvery } from 'redux-saga/effects';
 import {
   showAuthMessageSuccess,
   showAuthMessageFaild,

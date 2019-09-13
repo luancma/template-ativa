@@ -11,9 +11,7 @@ import IntlMessages from 'util/IntlMessages';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { hideMessage, showAuthLoader, userSignIn } from 'actions/Auth';
 
-
-
-// form paradas 
+// form paradas
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -34,10 +32,19 @@ function FormDialog() {
 
   return (
     <div>
-      <Button variant="text" color="primary" onClick={handleClickOpen} style={{ textTransform: 'none', }}>
+      <Button
+        variant="text"
+        color="primary"
+        onClick={handleClickOpen}
+        style={{ textTransform: 'none' }}
+      >
         Esqueceu sua senha?
       </Button>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
         <DialogTitle id="form-dialog-title">Recuperar Senha</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -106,9 +113,7 @@ class SignIn extends React.Component {
 
             <div className="app-login-content">
               <div className="app-login-header mb-4">
-                <h1>
-                  Bem vindo !
-                </h1>
+                <h1>Bem vindo !</h1>
               </div>
 
               <div className="app-login-form">

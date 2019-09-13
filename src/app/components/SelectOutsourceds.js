@@ -36,12 +36,6 @@ export function SelectOutsourceds({
             </MenuItem>
           ))}
       </Select>
-
-      {ValuesState === '' && (
-        <FormHelperText error>
-          Esse campo não pode ficar em branco
-        </FormHelperText>
-      )}
     </FormControl>
   );
 }

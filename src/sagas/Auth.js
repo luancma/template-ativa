@@ -25,11 +25,11 @@ function* singInUser(action) {
       async function reqItem(headers) {
         const req = await localStorage.setItem('user', JSON.stringify(headers));
         const res = localStorage.getItem('user', JSON.stringify(headers));
-        return await res
+        return await res;
       }
       if (teste.headers) {
-        const teste2 = yield call(reqItem, teste.headers)
-        yield put(userSignInSuccess(teste2))
+        const teste2 = yield call(reqItem, teste.headers);
+        yield put(userSignInSuccess(teste2));
       }
     }
   } catch (errors) {

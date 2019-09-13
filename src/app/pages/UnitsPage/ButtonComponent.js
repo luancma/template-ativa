@@ -6,9 +6,9 @@ export function ButtonComponent({ units, history }) {
   const [isDisabled, setDisabled] = useState(true);
 
   function handleCreateUnits() {
-    UnitsApi.createNewUnit(units).then(value => history.goBack());
-
-    setDisabled(false);
+    UnitsApi.createNewUnit(units)
+      .then(value => alert('Salvo'))
+      .catch(error => console.log(error.response));
   }
 
   return (

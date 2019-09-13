@@ -1,5 +1,7 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable react/no-children-prop */
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { ContractsApi } from 'api/ContractsApi';
 import {
   NotificationContainer,
@@ -9,14 +11,13 @@ import useFetch from 'app/hooks/useFetch';
 import CardBox from 'components/CardBox';
 import { CustomersApi } from 'api/CustomersApi';
 import { Button } from '@material-ui/core';
+import CircularProgress from 'components/CircularProgress';
 import TableComponent from './TableComponent';
 import { style } from './style';
 import ContractDetails from '../../components/CustomerInfo/index';
-import CircularProgress from 'components/CircularProgress';
 
 export default function SimpleTable({ history }) {
   const routerParameter = history.location.pathname.split('/').slice(-1)[0];
-
   const { data: contractTeste } = useFetch(
     ContractsApi.getListOfContracts,
     'contracts'

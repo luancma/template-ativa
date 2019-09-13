@@ -1,5 +1,6 @@
 /* eslint-disable react/no-children-prop */
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { TextField } from '@material-ui/core';
 import { SelectStates } from 'app/components/SelectStates';
 import { SelectCities } from 'app/components/SelectCities';
@@ -10,6 +11,7 @@ import Axios from 'axios';
 import CardBox from 'components/CardBox';
 import useFetch from 'app/hooks/useFetch';
 import { ButtonComponent } from './ButtonComponent';
+import { SHOW_FORM_ERROR, showMessageError } from '../../../actions/FormCreate';
 
 export default function FormUnits({ contractInfo, history }) {
   const routerParameter = history.location.pathname.split('/').slice(-1)[0];
@@ -117,8 +119,6 @@ export default function FormUnits({ contractInfo, history }) {
   }, [cep.cepNumber, cep.cepDetails]);
 
   function handleChangeSelect(event) {
-    console.log(4, event);
-
     setValues(oldValues => ({
       ...oldValues,
       [event.target.name]: event.target.value,
@@ -153,8 +153,22 @@ export default function FormUnits({ contractInfo, history }) {
     description: units.description,
   };
 
+  const teste = useSelector(state => state.formErrors.message);
+
+  const dispatch = useDispatch();
+
+  console.log(`O valor do teste é ${teste}`);
   return (
     <>
+      <div>
+        <h1>É {teste}</h1>
+        <button
+          onClick={() => dispatch(showMessageError(true))}
+        >
+          Mudar
+        </button>
+      </div>
+
       <CardBox
         heading={<h1>Adicionar unidade</h1>}
         styleName="col-12"
@@ -222,7 +236,6 @@ export default function FormUnits({ contractInfo, history }) {
               </div>
               <div className="col-md-6">
                 <TextField
-                  disabled
                   fullWidth
                   label="Logradouro"
                   type="text"
@@ -233,7 +246,6 @@ export default function FormUnits({ contractInfo, history }) {
                   onChange={e => handleInputValues(e)}
                 />
               </div>
-
               <div className="col-md-6">
                 <TextField
                   disabled
@@ -246,7 +258,6 @@ export default function FormUnits({ contractInfo, history }) {
                   onChange={e => handleInputValues(e)}
                 />
               </div>
-
               <div className="col-md-6">
                 <SelectStates
                   states={states}
