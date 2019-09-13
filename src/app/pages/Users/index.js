@@ -14,7 +14,9 @@ export default function Users({ history }) {
   });
 
   useEffect(() => {
-    UsersApi.getUsersRequest().then(value => setState({ ...state, title: 'Usuários', values: value.data.users }));
+    UsersApi.getUsersRequest().then(value =>
+      setState({ ...state, title: 'Usuários', values: value.data.users })
+    );
   }, []);
 
   return (
@@ -42,8 +44,8 @@ export default function Users({ history }) {
           <UserList state={state} history={history} />
         </>
       ) : (
-          <CircularProgress />
-        )}
+        <CircularProgress />
+      )}
     </div>
   );
 }

@@ -37,7 +37,7 @@ export function ButtonCreate({ objects, handleCreate }) {
         color="primary"
         disabled={isDisabled}
       >
-        Criar Unidade
+        Adicionar Cliente
       </Button>
     </Grid>
   );
