@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Grid, Button, FormHelperText } from '@material-ui/core';
-import { SelectOutsourceds } from 'app/components/SelectOutsourceds';
-import { SelectStates } from 'app/components/SelectStates';
+import { SelectOutsourceds } from 'app/dumbs/SelectOutsourceds';
+import { SelectStates } from 'app/dumbs/SelectStates';
 import { UnitsApi } from 'api/UnitsApi';
 import { OutsourcedsApi } from 'api/OutsourcedsApi';
 import { States } from 'api/StatesApi';
 import useFetch from '../../hooks/useFetch';
-import { SelectTeste } from '../../components/SelectTeste';
+import { SelectTeste } from '../../dumbs/SelectTeste';
 import { fetchCep, fetchCities } from '../../../util/myFunctions';
 
 export function FormUpdate({ history }) {

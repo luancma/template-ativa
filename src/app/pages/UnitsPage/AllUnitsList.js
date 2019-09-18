@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import TableUsers from 'app/components/TableUsers';
+import React from 'react';
+import TableUsers from 'app/dumbs/TableUsers';
 import { UnitsApi } from 'api/UnitsApi';
 import useFetch from '../../hooks/useFetch';
 

@@ -5,12 +5,20 @@ import {
   showMessageError,
 } from '../actions/FormCreate';
 
-function* createError() {
-  yield put(showMessageError(true));
+function testeTrue({ payload }) {
+  return console.log('saga true ', payload);
+}
+
+function testeFalse({ payload }) {
+  return console.log(payload);
+}
+
+export function* hiddenErrorSaga() {
+  yield takeEvery(HIDDEN_FORM_ERROR, testeTrue);
 }
 
 export function* createErrorSaga() {
-  yield takeEvery(SHOW_FORM_ERROR, createError);
+  yield takeEvery(SHOW_FORM_ERROR, testeFalse);
 }
 
 export default function* rootSaga() {

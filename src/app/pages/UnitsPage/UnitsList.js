@@ -1,7 +1,7 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable no-return-await */
 import React, { useEffect, useState } from 'react';
-import TableUsers from 'app/components/TableUsers';
+import TableUsers from 'app/dumbs/TableUsers';
 import { UnitsApi } from 'api/UnitsApi';
 import { Button } from '@material-ui/core';
 import useFetch from 'app/hooks/useFetch';
@@ -57,14 +57,13 @@ export default function UnitsPage({ history }) {
 
   return (
     <div>
-      <TableUsers state={state} />
       <div className="row">
         <div
           className="col-12 col-md-12"
           style={{
             display: 'flex',
             flexDirection: 'row-reverse',
-            marginTop: '14px',
+            marginBottom: '20px',
           }}
         >
           <Button
@@ -82,6 +81,7 @@ export default function UnitsPage({ history }) {
           </Button>
         </div>
       </div>
+      <TableUsers state={state} />
     </div>
   );
 }

@@ -14,7 +14,7 @@ import { Button } from '@material-ui/core';
 import CircularProgress from 'components/CircularProgress';
 import TableComponent from './TableComponent';
 import { style } from './style';
-import ContractDetails from '../../components/CustomerInfo/index';
+import ContractDetails from '../../dumbs/CustomerInfo';
 
 export default function SimpleTable({ history }) {
   const routerParameter = history.location.pathname.split('/').slice(-1)[0];

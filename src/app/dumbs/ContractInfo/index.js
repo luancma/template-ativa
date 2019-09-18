@@ -1,7 +1,7 @@
 import React from 'react';
 import { style } from './style';
 
-export default function index({ contractInfo }) {
+export default function ContractInfo({ contractInfo }) {
   return (
     <div>
       <div style={style.elementContainer}>

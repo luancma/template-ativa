@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { SelectStates } from 'app/components/SelectStates';
-import { SelectCities } from 'app/components/SelectCities';
+import { SelectStates } from 'app/dumbs/SelectStates';
+import { SelectCities } from 'app/dumbs/SelectCities';
 import { masks } from 'util/masks';
 import { TextField } from '@material-ui/core';
 import validator from 'email-validator';

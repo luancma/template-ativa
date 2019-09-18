@@ -5,7 +5,7 @@ import Auth from './Auth';
 import User from './User';
 import Contracts from './Contracts';
 import Customers from './Customers';
-import FormCreate from './FormCreate';
+import Form from './FormCreate';
 
 export default history =>
   combineReducers({
@@ -15,5 +15,5 @@ export default history =>
     user: User,
     contracts: Contracts,
     customers: Customers,
-    formErrors: FormCreate,
+    formErrors: Form,
   });

@@ -6,7 +6,6 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { userSignOut } from 'actions/Auth';
 import IntlMessages from 'util/IntlMessages';
-import useFetch from 'app/hooks/useFetch';
 import { UsersApi } from 'api/UsersApi';
 
 class UserInfo extends React.Component {

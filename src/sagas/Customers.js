@@ -5,12 +5,9 @@ import { RECEIVE_CUSTOMERS, CREATE_NEW_CUSTOMERS } from 'constants/ActionTypes';
 
 const receiveCustomersRequest = () => CustomersApi.getListOfCustomers();
 
-const createNewCustomerRequest = userObject =>
-  CustomersApi.createNewCustomer(userObject);
-function* createNewCustomer(action) {
+function createNewCustomer(action) {
   console.log(action.payload);
   try {
-    // const response = yield call(createNewCustomerRequest(payload));
     console.log('1');
   } catch (error) {
     console.log('2');

@@ -1,19 +1,23 @@
 /* eslint-disable react/no-children-prop */
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { TextField } from '@material-ui/core';
-import { SelectStates } from 'app/components/SelectStates';
-import { SelectCities } from 'app/components/SelectCities';
-import { SelectOutsourceds } from 'app/components/SelectOutsourceds';
+import { TextField, Button } from '@material-ui/core';
+import { SelectStates } from 'app/dumbs/SelectStates';
+import { SelectCities } from 'app/dumbs/SelectCities';
+import { SelectOutsourceds } from 'app/dumbs/SelectOutsourceds';
 import { OutsourcedsApi } from 'api/OutsourcedsApi';
 import { States } from 'api/StatesApi';
 import Axios from 'axios';
 import CardBox from 'components/CardBox';
 import useFetch from 'app/hooks/useFetch';
-import { ButtonComponent } from './ButtonComponent';
-import { SHOW_FORM_ERROR, showMessageError } from '../../../actions/FormCreate';
+import { UnitsApi } from 'api/UnitsApi';
+import {
+  showMessageError,
+  hiddenMessageError,
+} from '../../../actions/FormCreate';
+import HandleErrosMessage from '../../dumbs/HandleErrosMessage';
 
-export default function FormUnits({ contractInfo, history }) {
+export default function FormUnits({ history }) {
   const routerParameter = history.location.pathname.split('/').slice(-1)[0];
 
   const { data: states } = useFetch(States.getListOfStates, 'states');
@@ -95,8 +99,6 @@ export default function FormUnits({ contractInfo, history }) {
       ).then(value => value.data);
 
       setCep({ ...cep, cepDetails: response });
-
-      console.log(response);
     }
 
     if (!cep.cepDetails.cep && cep.cepNumber.length === 8) {
@@ -153,22 +155,19 @@ export default function FormUnits({ contractInfo, history }) {
     description: units.description,
   };
 
-  const teste = useSelector(state => state.formErrors.message);
+  const errorValue = useSelector(state => state.formErrors.visible);
 
   const dispatch = useDispatch();
 
-  console.log(`O valor do teste é ${teste}`);
+  function handleCreateUnits() {
+    UnitsApi.createNewUnit(unitObject)
+      .then(value => alert('Salvo'))
+      .catch(error => dispatch(showMessageError('Erro ao salvar')));
+  }
+
   return (
     <>
-      <div>
-        <h1>É {teste}</h1>
-        <button
-          onClick={() => dispatch(showMessageError(true))}
-        >
-          Mudar
-        </button>
-      </div>
-
+      <HandleErrosMessage />
       <CardBox
         heading={<h1>Adicionar unidade</h1>}
         styleName="col-12"
@@ -183,6 +182,7 @@ export default function FormUnits({ contractInfo, history }) {
                   name="name"
                   autoComplete="name"
                   margin="normal"
+                  required
                   value={units.name}
                   onChange={e => handleInputValues(e)}
                 />
@@ -201,6 +201,7 @@ export default function FormUnits({ contractInfo, history }) {
                     maxLength: 8,
                   }}
                   fullWidth
+                  required
                   label="Cep"
                   type="text"
                   name="cepNumber"
@@ -213,6 +214,7 @@ export default function FormUnits({ contractInfo, history }) {
               <div className="col-md-6">
                 <TextField
                   fullWidth
+                  required
                   label="Complemento"
                   type="text"
                   name="complement"
@@ -225,6 +227,7 @@ export default function FormUnits({ contractInfo, history }) {
               <div className="col-md-6">
                 <TextField
                   fullWidth
+                  required
                   label="Número"
                   type="text"
                   name="number"
@@ -236,6 +239,7 @@ export default function FormUnits({ contractInfo, history }) {
               </div>
               <div className="col-md-6">
                 <TextField
+                  required
                   fullWidth
                   label="Logradouro"
                   type="text"
@@ -280,6 +284,7 @@ export default function FormUnits({ contractInfo, history }) {
             <div className="row">
               <div className="col-md-12">
                 <TextField
+                  required
                   multiline
                   fullWidth
                   label="Descrição da unidade"
@@ -293,8 +298,23 @@ export default function FormUnits({ contractInfo, history }) {
               </div>
             </div>
             <div className="row">
-              <div className="col-md-12">
-                <ButtonComponent history={history} units={unitObject} />
+              <div
+                className="col-12 col-md-12"
+                style={{
+                  display: 'flex',
+                  flexDirection: 'row-reverse',
+                  marginTop: '14px',
+                }}
+              >
+                <Button
+                  className="col-md-4 col-lg-3 col-12"
+                  size="large"
+                  variant="contained"
+                  color="primary"
+                  onClick={e => handleCreateUnits()}
+                >
+                  Criar unidade
+                </Button>
               </div>
             </div>
           </>

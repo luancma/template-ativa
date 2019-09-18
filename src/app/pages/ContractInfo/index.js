@@ -1,12 +1,13 @@
+/* eslint-disable react/no-children-prop */
 import React, { useState } from 'react';
 import CardBox from 'components/CardBox';
 import useFetch from 'app/hooks/useFetch';
 import { ContractsApi } from 'api/ContractsApi';
-import TableComponent from '../ContractsList/TableComponent';
 import { UnitsApi } from 'api/UnitsApi';
 import { Button } from '@material-ui/core';
-import ContractDetailsComponent from '../../components/ContractInfo/index';
 import CircularProgress from 'components/CircularProgress';
+import ContractDetailsComponent from '../../dumbs/ContractInfo/index';
+import TableComponent from '../ContractsList/TableComponent';
 
 export default function ContractInfo({ history }) {
   const routerParameter = history.location.pathname.split('/').slice(-1)[0];
